@@ -3,6 +3,7 @@ package com.mustafaunlu.ecommerce.di.network
 import com.mustafaunlu.ecommerce.common.Constants.BASE_URL
 import com.mustafaunlu.ecommerce.data.api.ApiService
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,7 @@ object NetworkModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
-            .add(com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory())
+            .add(KotlinJsonAdapterFactory())
             .build()
     }
 

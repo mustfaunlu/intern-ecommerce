@@ -12,7 +12,11 @@ class UserResponseEntityMapper @Inject constructor() :
             id = input.id,
             token = input.token,
             username = input.username,
+            firstName = input.firstName,
+            lastName = input.lastName,
+            gender = input.gender,
             image = input.image,
+            email = input.email,
         )
     }
 }

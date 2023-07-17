@@ -1,62 +1,117 @@
 package com.mustafaunlu.ecommerce.presenter.login
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_CHECKBOX_KEY
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERNAME_DEF
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERNAME_KEY
+import com.mustafaunlu.ecommerce.common.ScreenState
+import com.mustafaunlu.ecommerce.data.dto.User
+import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
+import com.mustafaunlu.ecommerce.utils.gone
+import com.mustafaunlu.ecommerce.utils.safeNavigate
+import com.mustafaunlu.ecommerce.utils.showToast
+import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentLoginBinding
+    private val viewModel: LoginViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    @Inject
+    lateinit var sharedPref: SharedPreferences
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        setupSavedUsername()
+        setupRememberCheckbox()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupLoginButton()
+    }
+
+    private fun setupSavedUsername() {
+        val savedUsername = sharedPref.getString(SHARED_PREF_USERNAME_KEY, SHARED_PREF_USERNAME_DEF)
+        if (savedUsername != null) {
+            binding.username.setText(savedUsername)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    private fun setupRememberCheckbox() {
+        val checkBoxState = sharedPref.getBoolean(SHARED_PREF_CHECKBOX_KEY, false)
+        binding.rememberCheckbox.isChecked = checkBoxState
+
+        binding.rememberCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            sharedPref.edit().putBoolean(SHARED_PREF_CHECKBOX_KEY, isChecked).apply()
+            if (isChecked) {
+                sharedPref.edit()
+                    .putString(SHARED_PREF_USERNAME_KEY, binding.username.text.toString().trim())
+                    .apply()
+            } else {
+                sharedPref.edit().remove(SHARED_PREF_USERNAME_KEY).apply()
+            }
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun setupLoginButton() {
+        binding.loginBtn.setOnClickListener { loginLogic() }
+    }
+
+    private fun loginLogic() {
+        val username = binding.username.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+
+        if (username.isBlank() || password.isBlank()) {
+            requireView().showToast(getString(R.string.please_not_blanks))
+            return
+        }
+
+        val user = User(username, password)
+        viewModel.login(user)
+
+        viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
+            when (loginState) {
+                is ScreenState.Loading -> {
+                    binding.loading.visible()
+                    binding.loginBtn.isEnabled = false
                 }
+
+                is ScreenState.Success -> {
+                    binding.loading.gone()
+                    binding.loginBtn.isEnabled = true
+                    findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    requireView().showToast("Welcome ${loginState.uiData.username}")
+                    sharedPref.edit()
+                        .putString(SHARED_PREF_USERID_KEY, loginState.uiData.id.toString())
+                        .apply()
+                }
+
+                is ScreenState.Error -> {
+                    binding.loading.gone()
+                    binding.loginBtn.isEnabled = true
+                    requireView().showToast(getString(R.string.check_username_pass))
+                }
+
+                else -> {}
             }
+        }
     }
 }

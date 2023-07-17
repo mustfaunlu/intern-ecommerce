@@ -1,7 +1,6 @@
 package com.mustafaunlu.ecommerce.domain.repository
 
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
-import com.mustafaunlu.ecommerce.data.dto.Products
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
