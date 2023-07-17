@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">ecommerce</string>
+    <string name="navbar_menu_home">Home</string>
+    <string name="navbar_menu_cart">Cart</string>
+    <string name="navbar_profile_cart">Profile</string>
+    <string name="price_str">Fiyat: TL</string>
+    <string name="discount_str">Indirim:   TL</string>
+    <string name="category_str">Kategori: </string>
+    <string name="rating_str">Rating:s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="my_shopping_list">My Shopping List</string>
+    <string name="added_to_cart">Added to cart</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="error">Error</string>
+    <string name="products_list_appbar_title">Products List</string>
+    <string name="product_detail_appbar_title">Product Detail</string>
+    <string name="shopping_list_appbar_title">Your Shopping List</string>
+    <string name="check_username_pass">Please check your username and password!</string>
+    <string name="please_not_blanks">Please not blanks!</string>
+    <string name="shopping_list_delete_warn">Are you sure you want to delete this product from cart?</string>
+    <string name="shopping_list_item_deleted_txt">Product deleted from cart.</string>
+    <string name="remember_me_str">Remember me</string>
+</resources>
