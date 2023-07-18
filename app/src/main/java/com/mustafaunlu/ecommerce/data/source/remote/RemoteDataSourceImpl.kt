@@ -58,6 +58,14 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     override fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<Products>> {
-        TODO("Not yet implemented")
+        return flow {
+            try {
+                emit(NetworkResponseState.Loading)
+                val response = apiService.getProductsListByCategoryNameFromApi(categoryName)
+                emit(NetworkResponseState.Success(response))
+            } catch (e: Exception) {
+                emit(NetworkResponseState.Error(e))
+            }
+        }
     }
 }
