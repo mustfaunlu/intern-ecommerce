@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.home
+package com.mustafaunlu.ecommerce.presentation.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +11,7 @@ import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val categoryUseCase: CategoryUseCase,
+    private val searchUseCase: SearchUseCase,
     private val mapper: ProductListMapper<AllProductsEntity, AllProductsUiData>,
 ) :
     ViewModel() {
@@ -33,9 +35,21 @@ class HomeViewModel @Inject constructor(
         getAllProducts()
         getAllCategory()
     }
-    private fun getAllProducts() {
+    fun getAllProducts() {
         viewModelScope.launch {
             getAllProductsUseCase().collectLatest {
+                when (it) {
+                    is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
+                    is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
+                    is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
+                }
+            }
+        }
+    }
+
+    fun searchProduct(query: String) {
+        viewModelScope.launch {
+            searchUseCase(query).collectLatest {
                 when (it) {
                     is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
                     is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)

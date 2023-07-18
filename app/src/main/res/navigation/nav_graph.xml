@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mustafaunlu.ecommerce.presenter.login.LoginFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -18,17 +18,17 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mustafaunlu.ecommerce.presenter.profile.ProfileFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.mustafaunlu.ecommerce.presenter.cart.CartFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.mustafaunlu.ecommerce.presenter.detail.DetailFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.mustafaunlu.ecommerce.presenter.home.HomeFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action

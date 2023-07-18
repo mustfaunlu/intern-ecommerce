@@ -8,6 +8,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartU
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCase
@@ -57,4 +59,10 @@ abstract class UseCaseModule {
     abstract fun bindDeleteUserCartUseCase(
         deleteUserCartUseCaseImpl: DeleteUserCartUseCaseImpl,
     ): DeleteUserCartUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSearchUseCase(
+        searchUseCaseImpl: SearchUseCaseImpl,
+    ): SearchUseCase
 }

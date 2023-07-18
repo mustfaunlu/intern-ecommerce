@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.login
+package com.mustafaunlu.ecommerce.presentation.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,6 @@ import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

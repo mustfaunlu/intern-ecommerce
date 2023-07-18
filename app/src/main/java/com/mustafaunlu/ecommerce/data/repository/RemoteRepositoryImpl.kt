@@ -47,7 +47,13 @@ class RemoteRepositoryImpl @Inject constructor(
     }
 
     override fun getProductsListBySearchFromApi(query: String): Flow<NetworkResponseState<List<AllProductsEntity>>> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getProductsListBySearchFromApi(query).map {
+            when (it) {
+                is NetworkResponseState.Loading -> NetworkResponseState.Loading
+                is NetworkResponseState.Success -> NetworkResponseState.Success(allProductsMapper.map(it.result.products))
+                is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
+            }
+        }.flowOn(ioDispatcher)
     }
 
     override fun postLoginRequest(user: User): Flow<NetworkResponseState<UserResponseEntity>> {

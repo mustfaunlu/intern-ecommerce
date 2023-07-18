@@ -1,16 +1,24 @@
-package com.mustafaunlu.ecommerce.presenter.home
+package com.mustafaunlu.ecommerce.presentation.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentHomeBinding
+import com.mustafaunlu.ecommerce.utils.observeTextChanges
 import com.mustafaunlu.ecommerce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -27,6 +35,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeSearchViewTextChanges()
         homeViewModel.products.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
@@ -67,5 +76,19 @@ class HomeFragment : Fragment() {
 
     private fun getProductsByCategoryName(categoryName: String) {
         homeViewModel.getProductsByCategory(categoryName)
+    }
+
+    @OptIn(FlowPreview::class)
+    private fun observeSearchViewTextChanges() {
+        binding.searchEditText.observeTextChanges()
+            .debounce(300L)
+            .distinctUntilChanged()
+            .onEach {
+                if (it.isBlank()) {
+                    homeViewModel.getAllProducts()
+                } else {
+                    homeViewModel.searchProduct(it)
+                }
+            }.launchIn(lifecycleScope)
     }
 }

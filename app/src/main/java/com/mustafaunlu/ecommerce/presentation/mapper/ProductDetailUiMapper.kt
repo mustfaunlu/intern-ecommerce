@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.mapper
+package com.mustafaunlu.ecommerce.presentation.mapper
 
 import com.mustafaunlu.ecommerce.common.SingleProductUiData
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity

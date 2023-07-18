@@ -10,11 +10,11 @@ import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
-import com.mustafaunlu.ecommerce.presenter.mapper.CartUiMapper
-import com.mustafaunlu.ecommerce.presenter.mapper.ProductDetailUiMapper
-import com.mustafaunlu.ecommerce.presenter.mapper.ProductHomeUiMapper
-import com.mustafaunlu.ecommerce.presenter.mapper.SingleCartUiMapper
-import com.mustafaunlu.ecommerce.presenter.mapper.UserUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.CartUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.ProductDetailUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.ProductHomeUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.UserUiMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

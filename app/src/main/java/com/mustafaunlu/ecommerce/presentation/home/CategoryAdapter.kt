@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.home
+package com.mustafaunlu.ecommerce.presentation.home
 
 import android.annotation.SuppressLint
 import android.graphics.Color

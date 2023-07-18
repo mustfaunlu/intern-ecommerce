@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.detail
+package com.mustafaunlu.ecommerce.presentation.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

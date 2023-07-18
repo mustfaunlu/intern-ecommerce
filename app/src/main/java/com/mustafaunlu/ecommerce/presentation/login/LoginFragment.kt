@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.login
+package com.mustafaunlu.ecommerce.presentation.login
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -46,6 +46,33 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
+
+        viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
+            when (loginState) {
+                is ScreenState.Loading -> {
+                    binding.loading.visible()
+                    binding.loginBtn.isEnabled = false
+                }
+
+                is ScreenState.Success -> {
+                    binding.loading.gone()
+                    binding.loginBtn.isEnabled = true
+                    findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    requireView().showToast("Welcome ${loginState.uiData.username}")
+                    sharedPref.edit()
+                        .putString(SHARED_PREF_USERID_KEY, loginState.uiData.id.toString())
+                        .apply()
+                }
+
+                is ScreenState.Error -> {
+                    binding.loading.gone()
+                    binding.loginBtn.isEnabled = true
+                    requireView().showToast(getString(R.string.check_username_pass))
+                }
+
+                else -> {}
+            }
+        }
     }
 
     private fun setupSavedUsername() {
@@ -86,32 +113,5 @@ class LoginFragment : Fragment() {
 
         val user = User(username, password)
         viewModel.login(user)
-
-        viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
-            when (loginState) {
-                is ScreenState.Loading -> {
-                    binding.loading.visible()
-                    binding.loginBtn.isEnabled = false
-                }
-
-                is ScreenState.Success -> {
-                    binding.loading.gone()
-                    binding.loginBtn.isEnabled = true
-                    findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-                    requireView().showToast("Welcome ${loginState.uiData.username}")
-                    sharedPref.edit()
-                        .putString(SHARED_PREF_USERID_KEY, loginState.uiData.id.toString())
-                        .apply()
-                }
-
-                is ScreenState.Error -> {
-                    binding.loading.gone()
-                    binding.loginBtn.isEnabled = true
-                    requireView().showToast(getString(R.string.check_username_pass))
-                }
-
-                else -> {}
-            }
-        }
     }
 }

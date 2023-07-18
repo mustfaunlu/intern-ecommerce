@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presenter.detail
+package com.mustafaunlu.ecommerce.presentation.detail
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
