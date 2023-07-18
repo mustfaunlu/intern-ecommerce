@@ -1,6 +1,7 @@
 package com.mustafaunlu.ecommerce.data.repository
 
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
+import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import com.mustafaunlu.ecommerce.data.source.remote.RemoteDataSource
@@ -9,6 +10,7 @@ import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
+import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.repository.RemoteRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,9 +23,16 @@ class RemoteRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val userResponseEntityMapper: ProductBaseMapper<UserResponse, UserResponseEntity>,
+    private val allProductsMapper: ProductListMapper<Product, AllProductsEntity>,
 ) : RemoteRepository {
     override fun getProductsListFromApi(): Flow<NetworkResponseState<List<AllProductsEntity>>> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getProductsListFromApi().map {
+            when (it) {
+                is NetworkResponseState.Loading -> NetworkResponseState.Loading
+                is NetworkResponseState.Success -> NetworkResponseState.Success(allProductsMapper.map(it.result.products))
+                is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
+            }
+        }.flowOn(ioDispatcher)
     }
 
     override fun getSingleProductByIdFromApi(productId: Int): Flow<NetworkResponseState<SingleProductEntity>> {
@@ -45,7 +54,13 @@ class RemoteRepositoryImpl @Inject constructor(
     }
 
     override fun getAllCategoriesListFromApi(): Flow<NetworkResponseState<List<String>>> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getAllCategoriesListFromApi().map {
+            when (it) {
+                is NetworkResponseState.Loading -> NetworkResponseState.Loading
+                is NetworkResponseState.Success -> NetworkResponseState.Success(it.result)
+                is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
+            }
+        }.flowOn(ioDispatcher)
     }
 
     override fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<List<AllProductsEntity>>> {

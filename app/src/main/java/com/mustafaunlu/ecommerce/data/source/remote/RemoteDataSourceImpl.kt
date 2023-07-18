@@ -14,7 +14,15 @@ class RemoteDataSourceImpl @Inject constructor(
     private val apiService: ApiService,
 ) : RemoteDataSource {
     override fun getProductsListFromApi(): Flow<NetworkResponseState<Products>> {
-        TODO("Not yet implemented")
+        return flow {
+            emit(NetworkResponseState.Loading)
+            try {
+                val response = apiService.getProductsListFromApi()
+                emit(NetworkResponseState.Success(response))
+            } catch (e: Exception) {
+                emit(NetworkResponseState.Error(e))
+            }
+        }
     }
 
     override fun getSingleProductByIdFromApi(productId: Int): Flow<NetworkResponseState<Product>> {
@@ -27,8 +35,8 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override fun postLoginRequest(user: User): Flow<NetworkResponseState<UserResponse>> {
         return flow {
+            emit(NetworkResponseState.Loading)
             try {
-                emit(NetworkResponseState.Loading)
                 val response = apiService.postLoginRequest(user)
                 emit(NetworkResponseState.Success(response))
             } catch (e: Exception) {
@@ -38,7 +46,15 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     override fun getAllCategoriesListFromApi(): Flow<NetworkResponseState<List<String>>> {
-        TODO("Not yet implemented")
+        return flow {
+            emit(NetworkResponseState.Loading)
+            try {
+                val response = apiService.getAllCategoriesListFromApi()
+                emit(NetworkResponseState.Success(response))
+            } catch (e: Exception) {
+                emit(NetworkResponseState.Error(e))
+            }
+        }
     }
 
     override fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<Products>> {
