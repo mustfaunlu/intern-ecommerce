@@ -4,8 +4,9 @@ import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.repository.LocalRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class LocalRepositoryImpl : LocalRepository {
+class LocalRepositoryImpl @Inject constructor() : LocalRepository {
     override fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>> {
         TODO("Not yet implemented")
     }
