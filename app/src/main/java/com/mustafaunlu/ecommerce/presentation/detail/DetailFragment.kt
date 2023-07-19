@@ -24,7 +24,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailBinding
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
     private val detailViewModel: DetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
     private lateinit var userCart: UserCartEntity
@@ -37,7 +38,7 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         detailViewModel.getProduct(args.productId)
         return binding.root
     }
@@ -100,5 +101,9 @@ class DetailFragment : Fragment() {
                 DetailFragmentDirections.actionDetailFragmentToCartFragment2(),
             )
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -21,15 +21,18 @@ import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels()
+    private lateinit var productAdapter: ProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        productAdapter = ProductAdapter(::navigateToProductDetail)
         return binding.root
     }
 
@@ -40,13 +43,13 @@ class HomeFragment : Fragment() {
             when (it) {
                 is ScreenState.Error -> {
                 }
+
                 is ScreenState.Loading -> {
                 }
+
                 is ScreenState.Success -> {
-                    binding.productRv.adapter = ProductAdapter { productId ->
-                        navigateToProductDetail(productId)
-                    }
-                    (binding.productRv.adapter as ProductAdapter).submitList(it.uiData)
+                    binding.productRv.adapter = productAdapter
+                    productAdapter.submitList(it.uiData)
                 }
             }
         }
@@ -56,8 +59,10 @@ class HomeFragment : Fragment() {
                 is ScreenState.Error -> {
                     requireView().showToast(homepageState.message)
                 }
+
                 is ScreenState.Loading -> { // progress bar
                 }
+
                 is ScreenState.Success -> {
                     binding.rvCategory.adapter = CategoryAdapter(
                         homepageState.uiData,
@@ -90,5 +95,15 @@ class HomeFragment : Fragment() {
                     homeViewModel.searchProduct(it)
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

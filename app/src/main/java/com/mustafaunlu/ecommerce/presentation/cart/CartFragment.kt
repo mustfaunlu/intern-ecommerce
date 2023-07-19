@@ -21,9 +21,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CartFragment : Fragment() {
 
-    private lateinit var binding: FragmentCartBinding
+    private var _binding: FragmentCartBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: CartViewModel by viewModels()
-    lateinit var adapter: CartListAdapter
+    private lateinit var adapter: CartListAdapter
 
     @Inject
     lateinit var sharedPref: SharedPreferences
@@ -33,9 +34,10 @@ class CartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentCartBinding.inflate(inflater, container, false)
+        _binding = FragmentCartBinding.inflate(inflater, container, false)
         val userId = sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF)!!
         viewModel.getCartsByUserId(userId.toInt())
+        adapter = CartListAdapter(::onItemLongClicked)
         return binding.root
     }
 
@@ -50,9 +52,7 @@ class CartFragment : Fragment() {
                 is ScreenState.Loading -> {
                 }
                 is ScreenState.Success -> {
-                    adapter = CartListAdapter(::onItemLongClicked).apply {
-                        submitList(userCartState.uiData)
-                    }
+                    adapter.submitList(userCartState.uiData)
                     binding.cartListview.adapter = adapter
                 }
             }
@@ -65,5 +65,15 @@ class CartFragment : Fragment() {
             adapter.submitList(adapter.currentList.filter { it.id != userCartUiData.id })
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
