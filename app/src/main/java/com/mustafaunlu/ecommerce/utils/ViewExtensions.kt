@@ -4,6 +4,7 @@ import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputEditText
 import com.mustafaunlu.ecommerce.presentation.contract.AbstractTextWatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,7 @@ fun View.gone() {
 
 fun View.showToast(text: String) = Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
 
-fun AppCompatEditText.observeTextChanges(): Flow<String> {
+fun TextInputEditText.observeTextChanges(): Flow<String> {
     return callbackFlow {
         val textWatcher = object : AbstractTextWatcher() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

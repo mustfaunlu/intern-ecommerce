@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_CHECKBOX_KEY
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERNAME_DEF
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERNAME_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
@@ -37,9 +34,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        setupSavedUsername()
-        setupRememberCheckbox()
-
         return binding.root
     }
 
@@ -49,7 +43,7 @@ class LoginFragment : Fragment() {
 
         viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
             when (loginState) {
-                is ScreenState.Loading -> {
+                ScreenState.Loading -> {
                     binding.loading.visible()
                     binding.loginBtn.isEnabled = false
                 }
@@ -69,35 +63,9 @@ class LoginFragment : Fragment() {
                     binding.loginBtn.isEnabled = true
                     requireView().showToast(getString(R.string.check_username_pass))
                 }
-
-                else -> {}
             }
         }
     }
-
-    private fun setupSavedUsername() {
-        val savedUsername = sharedPref.getString(SHARED_PREF_USERNAME_KEY, SHARED_PREF_USERNAME_DEF)
-        if (savedUsername != null) {
-            binding.username.setText(savedUsername)
-        }
-    }
-
-    private fun setupRememberCheckbox() {
-        val checkBoxState = sharedPref.getBoolean(SHARED_PREF_CHECKBOX_KEY, false)
-        binding.rememberCheckbox.isChecked = checkBoxState
-
-        binding.rememberCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            sharedPref.edit().putBoolean(SHARED_PREF_CHECKBOX_KEY, isChecked).apply()
-            if (isChecked) {
-                sharedPref.edit()
-                    .putString(SHARED_PREF_USERNAME_KEY, binding.username.text.toString().trim())
-                    .apply()
-            } else {
-                sharedPref.edit().remove(SHARED_PREF_USERNAME_KEY).apply()
-            }
-        }
-    }
-
     private fun setupLoginButton() {
         binding.loginBtn.setOnClickListener { loginLogic() }
     }

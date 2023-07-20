@@ -83,7 +83,7 @@ class DetailFragment : Fragment() {
                     }
                 }
 
-                else -> {}
+                ScreenState.Loading -> {}
             }
         }
     }
