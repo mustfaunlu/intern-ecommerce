@@ -10,11 +10,11 @@ import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 @Dao
 interface CartDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserCart(userCartEntity: UserCartEntity)
+    suspend fun insertUserCart(userCartEntity: UserCartEntity)
 
     @Query("SELECT * FROM user_carts WHERE userId = :userId")
-    fun getCartByUserId(userId: Int): List<UserCartEntity>
+    suspend fun getCartByUserId(userId: Int): List<UserCartEntity>
 
     @Delete
-    fun deleteUserCartItem(userCartEntity: UserCartEntity)
+    suspend fun deleteUserCartItem(userCartEntity: UserCartEntity)
 }

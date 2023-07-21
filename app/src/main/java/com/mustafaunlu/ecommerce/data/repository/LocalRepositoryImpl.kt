@@ -17,7 +17,7 @@ class LocalRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val localDataSource: LocalDataSource,
 ) : LocalRepository {
-    override fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>> {
+    override suspend fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>> {
         return flow {
             emit(NetworkResponseState.Success(localDataSource.getUserCartByUserIdFromDb(userId)))
         }.flowOn(ioDispatcher)

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalRepository {
 
-    fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>>
+    suspend fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>>
 
     suspend fun insertCartToDb(userCartEntity: UserCartEntity)
 
