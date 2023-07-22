@@ -37,4 +37,6 @@
     <string name="title_product_info">Product Info</string>
     <string name="product_image">Product Image</string>
     <string name="logout">Logout</string>
+    <string name="progress_bar">progress bar</string>
+    <string name="profile_picture_content_desc">Profile Picture</string>
 </resources>
