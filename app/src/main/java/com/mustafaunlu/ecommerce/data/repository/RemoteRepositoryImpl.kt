@@ -3,11 +3,13 @@ package com.mustafaunlu.ecommerce.data.repository
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.User
+import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import com.mustafaunlu.ecommerce.data.source.remote.RemoteDataSource
 import com.mustafaunlu.ecommerce.di.coroutine.IoDispatcher
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
@@ -25,6 +27,7 @@ class RemoteRepositoryImpl @Inject constructor(
     private val userResponseEntityMapper: ProductBaseMapper<UserResponse, UserResponseEntity>,
     private val allProductsMapper: ProductListMapper<Product, AllProductsEntity>,
     private val singleProductMapper: ProductBaseMapper<Product, SingleProductEntity>,
+    private val userInfoEntityMapper: ProductBaseMapper<UserInfo, UserInformationEntity>,
 ) : RemoteRepository {
     override fun getProductsListFromApi(): Flow<NetworkResponseState<List<AllProductsEntity>>> {
         return remoteDataSource.getProductsListFromApi().map {
@@ -81,6 +84,16 @@ class RemoteRepositoryImpl @Inject constructor(
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading
                 is NetworkResponseState.Success -> NetworkResponseState.Success(allProductsMapper.map(it.result.products))
+                is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
+            }
+        }.flowOn(ioDispatcher)
+    }
+
+    override fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInformationEntity>> {
+        return remoteDataSource.getUserInformationByIdFromApi(userId).map {
+            when (it) {
+                is NetworkResponseState.Loading -> NetworkResponseState.Loading
+                is NetworkResponseState.Success -> NetworkResponseState.Success(userInfoEntityMapper.map(it.result))
                 is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
             }
         }.flowOn(ioDispatcher)

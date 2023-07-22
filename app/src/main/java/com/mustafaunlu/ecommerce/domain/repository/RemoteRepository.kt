@@ -4,6 +4,7 @@ import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +21,6 @@ interface RemoteRepository {
     fun getAllCategoriesListFromApi(): Flow<NetworkResponseState<List<String>>>
 
     fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<List<AllProductsEntity>>>
+
+    fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInformationEntity>>
 }

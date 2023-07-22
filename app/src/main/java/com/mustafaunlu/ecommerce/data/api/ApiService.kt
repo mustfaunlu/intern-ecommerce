@@ -3,6 +3,7 @@ package com.mustafaunlu.ecommerce.data.api
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.Products
 import com.mustafaunlu.ecommerce.data.dto.User
+import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,6 +30,9 @@ interface ApiService {
     @GET(PRODUCTS_CATEGORY)
     suspend fun getProductsListByCategoryNameFromApi(@Path(CATEGORY_NAME) categoryName: String): Products
 
+    @GET(USERS)
+    suspend fun getUserInformationByIdFromApi(@Path(ID) userId: Int): UserInfo
+
     companion object {
         const val PRODUCTS = "products"
         const val SEARCH_PRODUCTS = "products/search"
@@ -38,5 +42,6 @@ interface ApiService {
         const val PRODUCTS_CATEGORIES = "products/categories"
         const val CATEGORY_NAME = "categoryName"
         const val PRODUCTS_CATEGORY = "products/category/{$CATEGORY_NAME}"
+        const val USERS = "users/{$ID}"
     }
 }
