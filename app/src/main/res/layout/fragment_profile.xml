@@ -81,24 +81,13 @@
                     tools:text="@tools:sample/lorem" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="15dp"
-                    android:text="Update informations"/>
-
-                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnExit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
-                    android:text="Logout"/>
+                    android:text="@string/logout"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-
-
-
     </LinearLayout>
 </ScrollView>

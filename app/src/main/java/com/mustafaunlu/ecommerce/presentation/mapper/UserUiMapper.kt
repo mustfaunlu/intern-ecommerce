@@ -1,6 +1,8 @@
 package com.mustafaunlu.ecommerce.presentation.mapper
 
+import com.mustafaunlu.ecommerce.common.UserInformationUiData
 import com.mustafaunlu.ecommerce.common.UserUiData
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import javax.inject.Inject
@@ -11,11 +13,18 @@ class UserUiMapper @Inject constructor() : ProductBaseMapper<UserResponseEntity,
             id = input.id,
             token = input.token,
             username = input.username,
-            firstName = input.firstName,
-            lastName = input.lastName,
-            gender = input.gender,
-            image = input.image,
+        )
+    }
+}
+
+class UserInformationUiMapper @Inject constructor() : ProductBaseMapper<UserInformationEntity, UserInformationUiData> {
+    override fun map(input: UserInformationEntity): UserInformationUiData {
+        return UserInformationUiData(
+            name = input.name,
+            surname = input.surname,
             email = input.email,
+            phone = input.phone,
+            image = input.image,
         )
     }
 }
