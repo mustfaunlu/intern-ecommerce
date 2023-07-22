@@ -16,8 +16,10 @@ import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
+import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.loadImage
 import com.mustafaunlu.ecommerce.utils.showToast
+import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -56,10 +58,12 @@ class DetailFragment : Fragment() {
         detailViewModel.product.observe(viewLifecycleOwner) { productState ->
             when (productState) {
                 is ScreenState.Error -> {
+                    binding.progressBar.gone()
                     requireView().showToast(productState.message)
                 }
 
                 is ScreenState.Success -> {
+                    binding.progressBar.gone()
                     val product = productState.uiData
                     binding.apply {
                         productTitle.text = product.title
@@ -83,7 +87,7 @@ class DetailFragment : Fragment() {
                     }
                 }
 
-                ScreenState.Loading -> {}
+                ScreenState.Loading -> binding.progressBar.visible()
             }
         }
     }

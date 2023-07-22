@@ -13,8 +13,10 @@ import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
+import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.showToast
+import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,11 +49,12 @@ class CartFragment : Fragment() {
         viewModel.userCarts.observe(viewLifecycleOwner) { userCartState ->
             when (userCartState) {
                 is ScreenState.Error -> {
+                    binding.progressBar.gone()
                     requireView().showToast(userCartState.message)
                 }
-                is ScreenState.Loading -> {
-                }
+                ScreenState.Loading -> binding.progressBar.visible()
                 is ScreenState.Success -> {
+                    binding.progressBar.gone()
                     adapter.submitList(userCartState.uiData)
                     binding.cartListview.adapter = adapter
                 }

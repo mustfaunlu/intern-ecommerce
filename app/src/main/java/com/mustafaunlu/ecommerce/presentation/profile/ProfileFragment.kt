@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentProfileBinding
+import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.loadImage
+import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,17 +47,20 @@ class ProfileFragment : Fragment() {
         viewModel.userInformation.observe(viewLifecycleOwner) {
             when (it) {
                 ScreenState.Loading -> {
+                    binding.progressBar.visible()
                 }
                 is ScreenState.Success -> {
                     binding.apply {
+                        progressBar.gone()
                         profileName.text = it.uiData.name
                         profileSurname.text = it.uiData.surname
                         profileMail.text = it.uiData.email
-                        profileGender.text = it.uiData.phone
+                        profilePhone.text = it.uiData.phone
                         pfpImage.loadImage(it.uiData.image)
                     }
                 }
                 is ScreenState.Error -> {
+                    binding.progressBar.gone()
                 }
             }
         }

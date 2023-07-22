@@ -10,8 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentHomeBinding
+import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.observeTextChanges
 import com.mustafaunlu.ecommerce.utils.showToast
+import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -42,12 +44,16 @@ class HomeFragment : Fragment() {
         homeViewModel.products.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
+                    binding.progressBar.gone()
+                    requireView().showToast(it.message)
                 }
 
-                is ScreenState.Loading -> {
+                ScreenState.Loading -> {
+                    binding.progressBar.visible()
                 }
 
                 is ScreenState.Success -> {
+                    binding.progressBar.gone()
                     binding.productRv.adapter = productAdapter
                     productAdapter.submitList(it.uiData)
                 }
@@ -57,13 +63,16 @@ class HomeFragment : Fragment() {
         homeViewModel.categories.observe(viewLifecycleOwner) { homepageState ->
             when (homepageState) {
                 is ScreenState.Error -> {
+                    binding.progressBar.gone()
                     requireView().showToast(homepageState.message)
                 }
 
-                is ScreenState.Loading -> { // progress bar
+                is ScreenState.Loading -> {
+                    binding.progressBar.visible()
                 }
 
                 is ScreenState.Success -> {
+                    binding.progressBar.gone()
                     binding.rvCategory.adapter = CategoryAdapter(
                         homepageState.uiData,
                     ) { categoryName ->
