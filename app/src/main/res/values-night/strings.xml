@@ -36,4 +36,5 @@
     <string name="title_profile">Profile</string>
     <string name="title_product_info">Product Info</string>
     <string name="product_image">Product Image</string>
+    <string name="logout">Logout</string>
 </resources>
