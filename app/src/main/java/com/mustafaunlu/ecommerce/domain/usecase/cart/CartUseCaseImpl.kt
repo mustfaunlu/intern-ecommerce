@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CartUseCaseImpl @Inject constructor(private val repository: LocalRepository) : CartUseCase {
-    override fun invoke(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>> = repository.getCartsByUserIdFromLocal(userId)
+    override suspend fun invoke(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>> = repository.getCartsByUserIdFromLocal(userId)
     override suspend fun invoke(userCartEntity: UserCartEntity) {
         repository.insertCartToDb(userCartEntity)
     }
