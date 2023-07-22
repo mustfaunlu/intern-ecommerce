@@ -2,14 +2,17 @@ package com.mustafaunlu.ecommerce.di.mappers
 
 import com.mustafaunlu.ecommerce.data.dto.CartResponseProduct
 import com.mustafaunlu.ecommerce.data.dto.Product
+import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import com.mustafaunlu.ecommerce.data.mapper.AllProductsEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.SingleProductEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.UserCartEntityMapper
+import com.mustafaunlu.ecommerce.data.mapper.UserInfoEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.UserResponseEntityMapper
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
@@ -21,7 +24,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class ProductMapperModule {
+abstract class MapperModule {
 
     @Binds
     @ViewModelScoped
@@ -38,4 +41,8 @@ abstract class ProductMapperModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUserResponseEntityMapper(userResponseEntityMapper: UserResponseEntityMapper): ProductBaseMapper<UserResponse, UserResponseEntity>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUserInfoEntityMapper(userInfoEntityMapper: UserInfoEntityMapper): ProductBaseMapper<UserInfo, UserInformationEntity>
 }

@@ -12,6 +12,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.UserInfoUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.UserInfoUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCaseImpl
 import dagger.Binds
@@ -65,4 +67,10 @@ abstract class UseCaseModule {
     abstract fun bindSearchUseCase(
         searchUseCaseImpl: SearchUseCaseImpl,
     ): SearchUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUserInfoUseCase(
+        userInfoUseCaseImpl: UserInfoUseCaseImpl,
+    ): UserInfoUseCase
 }
