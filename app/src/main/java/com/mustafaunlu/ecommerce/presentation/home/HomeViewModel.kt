@@ -13,7 +13,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,54 +33,48 @@ class HomeViewModel @Inject constructor(
     val categories: LiveData<ScreenState<List<String>>> get() = _categories
 
     init {
-        getAllProducts()
         getAllCategory()
+        getAllProducts()
     }
     fun getAllProducts() {
-        viewModelScope.launch {
-            getAllProductsUseCase().collectLatest {
-                when (it) {
-                    is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
-                    is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
-                }
+        getAllProductsUseCase().onEach {
+            when (it) {
+                is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
+                is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
+                is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     fun searchProduct(query: String) {
         viewModelScope.launch {
-            searchUseCase(query).collectLatest {
+            searchUseCase(query).onEach {
                 when (it) {
                     is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
                     is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
                     is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
                 }
-            }
+            }.launchIn(viewModelScope)
         }
     }
 
     private fun getAllCategory() {
-        viewModelScope.launch {
-            categoryUseCase().collect {
-                when (it) {
-                    is NetworkResponseState.Error -> _categories.postValue(ScreenState.Error(it.exception.message!!))
-                    is NetworkResponseState.Loading -> _categories.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _categories.postValue(ScreenState.Success(it.result))
-                }
+        categoryUseCase().onEach {
+            when (it) {
+                is NetworkResponseState.Error -> _categories.postValue(ScreenState.Error(it.exception.message!!))
+                is NetworkResponseState.Loading -> _categories.postValue(ScreenState.Loading)
+                is NetworkResponseState.Success -> _categories.postValue(ScreenState.Success(it.result))
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     fun getProductsByCategory(categoryName: String) {
-        viewModelScope.launch {
-            categoryUseCase(categoryName).collect {
-                when (it) {
-                    is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
-                    is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
-                }
+        categoryUseCase(categoryName).onEach {
+            when (it) {
+                is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
+                is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
+                is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
             }
-        }
+        }.launchIn(viewModelScope)
     }
 }

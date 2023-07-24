@@ -3,7 +3,6 @@ package com.mustafaunlu.ecommerce.utils
 import android.text.Editable
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.textfield.TextInputEditText
 import com.mustafaunlu.ecommerce.presentation.contract.AbstractTextWatcher
 import kotlinx.coroutines.channels.awaitClose

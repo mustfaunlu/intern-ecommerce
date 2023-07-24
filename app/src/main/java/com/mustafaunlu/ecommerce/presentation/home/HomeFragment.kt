@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -35,12 +36,13 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         productAdapter = ProductAdapter(::navigateToProductDetail)
+        binding.productRv.adapter = productAdapter
+        observeSearchViewTextChanges()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeSearchViewTextChanges()
         homeViewModel.products.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
@@ -53,9 +55,8 @@ class HomeFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    binding.progressBar.gone()
-                    binding.productRv.adapter = productAdapter
                     productAdapter.submitList(it.uiData)
+                    binding.progressBar.gone()
                 }
             }
         }
@@ -72,12 +73,10 @@ class HomeFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    binding.progressBar.gone()
-                    binding.rvCategory.adapter = CategoryAdapter(
-                        homepageState.uiData,
-                    ) { categoryName ->
+                    binding.rvCategory.adapter = CategoryAdapter(homepageState.uiData) { categoryName ->
                         getProductsByCategoryName(categoryName)
                     }
+                    binding.progressBar.gone()
                 }
             }
         }
@@ -95,24 +94,11 @@ class HomeFragment : Fragment() {
     @OptIn(FlowPreview::class)
     private fun observeSearchViewTextChanges() {
         binding.searchEditText.observeTextChanges()
+            .filter { it.length > 1 }
             .debounce(300L)
             .distinctUntilChanged()
             .onEach {
-                if (it.isBlank()) {
-                    homeViewModel.getAllProducts()
-                } else {
-                    homeViewModel.searchProduct(it)
-                }
+                homeViewModel.searchProduct(it)
             }.launchIn(lifecycleScope)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }
