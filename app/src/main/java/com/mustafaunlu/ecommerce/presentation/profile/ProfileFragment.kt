@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -25,7 +26,7 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
 
     @Inject
-    lateinit var sharedPref: SharedPreferences
+    lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,45 +34,59 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val userId = sharedPref.getString(
-            Constants.SHARED_PREF_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        )!!
-        viewModel.getUserInfos(userId.toInt())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.userInformation.observe(viewLifecycleOwner) {
-            when (it) {
-                ScreenState.Loading -> {
-                    binding.progressBar.visible()
-                }
-                is ScreenState.Success -> {
-                    binding.apply {
-                        progressBar.gone()
-                        profileName.text = it.uiData.name
-                        profileSurname.text = it.uiData.surname
-                        profileMail.text = it.uiData.email
-                        profilePhone.text = it.uiData.phone
-                        pfpImage.loadImage(it.uiData.image)
-                    }
-                }
-                is ScreenState.Error -> {
-                    binding.progressBar.gone()
-                }
+        setupViews()
+        observeUserInfo()
+
+        binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, true).apply()
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, false).apply()
             }
         }
 
         binding.btnExit.setOnClickListener {
-            findNavController().apply {
-                val action = ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
-                navigate(action)
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+        }
+    }
+
+    private fun setupViews() {
+        val userId = sharedPrefs.getString(
+            Constants.SHARED_PREF_USERID_KEY,
+            Constants.SHARED_PREF_DEF,
+        ) ?: Constants.SHARED_PREF_DEF
+
+        viewModel.getUserInfos(userId.toInt())
+    }
+
+    private fun observeUserInfo() {
+        viewModel.userInformation.observe(viewLifecycleOwner) { userInfoState ->
+            when (userInfoState) {
+                ScreenState.Loading -> binding.progressBar.visible()
+                is ScreenState.Success -> {
+                    binding.progressBar.gone()
+                    val userInfo = userInfoState.uiData
+                    binding.apply {
+                        profileName.text = userInfo.name
+                        profileSurname.text = userInfo.surname
+                        profileMail.text = userInfo.email
+                        profilePhone.text = userInfo.phone
+                        pfpImage.loadImage(userInfo.image)
+                    }
+                }
+                is ScreenState.Error -> binding.progressBar.gone()
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
