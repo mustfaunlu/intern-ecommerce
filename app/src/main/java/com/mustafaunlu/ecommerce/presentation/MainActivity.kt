@@ -1,10 +1,11 @@
-package com.mustafaunlu.ecommerce
+package com.mustafaunlu.ecommerce.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.databinding.ActivityMainBinding
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.visible
@@ -13,17 +14,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        /*FirebaseMessaging.getInstance().token.addOnCompleteListener(
+        setupFCMToken()
+        setupNavigation()
+    }
+    private fun setupFCMToken() {
+        /*
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {
                     Log.w("Fail", "Fetching FCM registration token failed", task.exception)
@@ -38,7 +41,10 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Token", msg)
             },
         )
-*/
+        */
+    }
+
+    private fun setupNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -46,52 +52,48 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.loginFragment -> {
-                    binding.bottomNavigation.gone()
-                    supportActionBar?.hide()
-                }
                 R.id.homeFragment -> {
-                    binding.bottomNavigation.visible()
+                    updateBottomNavigationVisibility(true)
                     supportActionBar?.hide()
                 }
                 R.id.cartFragment -> {
-                    binding.bottomNavigation.visible()
-                    setActionBarProperties(getString(R.string.title_shopping_cart), true)
+                    updateBottomNavigationVisibility(true)
+                    setActionBarProperties(getString(R.string.title_shopping_cart))
                 }
                 R.id.profileFragment -> {
-                    binding.bottomNavigation.visible()
-                    setActionBarProperties(getString(R.string.title_profile), true)
+                    updateBottomNavigationVisibility(true)
+                    setActionBarProperties(getString(R.string.title_profile))
                 }
                 R.id.detailFragment -> {
-                    binding.bottomNavigation.visible()
-                    setActionBarProperties(getString(R.string.title_product_info), true)
+                    updateBottomNavigationVisibility(true)
+                    setActionBarProperties(getString(R.string.title_product_info))
                 }
                 else -> {
-                    binding.bottomNavigation.visible()
-                    supportActionBar?.show()
+                    updateBottomNavigationVisibility(false)
+                    supportActionBar?.hide()
                 }
             }
+        }
+    }
+
+    private fun updateBottomNavigationVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            binding.bottomNavigation.visible()
+        } else {
+            binding.bottomNavigation.gone()
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-    private fun setActionBarProperties(title: String, showHomeButton: Boolean = false) {
+
+    private fun setActionBarProperties(title: String = "") {
         supportActionBar?.apply {
             this.title = title
-            setHomeButtonEnabled(showHomeButton)
-            setDisplayHomeAsUpEnabled(showHomeButton)
+            this.show()
+            setHomeButtonEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
         }
-        if (showHomeButton) {
-            supportActionBar?.show()
-        } else {
-            supportActionBar?.hide()
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

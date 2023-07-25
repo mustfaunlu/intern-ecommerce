@@ -39,8 +39,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupViews()
+        fetchUserInfo()
         observeUserInfo()
 
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -58,7 +57,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setupViews() {
+    private fun fetchUserInfo() {
         val userId = sharedPrefs.getString(
             Constants.SHARED_PREF_USERID_KEY,
             Constants.SHARED_PREF_DEF,
@@ -86,7 +85,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -1,5 +1,6 @@
 package com.mustafaunlu.ecommerce.data.source.remote
 
+import android.util.Log
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.api.ApiService
 import com.mustafaunlu.ecommerce.data.dto.Product

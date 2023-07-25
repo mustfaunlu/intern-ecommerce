@@ -43,6 +43,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setObservers()
+    }
+
+    private fun setObservers() {
         homeViewModel.products.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
@@ -94,7 +98,7 @@ class HomeFragment : Fragment() {
     @OptIn(FlowPreview::class)
     private fun observeSearchViewTextChanges() {
         binding.searchEditText.observeTextChanges()
-            .filter { it.length > 1 }
+            .filter { it.isNotBlank() }
             .debounce(300L)
             .distinctUntilChanged()
             .onEach {

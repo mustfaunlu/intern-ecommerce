@@ -37,12 +37,11 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
-        val userId = sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF)!!
+        val userId = getUserIdFromSharedPref()
         viewModel.getCartsByUserId(userId.toInt())
         adapter = CartListAdapter(::onItemLongClicked)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,7 +60,9 @@ class CartFragment : Fragment() {
             }
         }
     }
-
+    private fun getUserIdFromSharedPref(): String {
+        return sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF) ?: SHARED_PREF_DEF
+    }
     private fun onItemLongClicked(userCartUiData: UserCartUiData) {
         this.showConfirmationDialog(getString(R.string.shopping_list_delete_warn)) {
             viewModel.deleteUserCartItem(userCartUiData)

@@ -14,6 +14,7 @@ import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
+import com.mustafaunlu.ecommerce.common.SingleProductUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.utils.gone
@@ -52,8 +53,6 @@ class DetailFragment : Fragment() {
         setupAddToCartButton()
         setupShoppingListButton()
     }
-
-    @SuppressLint("SetTextI18n")
     private fun setupProductDetail() {
         detailViewModel.product.observe(viewLifecycleOwner) { productState ->
             when (productState) {
@@ -65,31 +64,40 @@ class DetailFragment : Fragment() {
                 is ScreenState.Success -> {
                     binding.progressBar.gone()
                     val product = productState.uiData
-                    binding.apply {
-                        productTitle.text = product.title
-                        productPrice.text = "${product.price} TL"
-                        productDescription.text = product.description
-                        productImg.loadImage(product.imageUrl)
-                        productRating.text = "Rating ${product.rating}"
-
-                        val userId = sharedPref.getString(
-                            SHARED_PREF_USERID_KEY,
-                            SHARED_PREF_DEF,
-                        ) ?: SHARED_PREF_DEF
-                        userCart = UserCartEntity(
-                            userId = userId.toInt(),
-                            productId = product.id,
-                            quantity = 1,
-                            price = product.price.toInt(),
-                            title = product.title,
-                            image = product.imageUrl,
-                        )
-                    }
+                    bindProductDetailToView(product)
                 }
 
                 ScreenState.Loading -> binding.progressBar.visible()
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun bindProductDetailToView(product: SingleProductUiData) {
+        binding.apply {
+            productTitle.text = product.title
+            productPrice.text = "${product.price} TL"
+            productDescription.text = product.description
+            productImg.loadImage(product.imageUrl)
+            productRating.text = "Rating ${product.rating}"
+
+            val userId = getUserIdFromSharedPref()
+            userCart = UserCartEntity(
+                userId = userId.toInt(),
+                productId = product.id,
+                quantity = 1,
+                price = product.price.toInt(),
+                title = product.title,
+                image = product.imageUrl,
+            )
+        }
+    }
+
+    private fun getUserIdFromSharedPref(): String {
+        return sharedPref.getString(
+            SHARED_PREF_USERID_KEY,
+            SHARED_PREF_DEF,
+        ) ?: SHARED_PREF_DEF
     }
 
     private fun setupAddToCartButton() {

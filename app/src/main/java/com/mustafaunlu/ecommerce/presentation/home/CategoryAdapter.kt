@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.recyclerview.widget.RecyclerView
+import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.databinding.CategoryItemBinding
 
 class CategoryAdapter(
@@ -41,7 +42,7 @@ class CategoryAdapter(
                 categoryName.text = category.capitalize(Locale.current)
 
                 if (adapterPosition == selectedPosition) {
-                    categoryName.setBackgroundColor(Color.LTGRAY)
+                    categoryName.setBackgroundResource(R.color.md_theme_light_primary)
                 } else {
                     categoryName.setBackgroundColor(Color.TRANSPARENT)
                 }

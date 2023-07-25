@@ -8,16 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import arrow.core.getOrElse
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
+import com.mustafaunlu.ecommerce.utils.TokenManager
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.safeNavigate
 import com.mustafaunlu.ecommerce.utils.showToast
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.nefilim.kjwt.JWT
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,6 +30,11 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var sharedPref: SharedPreferences
+
+    @Inject
+    lateinit var tokenManager: TokenManager
+
+    private lateinit var expirationTime: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,32 +48,62 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
+        setupObservers()
+    }
 
+    private fun setupObservers() {
         viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
             when (loginState) {
                 ScreenState.Loading -> {
-                    binding.loading.visible()
-                    binding.loginBtn.isEnabled = false
+                    binding.apply {
+                        loading.visible()
+                        loginBtn.isEnabled = false
+                    }
                 }
 
                 is ScreenState.Success -> {
-                    binding.loading.gone()
-                    binding.loginBtn.isEnabled = true
-                    findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    extractExpirationTimeFromToken(loginState.uiData.token)
+                    tokenManager.saveToken(loginState.uiData.token, expirationTime.toLong())
+                    binding.apply {
+                        loading.gone()
+                        loginBtn.isEnabled = true
+                    }
+                    navigateToHomeScreen()
                     requireView().showToast("Welcome ${loginState.uiData.username}")
-                    sharedPref.edit()
-                        .putString(SHARED_PREF_USERID_KEY, loginState.uiData.id.toString())
-                        .apply()
+                    saveUserIdToSharedPref(loginState.uiData.id)
                 }
 
                 is ScreenState.Error -> {
-                    binding.loading.gone()
-                    binding.loginBtn.isEnabled = true
+                    binding.apply {
+                        loading.gone()
+                        loginBtn.isEnabled = true
+                    }
                     requireView().showToast(getString(R.string.check_username_pass))
                 }
             }
         }
     }
+
+    private fun saveUserIdToSharedPref(id: Int) {
+        sharedPref.edit()
+            .putString(SHARED_PREF_USERID_KEY, id.toString())
+            .apply()
+    }
+
+    private fun navigateToHomeScreen() {
+        findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+    }
+
+    private fun extractExpirationTimeFromToken(token: String) {
+        JWT.decode(
+            token,
+        ).also {
+            it.tap { decodedJWT ->
+                expirationTime = decodedJWT.claimValueAsLong("exp").getOrElse { 0L }.toString()
+            }
+        }
+    }
+
     private fun setupLoginButton() {
         binding.loginBtn.setOnClickListener { loginLogic() }
     }

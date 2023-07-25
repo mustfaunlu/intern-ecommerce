@@ -5,22 +5,19 @@
     android:layout_height="match_parent">
 
 
-
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/pfp_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:src="@mipmap/ic_launcher"
+        android:layout_margin="32dp"
         android:contentDescription="@string/profile_picture_content_desc"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toTopOf="@+id/profile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-        />
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
     <TextView
         android:id="@+id/profile_name"
@@ -76,6 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_mail"
         tools:text="@tools:sample/lorem" />
 
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnExit"
         android:layout_width="wrap_content"
@@ -83,16 +81,26 @@
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:text="@string/logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_phone" />
+        app:layout_constraintEnd_toEndOf="@+id/profile_phone"
+        app:layout_constraintStart_toStartOf="@+id/profile_phone"
+        app:layout_constraintTop_toBottomOf="@+id/theme_switch" />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/theme_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:text="Switch Theme"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="@+id/profile_name"
+        app:layout_constraintStart_toStartOf="@+id/profile_name"
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone" />
 
     <ImageView
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:visibility="gone"
         android:contentDescription="@string/progress_bar"
         android:src="@drawable/progressbar_animation"
@@ -100,6 +108,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

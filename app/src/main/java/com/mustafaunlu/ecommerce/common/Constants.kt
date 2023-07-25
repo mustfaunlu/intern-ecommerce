@@ -6,4 +6,6 @@ object Constants {
     const val SHARED_PREF_DEF = ""
     const val BASE_URL = "https://dummyjson.com/"
     const val PREF_THEME_KEY = "PREF_THEME_KEY"
+    const val USER_TOKEN = "USER_TOKEN"
+    const val USER_TOKEN_EXPIRATION_TIME = "USER_TOKEN_EXPIRATION_TIME"
 }

@@ -42,7 +42,6 @@
             android:ems="4"
             android:textSize="14sp"
             android:layout_margin="10dp"
-            android:textColor="@android:color/darker_gray"
             android:justificationMode="inter_word"
             android:padding="8dp" />
 
@@ -56,7 +55,6 @@
             android:ems="4"
             android:textSize="14sp"
             android:layout_margin="10dp"
-            android:textColor="@android:color/darker_gray"
             android:justificationMode="inter_word"
             android:padding="8dp" />
 
