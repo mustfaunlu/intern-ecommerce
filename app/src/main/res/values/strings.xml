@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ecommerce</string>
+    <string name="app_name">Ecommerce</string>
     <string name="navbar_menu_home">Home</string>
     <string name="navbar_menu_cart">Cart</string>
     <string name="navbar_profile_cart">Profile</string>
