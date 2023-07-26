@@ -19,6 +19,7 @@ class EcommerceApplication : Application() {
         val nightMode = sharedPrefs.getBoolean(Constants.PREF_THEME_KEY, false)
         setAppTheme(nightMode)
     }
+
     private fun setAppTheme(nightMode: Boolean) {
         if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
