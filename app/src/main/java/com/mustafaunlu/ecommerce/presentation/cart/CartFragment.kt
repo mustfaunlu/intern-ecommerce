@@ -63,6 +63,7 @@ class CartFragment : Fragment() {
     private fun getUserIdFromSharedPref(): String {
         return sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF) ?: SHARED_PREF_DEF
     }
+
     private fun onItemLongClicked(userCartUiData: UserCartUiData) {
         this.showConfirmationDialog(getString(R.string.shopping_list_delete_warn)) {
             viewModel.deleteUserCartItem(userCartUiData)
