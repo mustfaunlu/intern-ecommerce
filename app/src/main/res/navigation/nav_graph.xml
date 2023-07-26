@@ -53,4 +53,9 @@
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
 </navigation>
