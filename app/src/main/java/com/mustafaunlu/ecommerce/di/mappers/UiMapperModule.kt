@@ -1,11 +1,15 @@
 package com.mustafaunlu.ecommerce.di.mappers
 
 import com.mustafaunlu.ecommerce.common.AllProductsUiData
+import com.mustafaunlu.ecommerce.common.FavoriteUiData
+import com.mustafaunlu.ecommerce.common.SignUpUserUiData
 import com.mustafaunlu.ecommerce.common.SingleProductUiData
 import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.common.UserInformationUiData
 import com.mustafaunlu.ecommerce.common.UserUiData
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
+import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
+import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
@@ -13,10 +17,14 @@ import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.CartUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.FavoriteItemUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductDetailUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductHomeUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartToFavoriteEntityMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.SingleFavoriteItemUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.UserInformationUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.UserSignUpUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.UserUiMapper
 import dagger.Binds
 import dagger.Module
@@ -50,4 +58,20 @@ abstract class UiMapperModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUserInformationUiMapper(userInformationUiDataMapper: UserInformationUiMapper): ProductBaseMapper<UserInformationEntity, UserInformationUiData>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUserSignUpUiMapper(userSignUpUiMapper: UserSignUpUiMapper): ProductBaseMapper<SignUpUserEntity, SignUpUserUiData>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindFavoriteItemUiMapper(favoriteItemUiMapper: FavoriteItemUiMapper): ProductListMapper<FavoriteItemEntity, FavoriteUiData>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSingleFavoriteItemUiMapper(singleFavoriteItemUiMapper: SingleFavoriteItemUiMapper): ProductBaseMapper<FavoriteUiData, FavoriteItemEntity>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSingleCartToFavoriteEntityMapper(singleCartToFavoriteEntityMapper: SingleCartToFavoriteEntityMapper): ProductBaseMapper<UserCartEntity, FavoriteItemEntity>
 }

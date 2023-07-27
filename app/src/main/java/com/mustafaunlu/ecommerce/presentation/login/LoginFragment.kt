@@ -51,6 +51,11 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
         setupObservers()
+
+        binding.signUpBtn.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun setupObservers() {

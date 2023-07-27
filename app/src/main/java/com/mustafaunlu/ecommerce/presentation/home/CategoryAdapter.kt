@@ -16,7 +16,7 @@ class CategoryAdapter(
 ) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    companion object { var selectedPosition = RecyclerView.NO_POSITION }
+    var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewBinding =

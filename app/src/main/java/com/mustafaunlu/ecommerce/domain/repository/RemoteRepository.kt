@@ -2,7 +2,9 @@ package com.mustafaunlu.ecommerce.domain.repository
 
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.dto.User
+import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
+import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
@@ -23,4 +25,6 @@ interface RemoteRepository {
     fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<List<AllProductsEntity>>>
 
     fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInformationEntity>>
+
+    fun postSignUpRequest(user: UserSignUp): Flow<NetworkResponseState<SignUpUserEntity>>
 }

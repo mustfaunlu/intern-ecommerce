@@ -14,6 +14,7 @@ class CartListAdapter(
     private val onItemLongClicked: (UserCartUiData) -> Unit,
     private val updateTotalPrice: () -> Unit,
     private val updateCartItem: (UserCartUiData) -> Unit,
+    private val onItemShortClicked: (UserCartUiData) -> Unit,
 ) : ListAdapter<UserCartUiData, CartListAdapter.ShoppingListViewHolder>(
     ShoppingListDiffCallback(),
 ) {
@@ -53,6 +54,9 @@ class CartListAdapter(
                 }
             }
 
+            binding.root.setOnClickListener {
+                onItemShortClicked(cart)
+            }
             binding.root.setOnLongClickListener {
                 onItemLongClicked(cart)
                 true

@@ -14,4 +14,5 @@ data class UserCartEntity(
     @ColumnInfo(name = "product_quantity") val quantity: Int,
     @ColumnInfo(name = "product_title") val title: String,
     @ColumnInfo(name = "product_image") val image: String,
+    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean = false,
 )

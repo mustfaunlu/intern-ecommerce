@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_BADGE
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
@@ -15,6 +17,7 @@ import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
+import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
 import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.showToast
 import com.mustafaunlu.ecommerce.utils.visible
@@ -41,7 +44,7 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val userId = getUserIdFromSharedPref()
         viewModel.getCartsByUserId(userId.toInt())
-        adapter = CartListAdapter(::onItemLongClicked, ::updateTotalPrice, ::updateCartItem)
+        adapter = CartListAdapter(::onItemLongClicked, ::updateTotalPrice, ::updateCartItem, ::onItemShortClicked)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +64,7 @@ class CartFragment : Fragment() {
                 is ScreenState.Success -> {
                     binding.progressBar.gone()
                     adapter.submitList(userCartState.uiData)
-                    binding.cartListview.adapter = adapter
+                    binding.cartListview?.adapter = adapter
                 }
             }
         }
@@ -88,7 +91,16 @@ class CartFragment : Fragment() {
             totalPrice = calculateTotalPrice(newList).toString()
             binding.totalPrice.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
+            if (newList.isEmpty()) {
+                sharedPref.edit().putBoolean(SHARED_PREF_BADGE, false).apply()
+                showBadgeVisibility(false)
+            }
         }
+    }
+
+    private fun onItemShortClicked(userCartUiData: UserCartUiData) {
+        val action = CartFragmentDirections.actionCartFragmentToDetailFragment(userCartUiData.productId)
+        findNavController().navigate(action)
     }
 
     private fun calculateTotalPrice(cartList: List<UserCartUiData>): Double {

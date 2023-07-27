@@ -5,6 +5,7 @@ object Constants {
     const val SHARED_PREF_FILE_NAME = "userData"
     const val SHARED_PREF_USERID_KEY = "userId"
     const val SHARED_PREF_DEF = ""
+    const val SHARED_PREF_BADGE = "cartBadgeVisible"
     const val BASE_URL = "https://dummyjson.com/"
     const val PREF_THEME_KEY = "PREF_THEME_KEY"
     const val USER_TOKEN = "USER_TOKEN"

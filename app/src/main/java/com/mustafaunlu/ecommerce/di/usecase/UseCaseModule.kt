@@ -10,8 +10,14 @@ import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCa
 import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.user.UserInfoUseCase
@@ -81,4 +87,22 @@ abstract class UseCaseModule {
     abstract fun bindUpdateCartUseCase(
         updateCartUseCaseImpl: UpdateCartUseCaseImpl,
     ): UpdateCartUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSignUpUseCase(
+        signUpUseCaseImpl: SignUpUseCaseImpl,
+    ): SignUpUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindFavoriteUseCase(
+        favoriteUseCaseImpl: FavoriteUseCaseImpl,
+    ): FavoriteUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindDeleteFavoriteUseCase(
+        deleteFavoriteUseCaseImpl: DeleteFavoriteUseCaseImpl,
+    ): DeleteFavoriteUseCase
 }

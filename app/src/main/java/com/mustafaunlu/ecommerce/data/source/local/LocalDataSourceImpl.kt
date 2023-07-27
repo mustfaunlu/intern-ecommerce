@@ -1,23 +1,36 @@
 package com.mustafaunlu.ecommerce.data.source.local
 
-import com.mustafaunlu.ecommerce.data.database.CartDao
+import com.mustafaunlu.ecommerce.data.database.AppDao
+import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import javax.inject.Inject
 
-class LocalDataSourceImpl @Inject constructor(private val cartDao: CartDao) : LocalDataSource {
+class LocalDataSourceImpl @Inject constructor(private val appDao: AppDao) : LocalDataSource {
     override suspend fun getUserCartByUserIdFromDb(userId: Int): List<UserCartEntity> {
-        return cartDao.getCartByUserId(userId)
+        return appDao.getCartByUserId(userId)
     }
 
     override suspend fun insertUserCartToDb(userCartEntity: UserCartEntity) {
-        cartDao.insertUserCart(userCartEntity)
+        appDao.insertUserCart(userCartEntity)
     }
 
     override suspend fun deleteUserCartFromDb(userCartEntity: UserCartEntity) {
-        cartDao.deleteUserCartItem(userCartEntity)
+        appDao.deleteUserCartItem(userCartEntity)
     }
 
     override suspend fun updateUserCartFromDb(userCartEntity: UserCartEntity) {
-        cartDao.updateUserCartItem(userCartEntity)
+        appDao.updateUserCartItem(userCartEntity)
+    }
+
+    override suspend fun getFavoriteProductsFromDb(): List<FavoriteItemEntity> {
+        return appDao.getFavoriteProducts()
+    }
+
+    override suspend fun insertFavoriteItemToDb(favoriteItemEntity: FavoriteItemEntity) {
+        appDao.insertFavoriteItem(favoriteItemEntity)
+    }
+
+    override suspend fun deleteFavoriteItemFromDb(favoriteItemEntity: FavoriteItemEntity) {
+        appDao.deleteFavoriteItem(favoriteItemEntity)
     }
 }

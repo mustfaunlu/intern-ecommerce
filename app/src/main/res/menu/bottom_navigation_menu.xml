@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_cart"
         android:title="@string/navbar_menu_cart"/>
     <item
+        android:id="@+id/favoriteFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/favorite"/>
+    <item
         android:id="@+id/profileFragment"
         android:enabled="true"
         android:icon="@drawable/ic_profile"

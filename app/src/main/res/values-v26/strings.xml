@@ -45,4 +45,14 @@
     <string name="splash_txt">Shop Smart, Shop Easy, Shop with Us!</string>
     <string name="total_price_format">"Total Price: "</string>
     <string name="switch_theme_txt">Switch Theme</string>
+    <string name="sign_up_success">Created account successfully!</string>
+    <string name="empty_fields">Please do not blank fields!</string>
+    <string name="remind_me_btn_txt">Remind me</string>
+    <string name="favorite">Favorite</string>
+    <string name="title_favorite">Favorite Products</string>
+    <string name="deleted_favorite_list">Product deleted from favorite list</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="create_account">Create Account</string>
+    <string name="your_name_hint">Your name</string>
+    <string name="your_surname_hint">Your surname</string>
 </resources>

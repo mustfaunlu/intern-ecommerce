@@ -8,6 +8,7 @@ import com.mustafaunlu.ecommerce.data.dto.Products
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
+import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -92,6 +93,18 @@ class RemoteDataSourceImpl @Inject constructor(
             try {
                 emit(NetworkResponseState.Loading)
                 val response = apiService.getUserInformationByIdFromApi(userId)
+                emit(NetworkResponseState.Success(response))
+            } catch (e: Exception) {
+                emit(NetworkResponseState.Error(e))
+            }
+        }
+    }
+
+    override fun postSignUpRequest(user: UserSignUp): Flow<NetworkResponseState<UserSignUp>> {
+        return flow {
+            try {
+                emit(NetworkResponseState.Loading)
+                val response = apiService.postAddUserRequest(user)
                 emit(NetworkResponseState.Success(response))
             } catch (e: Exception) {
                 emit(NetworkResponseState.Error(e))

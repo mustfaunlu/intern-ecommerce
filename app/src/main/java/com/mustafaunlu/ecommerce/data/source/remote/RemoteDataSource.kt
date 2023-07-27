@@ -6,6 +6,7 @@ import com.mustafaunlu.ecommerce.data.dto.Products
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
+import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
@@ -22,4 +23,6 @@ interface RemoteDataSource {
     fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<Products>>
 
     fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInfo>>
+
+    fun postSignUpRequest(user: UserSignUp): Flow<NetworkResponseState<UserSignUp>>
 }

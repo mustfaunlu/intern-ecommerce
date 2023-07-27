@@ -1,10 +1,12 @@
 package com.mustafaunlu.ecommerce.utils
 
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.PermissionManager
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,11 @@ fun Fragment.showConfirmationDialog(message: String, onConfirm: () -> Unit) {
         .show()
 }
 
+fun Fragment.showBadgeVisibility(showBadge: Boolean) {
+    val navBottomView =
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.bottom_navigation)
+    navBottomView.updateCartBadgeVisibility(showBadge)
+}
 fun NavController.safeNavigate(direction: NavDirections) {
     currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
 }

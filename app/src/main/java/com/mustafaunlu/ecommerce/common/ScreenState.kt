@@ -6,6 +6,15 @@ sealed class ScreenState<out T : Any> {
     data class Success<out T : Any>(val uiData: T) : ScreenState<T>()
 }
 
+data class FavoriteUiData(
+    val userId: Int,
+    val productId: Int,
+    val price: Int,
+    val quantity: Int,
+    val title: String,
+    val imageUrl: String,
+)
+
 data class AllProductsUiData(
     val id: Int,
     val title: String,
@@ -44,4 +53,12 @@ data class UserInformationUiData(
     val email: String,
     val phone: String,
     val image: String,
+)
+
+data class SignUpUserUiData(
+    val name: String,
+    val surname: String,
+    val email: String,
+    val phone: String,
+    val password: String,
 )

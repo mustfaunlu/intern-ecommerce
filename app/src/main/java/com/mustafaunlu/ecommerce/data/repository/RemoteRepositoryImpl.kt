@@ -5,9 +5,11 @@ import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
+import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import com.mustafaunlu.ecommerce.data.source.remote.RemoteDataSource
 import com.mustafaunlu.ecommerce.di.coroutine.IoDispatcher
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
+import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
@@ -28,6 +30,7 @@ class RemoteRepositoryImpl @Inject constructor(
     private val allProductsMapper: ProductListMapper<Product, AllProductsEntity>,
     private val singleProductMapper: ProductBaseMapper<Product, SingleProductEntity>,
     private val userInfoEntityMapper: ProductBaseMapper<UserInfo, UserInformationEntity>,
+    private val userSignUpEntityMapper: ProductBaseMapper<UserSignUp, SignUpUserEntity>
 ) : RemoteRepository {
     override fun getProductsListFromApi(): Flow<NetworkResponseState<List<AllProductsEntity>>> {
         return remoteDataSource.getProductsListFromApi().map {
@@ -94,6 +97,16 @@ class RemoteRepositoryImpl @Inject constructor(
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading
                 is NetworkResponseState.Success -> NetworkResponseState.Success(userInfoEntityMapper.map(it.result))
+                is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
+            }
+        }.flowOn(ioDispatcher)
+    }
+
+    override fun postSignUpRequest(user: UserSignUp): Flow<NetworkResponseState<SignUpUserEntity>> {
+        return remoteDataSource.postSignUpRequest(user).map {
+            when (it) {
+                is NetworkResponseState.Loading -> NetworkResponseState.Loading
+                is NetworkResponseState.Success -> NetworkResponseState.Success(userSignUpEntityMapper.map(it.result))
                 is NetworkResponseState.Error -> NetworkResponseState.Error(it.exception)
             }
         }.flowOn(ioDispatcher)

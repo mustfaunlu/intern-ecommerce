@@ -3,6 +3,7 @@ package com.mustafaunlu.ecommerce.data.repository
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.source.local.LocalDataSource
 import com.mustafaunlu.ecommerce.di.coroutine.IoDispatcher
+import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.repository.LocalRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -38,6 +39,24 @@ class LocalRepositoryImpl @Inject constructor(
     override suspend fun updateUserCartItem(userCartEntity: UserCartEntity) {
         withContext(ioDispatcher) {
             localDataSource.updateUserCartFromDb(userCartEntity)
+        }
+    }
+
+    override suspend fun getFavoriteProductsFromLocal(): Flow<NetworkResponseState<List<FavoriteItemEntity>>> {
+        return flow {
+            emit(NetworkResponseState.Success(localDataSource.getFavoriteProductsFromDb()))
+        }.flowOn(ioDispatcher)
+    }
+
+    override suspend fun insertFavoriteItemToDb(favoriteItemEntity: FavoriteItemEntity) {
+        withContext(ioDispatcher) {
+            localDataSource.insertFavoriteItemToDb(favoriteItemEntity)
+        }
+    }
+
+    override suspend fun deleteFavoriteItem(favoriteItemEntity: FavoriteItemEntity) {
+        withContext(ioDispatcher) {
+            localDataSource.deleteFavoriteItemFromDb(favoriteItemEntity)
         }
     }
 }

@@ -50,19 +50,25 @@
             tools:text="Rating"
             style="@style/ProductTextView"/>
 
-        <Button
-            android:id="@+id/btn_add_to_cart"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_to_cart"
-            android:layout_margin="5dp"/>
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_add_to_cart"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_cart"
+                android:layout_margin="5dp"/>
 
-        <Button
-            android:id="@+id/btn_shopping_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/my_shopping_list"
-            android:layout_margin="5dp" />
+            <Button
+                android:id="@+id/favorite_btn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_favorite"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
 
     </LinearLayout>
     <ImageView

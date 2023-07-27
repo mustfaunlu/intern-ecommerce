@@ -1,6 +1,8 @@
 package com.mustafaunlu.ecommerce.presentation.mapper
 
+import com.mustafaunlu.ecommerce.common.FavoriteUiData
 import com.mustafaunlu.ecommerce.common.UserCartUiData
+import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
@@ -30,6 +32,18 @@ class SingleCartUiMapper @Inject constructor() : ProductBaseMapper<UserCartUiDat
             quantity = input.quantity,
             title = input.title,
             image = input.imageUrl,
+        )
+    }
+}
+class SingleCartToFavoriteEntityMapper @Inject constructor() : ProductBaseMapper<UserCartEntity, FavoriteItemEntity> {
+    override fun map(input: UserCartEntity): FavoriteItemEntity {
+        return FavoriteItemEntity(
+            userId = input.userId,
+            productId = input.productId,
+            price = input.price,
+            quantity = input.quantity,
+            title = input.title,
+            image = input.image,
         )
     }
 }

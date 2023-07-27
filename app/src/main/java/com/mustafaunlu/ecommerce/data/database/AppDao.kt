@@ -6,10 +6,11 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 
 @Dao
-interface CartDao {
+interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserCart(userCartEntity: UserCartEntity)
 
@@ -21,4 +22,13 @@ interface CartDao {
 
     @Update
     suspend fun updateUserCartItem(userCartEntity: UserCartEntity)
+
+    @Query("SELECT * FROM favorite_items")
+    suspend fun getFavoriteProducts(): List<FavoriteItemEntity>
+
+    @Insert(FavoriteItemEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavoriteItem(favoriteItemEntity: FavoriteItemEntity)
+
+    @Delete(FavoriteItemEntity::class)
+    suspend fun deleteFavoriteItem(favoriteItemEntity: FavoriteItemEntity)
 }

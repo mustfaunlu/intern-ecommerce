@@ -81,6 +81,10 @@ class MainActivity : AppCompatActivity() {
                     updateBottomNavigationVisibility(true)
                     setActionBarProperties(getString(R.string.title_product_info))
                 }
+                R.id.favoriteFragment -> {
+                    updateBottomNavigationVisibility(true)
+                    setActionBarProperties(getString(R.string.title_favorite))
+                }
                 else -> {
                     updateBottomNavigationVisibility(false)
                     supportActionBar?.hide()

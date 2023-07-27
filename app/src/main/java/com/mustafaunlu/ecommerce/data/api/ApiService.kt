@@ -1,10 +1,12 @@
 package com.mustafaunlu.ecommerce.data.api
 
+import com.mustafaunlu.ecommerce.data.api.ApiService.Companion.ADD_USER
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.Products
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
+import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -33,6 +35,9 @@ interface ApiService {
     @GET(USERS)
     suspend fun getUserInformationByIdFromApi(@Path(ID) userId: Int): UserInfo
 
+    @POST(ADD_USER)
+    suspend fun postAddUserRequest(@Body user: UserSignUp): UserSignUp
+
     companion object {
         const val PRODUCTS = "products"
         const val SEARCH_PRODUCTS = "products/search"
@@ -43,5 +48,6 @@ interface ApiService {
         const val CATEGORY_NAME = "categoryName"
         const val PRODUCTS_CATEGORY = "products/category/{$CATEGORY_NAME}"
         const val USERS = "users/{$ID}"
+        const val ADD_USER = "users/add"
     }
 }
