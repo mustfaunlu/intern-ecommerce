@@ -2,26 +2,17 @@ package com.mustafaunlu.ecommerce.utils
 
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.mustafaunlu.ecommerce.common.Constants
 import javax.inject.Inject
 
 class TokenManager @Inject constructor(
     private val sharedPref: SharedPreferences,
 ) {
-    private val _isTokenValid = MutableLiveData(isTokenValid())
-    val isTokenValid: LiveData<Boolean> get() = _isTokenValid
     fun saveToken(token: String, expirationTime: Long) {
         sharedPref.edit().apply {
             putString(Constants.USER_TOKEN, token).apply()
             putLong(Constants.USER_TOKEN_EXPIRATION_TIME, expirationTime).apply()
         }
-    }
-
-    fun checkTokenValidity() {
-        val isTokenValid = (System.currentTimeMillis() / 1000) < getTokenExpirationTime()
-        _isTokenValid.value = isTokenValid
     }
 
     fun getToken(): String? {
@@ -39,7 +30,7 @@ class TokenManager @Inject constructor(
 
     fun isTokenValid(): Boolean {
         val expirationTime = getTokenExpirationTime()
-        Log.d("TokenManager", "Token system time: ${System.currentTimeMillis() / 1000} < Token expiration time: $expirationTime")
+        Log.d("TokenManager", "Token is valid: ${System.currentTimeMillis() / 1000 < expirationTime}")
         return (System.currentTimeMillis() / 1000) < expirationTime
     }
 }

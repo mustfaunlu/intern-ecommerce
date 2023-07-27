@@ -1,6 +1,7 @@
 package com.mustafaunlu.ecommerce.common
 
 object Constants {
+    const val PREF_SELECTED_IMAGE_URI = "PREF_SELECTED_IMAGE_URI"
     const val SHARED_PREF_FILE_NAME = "userData"
     const val SHARED_PREF_USERID_KEY = "userId"
     const val SHARED_PREF_DEF = ""

@@ -10,7 +10,8 @@ class CartUiMapper @Inject constructor() : ProductListMapper<UserCartEntity, Use
     override fun map(input: List<UserCartEntity>): List<UserCartUiData> {
         return input.map {
             UserCartUiData(
-                id = it.productId,
+                userId = it.userId,
+                productId = it.productId,
                 price = it.price,
                 quantity = it.quantity,
                 title = it.title,
@@ -23,8 +24,8 @@ class CartUiMapper @Inject constructor() : ProductListMapper<UserCartEntity, Use
 class SingleCartUiMapper @Inject constructor() : ProductBaseMapper<UserCartUiData, UserCartEntity> {
     override fun map(input: UserCartUiData): UserCartEntity {
         return UserCartEntity(
-            userId = 0,
-            productId = input.id,
+            userId = input.userId,
+            productId = input.productId,
             price = input.price,
             quantity = input.quantity,
             title = input.title,

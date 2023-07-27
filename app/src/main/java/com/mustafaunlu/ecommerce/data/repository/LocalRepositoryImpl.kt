@@ -34,4 +34,10 @@ class LocalRepositoryImpl @Inject constructor(
             localDataSource.deleteUserCartFromDb(userCartEntity)
         }
     }
+
+    override suspend fun updateUserCartItem(userCartEntity: UserCartEntity) {
+        withContext(ioDispatcher) {
+            localDataSource.updateUserCartFromDb(userCartEntity)
+        }
+    }
 }

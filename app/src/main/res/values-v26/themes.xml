@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
 
-<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.Material3.Light">
-        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@android:color/transparent</item>
-        <item name="android:windowSplashScreenAnimationDuration" tools:ignore="NewApi">0</item>
-        <item name="android:windowDisablePreview">true</item>
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>

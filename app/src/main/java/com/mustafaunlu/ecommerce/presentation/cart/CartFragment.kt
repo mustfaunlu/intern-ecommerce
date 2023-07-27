@@ -13,6 +13,7 @@ import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
+import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.showToast
@@ -27,6 +28,7 @@ class CartFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: CartViewModel by viewModels()
     private lateinit var adapter: CartListAdapter
+    private lateinit var totalPrice: String
 
     @Inject
     lateinit var sharedPref: SharedPreferences
@@ -39,12 +41,16 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val userId = getUserIdFromSharedPref()
         viewModel.getCartsByUserId(userId.toInt())
-        adapter = CartListAdapter(::onItemLongClicked)
+        adapter = CartListAdapter(::onItemLongClicked, ::updateTotalPrice, ::updateCartItem)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        checkInternetConnection()
+        viewModel.totalPriceLiveData.observe(viewLifecycleOwner) { totalPrice ->
+            this.totalPrice = totalPrice.toString()
+            binding.totalPrice.text = totalPrice.toString()
+        }
         viewModel.userCarts.observe(viewLifecycleOwner) { userCartState ->
             when (userCartState) {
                 is ScreenState.Error -> {
@@ -64,12 +70,33 @@ class CartFragment : Fragment() {
         return sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF) ?: SHARED_PREF_DEF
     }
 
+    private fun updateTotalPrice() {
+        val cartList = adapter.currentList
+        val totalPrice = calculateTotalPrice(cartList)
+        viewModel.updateTotalPrice(totalPrice)
+    }
+
+    private fun updateCartItem(userCartUiData: UserCartUiData) {
+        viewModel.updateUserCartItem(userCartUiData)
+    }
+
     private fun onItemLongClicked(userCartUiData: UserCartUiData) {
         this.showConfirmationDialog(getString(R.string.shopping_list_delete_warn)) {
             viewModel.deleteUserCartItem(userCartUiData)
-            adapter.submitList(adapter.currentList.filter { it.id != userCartUiData.id })
+            val newList = adapter.currentList.filter { it.productId != userCartUiData.productId }
+            adapter.submitList(newList)
+            totalPrice = calculateTotalPrice(newList).toString()
+            binding.totalPrice.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
         }
+    }
+
+    private fun calculateTotalPrice(cartList: List<UserCartUiData>): Double {
+        var totalPrice = 0.0
+        for (cart in cartList) {
+            totalPrice += cart.price * cart.quantity
+        }
+        return totalPrice
     }
 
     override fun onDestroy() {

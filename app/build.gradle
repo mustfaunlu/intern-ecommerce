@@ -54,6 +54,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.4.0'
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
 
     // Navigation Component
     def nav_version = "2.6.0"

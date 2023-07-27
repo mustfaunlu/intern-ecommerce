@@ -6,6 +6,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
@@ -73,4 +75,10 @@ abstract class UseCaseModule {
     abstract fun bindUserInfoUseCase(
         userInfoUseCaseImpl: UserInfoUseCaseImpl,
     ): UserInfoUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUpdateCartUseCase(
+        updateCartUseCaseImpl: UpdateCartUseCaseImpl,
+    ): UpdateCartUseCase
 }

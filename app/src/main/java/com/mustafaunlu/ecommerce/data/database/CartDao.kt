@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 
 @Dao
@@ -17,4 +18,7 @@ interface CartDao {
 
     @Delete
     suspend fun deleteUserCartItem(userCartEntity: UserCartEntity)
+
+    @Update
+    suspend fun updateUserCartItem(userCartEntity: UserCartEntity)
 }

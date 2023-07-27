@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ecommerce</string>
     <string name="navbar_menu_home">Home</string>
@@ -40,6 +41,7 @@
     <string name="progress_bar">progress bar</string>
     <string name="profile_picture_content_desc">Profile Picture</string>
     <string name="no_internet_connection_dialog">Internet connection is not available. Would you like to go to settings and enable it?</string>
+    <string name="title_activity_splash">SplashActivity</string>
     <string name="splash_txt">Shop Smart, Shop Easy, Shop with Us!</string>
     <string name="total_price_format">"Total Price: "</string>
     <string name="switch_theme_txt">Switch Theme</string>

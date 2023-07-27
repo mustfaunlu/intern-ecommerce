@@ -17,6 +17,7 @@ import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.common.SingleProductUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
+import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.loadImage
 import com.mustafaunlu.ecommerce.utils.showToast
@@ -48,7 +49,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        checkInternetConnection()
         setupProductDetail()
         setupAddToCartButton()
         setupShoppingListButton()

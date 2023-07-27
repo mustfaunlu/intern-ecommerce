@@ -11,4 +11,6 @@ interface LocalRepository {
     suspend fun insertCartToDb(userCartEntity: UserCartEntity)
 
     suspend fun deleteUserCartItem(userCartEntity: UserCartEntity)
+
+    suspend fun updateUserCartItem(userCartEntity: UserCartEntity)
 }

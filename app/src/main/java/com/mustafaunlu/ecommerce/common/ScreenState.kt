@@ -24,7 +24,8 @@ data class SingleProductUiData(
 )
 
 data class UserCartUiData(
-    val id: Int,
+    val userId: Int,
+    val productId: Int,
     val price: Int,
     val quantity: Int,
     val title: String,

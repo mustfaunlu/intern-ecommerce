@@ -12,6 +12,7 @@ import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val cartUseCase: CartUseCase,
+    private val updateCartUseCase: UpdateCartUseCase,
     private val deleteCartUseCase: DeleteUserCartUseCase,
     private val mapper: ProductListMapper<UserCartEntity, UserCartUiData>,
     private val singleMapper: ProductBaseMapper<UserCartUiData, UserCartEntity>,
@@ -26,6 +28,8 @@ class CartViewModel @Inject constructor(
     private val _userCarts = MutableLiveData<ScreenState<List<UserCartUiData>>>()
     val userCarts: LiveData<ScreenState<List<UserCartUiData>>> get() = _userCarts
 
+    private val _totalPriceLiveData: MutableLiveData<Double> = MutableLiveData()
+    val totalPriceLiveData: LiveData<Double> get() = _totalPriceLiveData
     fun getCartsByUserId(userId: Int) {
         viewModelScope.launch {
             cartUseCase(userId).collect {
@@ -37,9 +41,18 @@ class CartViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateTotalPrice(totalPrice: Double) {
+        _totalPriceLiveData.value = totalPrice
+    }
     fun deleteUserCartItem(userCartUiData: UserCartUiData) {
         viewModelScope.launch() {
             deleteCartUseCase(singleMapper.map(userCartUiData))
+        }
+    }
+    fun updateUserCartItem(userCartUiData: UserCartUiData) {
+        viewModelScope.launch() {
+            updateCartUseCase(singleMapper.map(userCartUiData))
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mustafaunlu.ecommerce.presentation.login
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
 import com.mustafaunlu.ecommerce.utils.TokenManager
+import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.safeNavigate
 import com.mustafaunlu.ecommerce.utils.showToast
@@ -78,6 +80,7 @@ class LoginFragment : Fragment() {
                         loading.gone()
                         loginBtn.isEnabled = true
                     }
+                    checkInternetConnection()
                     requireView().showToast(getString(R.string.check_username_pass))
                 }
             }
@@ -100,6 +103,7 @@ class LoginFragment : Fragment() {
         ).also {
             it.tap { decodedJWT ->
                 expirationTime = decodedJWT.claimValueAsLong("exp").getOrElse { 0L }.toString()
+                Log.d("LoginFragment", "Expiration time: $expirationTime")
             }
         }
     }
