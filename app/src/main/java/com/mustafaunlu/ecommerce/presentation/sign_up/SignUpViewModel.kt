@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presentation.sign_up
+package com.mustafaunlu.ecommerce.presentation.sign_up // ktlint-disable package-name
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,7 +29,13 @@ class SignUpViewModel @Inject constructor(
                 when (it) {
                     is NetworkResponseState.Error -> _signUp.postValue(ScreenState.Error(it.exception.message.toString()))
                     NetworkResponseState.Loading -> _signUp.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _signUp.postValue(ScreenState.Success(mapper.map(it.result)))
+                    is NetworkResponseState.Success -> _signUp.postValue(
+                        ScreenState.Success(
+                            mapper.map(
+                                it.result,
+                            ),
+                        ),
+                    )
                 }
             }
         }

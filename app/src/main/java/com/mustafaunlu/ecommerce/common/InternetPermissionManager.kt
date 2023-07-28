@@ -8,7 +8,7 @@ import android.net.NetworkCapabilities
 import android.provider.Settings
 import javax.inject.Inject
 
-class PermissionManager @Inject constructor(private val activity: Activity) {
+class InternetPermissionManager @Inject constructor(private val activity: Activity) {
 
     fun enableInternet() {
         val intent = Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS)

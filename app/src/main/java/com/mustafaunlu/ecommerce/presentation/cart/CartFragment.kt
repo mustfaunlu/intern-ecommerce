@@ -44,16 +44,21 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val userId = getUserIdFromSharedPref()
         viewModel.getCartsByUserId(userId.toInt())
-        adapter = CartListAdapter(::onItemLongClicked, ::updateTotalPrice, ::updateCartItem, ::onItemShortClicked)
+        adapter = CartListAdapter(::onItemLongClicked, ::updateSubmittedAdapterItemsTotalPrice, ::updateCartItemWhenClickedIncDecButton, ::onItemShortClicked)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkInternetConnection()
+        setupObserver()
+    }
+
+    private fun setupObserver() {
         viewModel.totalPriceLiveData.observe(viewLifecycleOwner) { totalPrice ->
             this.totalPrice = totalPrice.toString()
             binding.totalPrice.text = totalPrice.toString()
         }
+
         viewModel.userCarts.observe(viewLifecycleOwner) { userCartState ->
             when (userCartState) {
                 is ScreenState.Error -> {
@@ -69,17 +74,18 @@ class CartFragment : Fragment() {
             }
         }
     }
+
     private fun getUserIdFromSharedPref(): String {
         return sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF) ?: SHARED_PREF_DEF
     }
 
-    private fun updateTotalPrice() {
+    private fun updateSubmittedAdapterItemsTotalPrice() {
         val cartList = adapter.currentList
         val totalPrice = calculateTotalPrice(cartList)
         viewModel.updateTotalPrice(totalPrice)
     }
 
-    private fun updateCartItem(userCartUiData: UserCartUiData) {
+    private fun updateCartItemWhenClickedIncDecButton(userCartUiData: UserCartUiData) {
         viewModel.updateUserCartItem(userCartUiData)
     }
 
@@ -91,10 +97,13 @@ class CartFragment : Fragment() {
             totalPrice = calculateTotalPrice(newList).toString()
             binding.totalPrice.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
-            if (newList.isEmpty()) {
-                sharedPref.edit().putBoolean(SHARED_PREF_BADGE, false).apply()
-                showBadgeVisibility(false)
-            }
+            setBadgeVisibility(newList.isEmpty())
+        }
+    }
+    private fun setBadgeVisibility(isListEmpty: Boolean) {
+        if (isListEmpty) {
+            sharedPref.edit().putBoolean(SHARED_PREF_BADGE, false).apply()
+            showBadgeVisibility(false)
         }
     }
 
@@ -109,11 +118,6 @@ class CartFragment : Fragment() {
             totalPrice += cart.price * cart.quantity
         }
         return totalPrice
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     override fun onDestroyView() {

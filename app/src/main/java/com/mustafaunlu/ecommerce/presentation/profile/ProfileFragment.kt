@@ -12,6 +12,7 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +23,7 @@ import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentProfileBinding
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
+import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,6 +38,25 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var sharedPrefs: SharedPreferences
 
+    private val imagePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val selectedImageUri: Uri? = result.data?.data
+            binding.pfpImage.setImageURI(selectedImageUri)
+
+            selectedImageUri?.let {
+                val base64Image = convertImageToBase64(requireContext(), it)
+                sharedPrefs.edit().putString(Constants.PREF_SELECTED_IMAGE_URI, base64Image).apply()
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        imagePickerLauncher
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,10 +68,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkInternetConnection()
         fetchUserInfo()
         observeUserInfo()
-        checkInternetConnection()
-
         displayProfilePicture()
 
         binding.pfpImage.setOnClickListener {
@@ -58,23 +78,29 @@ class ProfileFragment : Fragment() {
         }
 
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, true).apply()
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, false).apply()
-            }
+            themeSwitchLogic(isChecked)
         }
 
         binding.btnExit.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+            showConfirmationDialog(getString(R.string.do_you_want_to_exit)) {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+            }
+        }
+    }
+
+    private fun themeSwitchLogic(isChecked: Boolean) {
+        if (isChecked) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, true).apply()
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, false).apply()
         }
     }
 
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, REQUEST_IMAGE_PICKER)
+        imagePickerLauncher.launch(intent)
     }
 
     private fun fetchUserInfo() {
@@ -104,24 +130,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_PICKER && resultCode == Activity.RESULT_OK && data != null) {
-            val selectedImageUri: Uri? = data.data
-            // Do something with the selected image URI, for example, set it to the ImageView
-            binding.pfpImage.setImageURI(selectedImageUri)
-
-            // Save the selected image as a Base64 string in SharedPreferences
-            selectedImageUri?.let {
-                val base64Image = convertImageToBase64(requireContext(), it)
-                sharedPrefs.edit().putString(Constants.PREF_SELECTED_IMAGE_URI, base64Image).apply()
-            }
-        }
-    }
 
     private fun convertImageToBase64(context: Context, imageUri: Uri): String {
         val inputStream = context.contentResolver.openInputStream(imageUri)
@@ -139,15 +147,17 @@ class ProfileFragment : Fragment() {
         val base64Image = sharedPrefs.getString(Constants.PREF_SELECTED_IMAGE_URI, null)
         if (!base64Image.isNullOrEmpty()) {
             val byteArray = Base64.decode(base64Image, Base64.DEFAULT)
-            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            val bitmap = BitmapFactory.decodeByteArray(byteArray, OFFSET, byteArray.size)
             binding.pfpImage.setImageBitmap(bitmap)
         } else {
-            // If there's no stored profile picture, set the default "+" drawable
             binding.pfpImage.setImageResource(R.drawable.ic_plus)
         }
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
-        private const val REQUEST_IMAGE_PICKER = 100
+        private const val OFFSET = 0
     }
 }

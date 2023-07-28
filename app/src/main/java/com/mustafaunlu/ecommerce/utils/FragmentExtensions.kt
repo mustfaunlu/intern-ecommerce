@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.PermissionManager
+import com.mustafaunlu.ecommerce.common.InternetPermissionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -33,7 +33,7 @@ fun Fragment.checkInternetConnection() {
     viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
         val context = context ?: return@launch
 
-        val isInternetAvailable = PermissionManager(requireActivity()).isInternetAvailable(context)
+        val isInternetAvailable = InternetPermissionManager(requireActivity()).isInternetAvailable(context)
 
         requireActivity().runOnUiThread {
             if (isInternetAvailable) {
@@ -43,7 +43,7 @@ fun Fragment.checkInternetConnection() {
                     getString(R.string.no_internet_connection_dialog),
                     onConfirm = {
                         if (isAdded) {
-                            PermissionManager(requireActivity()).enableInternet()
+                            InternetPermissionManager(requireActivity()).enableInternet()
                         }
                     },
                 )

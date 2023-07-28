@@ -3,12 +3,15 @@ package com.mustafaunlu.ecommerce
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.mustafaunlu.ecommerce.databinding.ActivitySplashBinding
 import com.mustafaunlu.ecommerce.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -23,10 +26,13 @@ class SplashActivity : AppCompatActivity() {
         setContentView(view)
         supportActionBar?.hide()
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 3000)
+        lifecycleScope.launch {
+            delay(3000)
+            withContext(Dispatchers.Main) {
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
         getAllCategory()
         getAllProducts()
     }
-    fun getAllProducts() {
+    private fun getAllProducts() {
         getAllProductsUseCase().onEach {
             when (it) {
                 is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))

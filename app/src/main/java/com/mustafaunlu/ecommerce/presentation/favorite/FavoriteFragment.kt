@@ -37,6 +37,10 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObserver()
+    }
+
+    private fun setupObserver() {
         viewModel.favoriteCarts.observe(viewLifecycleOwner) { favoriteItem ->
             when (favoriteItem) {
                 is ScreenState.Error -> {
@@ -57,14 +61,16 @@ class FavoriteFragment : Fragment() {
     private fun onItemLongClicked(favoriteUiData: FavoriteUiData) {
         this.showConfirmationDialog(getString(R.string.favorite_list_delete_warn)) {
             viewModel.deleteFavoriteItem(favoriteUiData)
-            val newList = adapter.currentList.filter { it.productId != favoriteUiData.productId }
+            val newList =
+                adapter.currentList.filter { it.productId != favoriteUiData.productId }
             adapter.submitList(newList)
             requireView().showToast(getString(R.string.deleted_favorite_list))
         }
     }
 
     private fun onItemShortClicked(favoriteUiData: FavoriteUiData) {
-        val action = FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(favoriteUiData.productId)
+        val action =
+            FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(favoriteUiData.productId)
         findNavController().navigate(action)
     }
 

@@ -1,21 +1,13 @@
 package com.mustafaunlu.ecommerce.presentation.detail
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context.NOTIFICATION_SERVICE
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.navArgs
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants
@@ -61,7 +53,6 @@ class DetailFragment : Fragment() {
         checkInternetConnection()
         setupProductDetail()
         setupAddToCartButton()
-        //setupReminderButton()
 
         binding.favoriteBtn.setOnClickListener {
             addToFavorite()
@@ -85,45 +76,6 @@ class DetailFragment : Fragment() {
             }
         }
     }
-
-    /*@SuppressLint("MissingPermission")
-    private fun setupReminderButton() {
-        binding.reminderBtn?.setOnClickListener {
-            val pendingIntent: PendingIntent = NavDeepLinkBuilder(requireContext())
-                .setComponentName(MainActivity::class.java)
-                .setGraph(R.navigation.nav_graph)
-                .setDestination(R.id.detailFragment) // Eğer bildirim tıklandığında hangi fragment açılacaksa buraya uygun fragment belirtin
-                .createPendingIntent()
-
-            val CHANNEL_ID = "com.mustafaunlu.ecommerce"
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                // Create the NotificationChannel.
-                val name = "Reminder Channel"
-                val descriptionText = "getString(R.string.channel_description)"
-                val importance = NotificationManager.IMPORTANCE_DEFAULT
-                val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
-                mChannel.description = descriptionText
-                // Register the channel with the system. You can't change the importance
-                // or other notification behaviors after this.
-                val notificationManager = requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.createNotificationChannel(mChannel)
-            }
-
-            val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Title")
-                .setContentText("Content Text")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-
-            with(NotificationManagerCompat.from(requireContext())) {
-                // notificationId is a unique int for each notification that you must define
-                notify(5432, builder.build())
-            }
-        }
-    }*/
-
     @SuppressLint("SetTextI18n")
     private fun bindProductDetailToView(product: SingleProductUiData) {
         binding.apply {

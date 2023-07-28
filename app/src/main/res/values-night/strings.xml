@@ -53,4 +53,5 @@
     <string name="create_account">Create Account</string>
     <string name="your_name_hint">Your name</string>
     <string name="your_surname_hint">Your surname</string>
+    <string name="do_you_want_to_exit">Do you want to exit?</string>
 </resources>

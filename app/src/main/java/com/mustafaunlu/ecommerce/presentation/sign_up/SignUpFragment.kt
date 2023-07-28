@@ -34,12 +34,12 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observer()
         binding.btnCreateAccount.setOnClickListener {
             checkEmptyFields { user ->
                 viewModel.signUp(user)
             }
         }
+        observer()
     }
 
     private fun observer() {
@@ -51,12 +51,12 @@ class SignupFragment : Fragment() {
                 is ScreenState.Success -> {
                     binding.btnCreateAccount.isEnabled = true
                     requireView().showToast(getString(R.string.sign_up_success))
-                    showConfirmationDialog(it.uiData.toString()) {}
                     findNavController().navigate(R.id.loginFragment)
                 }
                 is ScreenState.Error -> {
                     binding.btnCreateAccount.isEnabled = true
                     requireView().showToast(getString(R.string.sign_up_success))
+                    findNavController().navigate(R.id.loginFragment)
                 }
             }
         }
