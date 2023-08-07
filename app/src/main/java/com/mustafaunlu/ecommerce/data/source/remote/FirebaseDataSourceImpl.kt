@@ -66,13 +66,21 @@ class FirebaseDataSourceImpl @Inject constructor(
     }
 
     override fun readUserDataFromFirebase(
-        user: SignUpUserEntity,
-        onSuccess: () -> Unit,
+        userMail: String,
+        onSuccess: (SignUpUserEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        firestore.collection("users").document(user.email).get()
-            .addOnSuccessListener {
-                onSuccess()
+        firestore.collection("users").document(userMail).get()
+            .addOnSuccessListener { snapshot ->
+                onSuccess(
+                    SignUpUserEntity(
+                        firstName = snapshot.getString("name") ?: "",
+                        lastName = snapshot.getString("surname") ?: "",
+                        email = snapshot.getString("email") ?: "",
+                        phone = snapshot.getString("phone") ?: "",
+                        password = "",
+                    )
+                )
             }.addOnFailureListener {
                 onFailure(it.message ?: "An error occurred")
             }

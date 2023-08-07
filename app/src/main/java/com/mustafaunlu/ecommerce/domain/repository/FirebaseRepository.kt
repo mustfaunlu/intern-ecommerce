@@ -25,8 +25,8 @@ interface FirebaseRepository {
     )
 
     fun readUserFromFirebaseDatabase(
-        user: SignUpUserEntity,
-        onSuccess: () -> Unit,
+        userMail: String,
+        onSuccess: (SignUpUserEntity) -> Unit,
         onFailure: (String) -> Unit
     )
 }

@@ -38,10 +38,10 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override fun readUserFromFirebaseDatabase(
-        user: SignUpUserEntity,
-        onSuccess: () -> Unit,
+        userMail: String,
+        onSuccess: (SignUpUserEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        firebaseDataSource.readUserDataFromFirebase(user, onSuccess, onFailure)
+        firebaseDataSource.readUserDataFromFirebase(userMail, onSuccess, onFailure)
     }
 }
