@@ -1,6 +1,5 @@
 package com.mustafaunlu.ecommerce.data.api
 
-import com.mustafaunlu.ecommerce.data.api.ApiService.Companion.ADD_USER
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.Products
 import com.mustafaunlu.ecommerce.data.dto.User
@@ -33,7 +32,7 @@ interface ApiService {
     suspend fun getProductsListByCategoryNameFromApi(@Path(CATEGORY_NAME) categoryName: String): Products
 
     @GET(USERS)
-    suspend fun getUserInformationByIdFromApi(@Path(ID) userId: Int): UserInfo
+    suspend fun getUserInformationByIdFromApi(@Path(ID) userId: String): UserInfo
 
     @POST(ADD_USER)
     suspend fun postAddUserRequest(@Body user: UserSignUp): UserSignUp

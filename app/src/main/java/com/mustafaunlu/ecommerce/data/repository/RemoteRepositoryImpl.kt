@@ -92,7 +92,7 @@ class RemoteRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInformationEntity>> {
+    override fun getUserInformationByIdFromApi(userId: String): Flow<NetworkResponseState<UserInformationEntity>> {
         return remoteDataSource.getUserInformationByIdFromApi(userId).map {
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading
