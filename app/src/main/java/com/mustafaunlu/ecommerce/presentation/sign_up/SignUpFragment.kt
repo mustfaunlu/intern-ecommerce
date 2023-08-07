@@ -10,9 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import com.mustafaunlu.ecommerce.databinding.FragmentSignUpBinding
-import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,15 +53,14 @@ class SignupFragment : Fragment() {
                 }
                 is ScreenState.Error -> {
                     binding.btnCreateAccount.isEnabled = true
-                    requireView().showToast(getString(R.string.sign_up_success))
-                    findNavController().navigate(R.id.loginFragment)
+                    requireView().showToast(getString(R.string.sign_up_error))
                 }
             }
         }
     }
 
     private fun checkEmptyFields(
-        onSuccess: (UserSignUp) -> Unit,
+        onSuccess: (SignUpUserUiData) -> Unit,
     ) {
         val email = binding.email.text.toString()
         val password = binding.password.text.toString()
@@ -72,7 +69,7 @@ class SignupFragment : Fragment() {
 
         if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty()) {
             onSuccess(
-                UserSignUp(
+                SignUpUserUiData(
                     name = name,
                     surname = surname,
                     email = email,

@@ -42,3 +42,15 @@ class UserSignUpUiMapper @Inject constructor() : ProductBaseMapper<SignUpUserEnt
         )
     }
 }
+
+class UserSignUpUiMapperToEntity @Inject constructor() : ProductBaseMapper<SignUpUserUiData, SignUpUserEntity> {
+    override fun map(input: SignUpUserUiData): SignUpUserEntity {
+        return SignUpUserEntity(
+            firstName = input.name,
+            lastName = input.surname,
+            email = input.email,
+            phone = input.phone,
+            password = input.password,
+        )
+    }
+}
