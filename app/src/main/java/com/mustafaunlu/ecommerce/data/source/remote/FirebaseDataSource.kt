@@ -22,4 +22,16 @@ interface FirebaseDataSource {
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit,
     )
+
+    fun writeUserDataToFirebase(
+        user: SignUpUserEntity,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit,
+    )
+
+    fun readUserDataFromFirebase(
+        user: SignUpUserEntity,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit,
+    )
 }

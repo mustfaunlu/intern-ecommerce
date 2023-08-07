@@ -17,4 +17,16 @@ interface FirebaseRepository {
     )
 
     fun forgotPassword(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit)
+
+    fun writeNewUserToFirebaseDatabase(
+        user: SignUpUserEntity,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    )
+
+    fun readUserFromFirebaseDatabase(
+        user: SignUpUserEntity,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    )
 }

@@ -28,4 +28,20 @@ class FirebaseRepositoryImpl @Inject constructor(
     override fun forgotPassword(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         firebaseDataSource.forgotPassword(email, onSuccess, onFailure)
     }
+
+    override fun writeNewUserToFirebaseDatabase(
+        user: SignUpUserEntity,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        firebaseDataSource.writeUserDataToFirebase(user, onSuccess, onFailure)
+    }
+
+    override fun readUserFromFirebaseDatabase(
+        user: SignUpUserEntity,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        firebaseDataSource.readUserDataFromFirebase(user, onSuccess, onFailure)
+    }
 }
