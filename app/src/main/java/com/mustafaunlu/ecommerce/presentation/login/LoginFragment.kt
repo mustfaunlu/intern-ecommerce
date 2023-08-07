@@ -109,7 +109,7 @@ class LoginFragment : Fragment() {
                     }
                     navigateToHomeScreen()
                     requireView().showToast("Welcome ${firebaseLoginState.uiData.email}")
-                    saveUserIdToSharedPref(firebaseLoginState.uiData.password.toString())
+                    saveUserIdToSharedPref(firebaseLoginState.uiData.email)
                 }
                 is ScreenState.Error -> {
                     binding.apply {
@@ -124,12 +124,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun saveUserIdToSharedPref(id: String) {
-        if (binding.firebaseLoginCheckbox!!.isChecked) {
+        if (binding.firebaseLoginCheckbox.isChecked) {
             sharedPref.edit().putString(SHARED_PREF_FIREBASE_USERID_KEY, id).apply()
-            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox!!.isChecked).apply()
+            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
         } else {
             sharedPref.edit().putString(SHARED_PREF_USERID_KEY, id).apply()
-            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox!!.isChecked).apply()
+            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
         }
     }
 
@@ -150,7 +150,7 @@ class LoginFragment : Fragment() {
 
     private fun setupLoginButton() {
         binding.loginBtn.setOnClickListener {
-            if (binding.firebaseLoginCheckbox!!.isChecked) {
+            if (binding.firebaseLoginCheckbox.isChecked) {
                 firebaseLoginLogic()
             } else {
                 apiLoginLogic()

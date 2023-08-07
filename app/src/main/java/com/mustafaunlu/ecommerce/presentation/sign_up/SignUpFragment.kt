@@ -66,6 +66,7 @@ class SignupFragment : Fragment() {
         val password = binding.password.text.toString()
         val name = binding.name.text.toString()
         val surname = binding.surname.text.toString()
+        val phone = binding.phone.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty()) {
             onSuccess(
@@ -73,7 +74,7 @@ class SignupFragment : Fragment() {
                     name = name,
                     surname = surname,
                     email = email,
-                    phone = "",
+                    phone = phone,
                     password = password,
                 ),
             )

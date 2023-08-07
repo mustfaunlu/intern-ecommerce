@@ -104,12 +104,38 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchUserInfo() {
-        val userId = sharedPrefs.getString(
+        val isFirebaseUser = sharedPrefs.getBoolean(
+            Constants.SHARED_PREF_IS_FIREBASE_USER,
+            false,
+        )
+        val userId = getUserIdFromSharedPref()
+        if (isFirebaseUser) {
+            viewModel.getUserInfosFromFirebase(userId)
+        } else {
+            viewModel.getUserInfos(userId)
+        }
+    }
+
+    private fun getUserIdFromSharedPref(): String {
+        val apiUserId = sharedPrefs.getString(
             Constants.SHARED_PREF_USERID_KEY,
             Constants.SHARED_PREF_DEF,
         ) ?: Constants.SHARED_PREF_DEF
 
-        viewModel.getUserInfos(userId.toInt())
+        val firebaseUserId = sharedPrefs.getString(
+            Constants.SHARED_PREF_FIREBASE_USERID_KEY,
+            Constants.SHARED_PREF_DEF,
+        ) ?: Constants.SHARED_PREF_DEF
+
+        val isFirebaseUser = sharedPrefs.getBoolean(
+            Constants.SHARED_PREF_IS_FIREBASE_USER,
+            false,
+        )
+        return if (isFirebaseUser) {
+            firebaseUserId
+        } else {
+            apiUserId
+        }
     }
 
     private fun observeUserInfo() {
@@ -126,6 +152,7 @@ class ProfileFragment : Fragment() {
                         profilePhone.text = userInfo.phone
                     }
                 }
+
                 is ScreenState.Error -> binding.progressBar.gone()
             }
         }
@@ -153,10 +180,12 @@ class ProfileFragment : Fragment() {
             binding.pfpImage.setImageResource(R.drawable.ic_plus)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         private const val OFFSET = 0
     }
