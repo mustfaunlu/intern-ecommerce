@@ -20,6 +20,7 @@ import com.mustafaunlu.ecommerce.presentation.mapper.CartUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.FavoriteItemUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductDetailUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductHomeUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.SignUpUserEntityUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartToFavoriteEntityMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleFavoriteItemUiMapper
@@ -63,6 +64,10 @@ abstract class UiMapperModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUserSignUpUiMapper(userSignUpUiMapper: UserSignUpUiMapper): ProductBaseMapper<SignUpUserEntity, SignUpUserUiData>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSignUpUserEntityMapperToUi(userSignUpUserEntityMapperToUi: SignUpUserEntityUiMapper): ProductBaseMapper<SignUpUserEntity, UserInformationUiData>
 
     @Binds
     @ViewModelScoped
