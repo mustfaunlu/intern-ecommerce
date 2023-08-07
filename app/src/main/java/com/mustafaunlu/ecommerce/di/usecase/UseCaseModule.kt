@@ -14,6 +14,12 @@ import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.FirebaseForgetPwUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.FirebaseForgetPwUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseSignInUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseSignInUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseSignUpUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseSignUpUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCase
@@ -105,4 +111,22 @@ abstract class UseCaseModule {
     abstract fun bindDeleteFavoriteUseCase(
         deleteFavoriteUseCaseImpl: DeleteFavoriteUseCaseImpl,
     ): DeleteFavoriteUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindFirebaseSignUpUseCase(
+        firebaseSignUpUseCaseImpl: FirebaseSignUpUseCaseImpl,
+    ): FirebaseSignUpUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindFirebaseSignInUseCase(
+        firebaseSignInUseCaseImpl: FirebaseSignInUseCaseImpl,
+    ): FirebaseSignInUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindFirebaseForgetPwUseCase(
+        firebaseForgetPwUseCaseImpl: FirebaseForgetPwUseCaseImpl,
+    ): FirebaseForgetPwUseCase
 }
