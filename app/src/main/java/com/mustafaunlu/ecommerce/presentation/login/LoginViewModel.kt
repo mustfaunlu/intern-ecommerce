@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
+import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseSignInUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,9 +20,13 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val userUseCase: UserUseCase,
     private val mapper: ProductBaseMapper<UserResponseEntity, UserUiData>,
+    private val firebaseSignInUseCase: FirebaseSignInUseCase
 ) : ViewModel() {
     private val _loginState = MutableLiveData<ScreenState<UserUiData>>()
     val loginState: LiveData<ScreenState<UserUiData>> get() = _loginState
+
+    private val _firebaseLoginState = MutableLiveData<ScreenState<FirebaseSignInUserEntity>>()
+    val firebaseLoginState: LiveData<ScreenState<FirebaseSignInUserEntity>> get() = _firebaseLoginState
 
     fun login(user: User) {
         viewModelScope.launch {
@@ -35,6 +41,21 @@ class LoginViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun loginWithFirebase(user: FirebaseSignInUserEntity) {
+        viewModelScope.launch {
+            _firebaseLoginState.postValue(ScreenState.Loading)
+            firebaseSignInUseCase.invoke(
+                user,
+                onSuccess = {
+                    _firebaseLoginState.postValue(ScreenState.Success(user))
+                },
+                onFailure = {
+                    _firebaseLoginState.postValue(ScreenState.Error(it))
+                },
+            )
         }
     }
 }

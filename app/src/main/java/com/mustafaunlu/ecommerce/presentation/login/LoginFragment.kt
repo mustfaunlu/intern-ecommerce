@@ -15,6 +15,7 @@ import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
+import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.utils.TokenManager
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
@@ -90,6 +91,32 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.firebaseLoginState.observe(viewLifecycleOwner) { firebaseLoginState ->
+            when (firebaseLoginState) {
+                ScreenState.Loading -> {
+                    binding.apply {
+                        loading.visible()
+                        loginBtn.isEnabled = false
+                    }
+                }
+                is ScreenState.Success -> {
+                    binding.apply {
+                        loading.gone()
+                        loginBtn.isEnabled = true
+                    }
+                    navigateToHomeScreen()
+                }
+                is ScreenState.Error -> {
+                    binding.apply {
+                        loading.gone()
+                        loginBtn.isEnabled = true
+                    }
+                    checkInternetConnection()
+                    requireView().showToast(firebaseLoginState.message)
+                }
+            }
+        }
     }
 
     private fun saveUserIdToSharedPref(id: Int) {
@@ -114,10 +141,16 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupLoginButton() {
-        binding.loginBtn.setOnClickListener { loginLogic() }
+        binding.loginBtn.setOnClickListener {
+            if (binding.firebaseLoginCheckbox!!.isChecked) {
+                firebaseLoginLogic()
+            } else {
+                apiLoginLogic()
+            }
+        }
     }
 
-    private fun loginLogic() {
+    private fun apiLoginLogic() {
         val username = binding.username.text.toString().trim()
         val password = binding.password.text.toString().trim()
 
@@ -128,5 +161,17 @@ class LoginFragment : Fragment() {
 
         val user = User(username, password)
         viewModel.login(user)
+    }
+
+    private fun firebaseLoginLogic() {
+        val email = binding.username.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+
+        if (email.isBlank() || password.isBlank()) {
+            requireView().showToast(getString(R.string.please_not_blanks))
+            return
+        }
+        val user  = FirebaseSignInUserEntity(email, password)
+        viewModel.loginWithFirebase(user)
     }
 }
