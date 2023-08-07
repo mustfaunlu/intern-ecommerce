@@ -53,7 +53,7 @@ class SignupFragment : Fragment() {
                 }
                 is ScreenState.Error -> {
                     binding.btnCreateAccount.isEnabled = true
-                    requireView().showToast(getString(R.string.sign_up_error))
+                    requireView().showToast(it.message)
                 }
             }
         }
