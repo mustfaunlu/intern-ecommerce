@@ -6,7 +6,7 @@ import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(private val appDao: AppDao) : LocalDataSource {
-    override suspend fun getUserCartByUserIdFromDb(userId: Int): List<UserCartEntity> {
+    override suspend fun getUserCartByUserIdFromDb(userId: String): List<UserCartEntity> {
         return appDao.getCartByUserId(userId)
     }
 
@@ -22,8 +22,8 @@ class LocalDataSourceImpl @Inject constructor(private val appDao: AppDao) : Loca
         appDao.updateUserCartItem(userCartEntity)
     }
 
-    override suspend fun getFavoriteProductsFromDb(): List<FavoriteItemEntity> {
-        return appDao.getFavoriteProducts()
+    override suspend fun getFavoriteProductsFromDb(userId: String): List<FavoriteItemEntity> {
+        return appDao.getFavoriteProducts(userId)
     }
 
     override suspend fun insertFavoriteItemToDb(favoriteItemEntity: FavoriteItemEntity) {

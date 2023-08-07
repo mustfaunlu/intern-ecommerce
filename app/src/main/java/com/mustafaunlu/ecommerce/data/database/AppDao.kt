@@ -15,7 +15,7 @@ interface AppDao {
     suspend fun insertUserCart(userCartEntity: UserCartEntity)
 
     @Query("SELECT * FROM user_carts WHERE userId = :userId")
-    suspend fun getCartByUserId(userId: Int): List<UserCartEntity>
+    suspend fun getCartByUserId(userId: String): List<UserCartEntity>
 
     @Delete
     suspend fun deleteUserCartItem(userCartEntity: UserCartEntity)
@@ -23,8 +23,8 @@ interface AppDao {
     @Update
     suspend fun updateUserCartItem(userCartEntity: UserCartEntity)
 
-    @Query("SELECT * FROM favorite_items")
-    suspend fun getFavoriteProducts(): List<FavoriteItemEntity>
+    @Query("SELECT * FROM favorite_items WHERE userId = :userId")
+    suspend fun getFavoriteProducts(userId: String): List<FavoriteItemEntity>
 
     @Insert(FavoriteItemEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteItem(favoriteItemEntity: FavoriteItemEntity)

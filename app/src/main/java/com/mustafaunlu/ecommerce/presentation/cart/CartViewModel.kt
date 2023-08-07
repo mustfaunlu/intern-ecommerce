@@ -29,7 +29,7 @@ class CartViewModel @Inject constructor(
 
     private val _totalPriceLiveData: MutableLiveData<Double> = MutableLiveData()
     val totalPriceLiveData: LiveData<Double> get() = _totalPriceLiveData
-    fun getCartsByUserId(userId: Int) {
+    fun getCartsByUserId(userId: String) {
         viewModelScope.launch {
             cartUseCase(userId).collect {
                 when (it) {

@@ -25,13 +25,9 @@ class FavoriteViewModel @Inject constructor(
     private val _favoriteCarts = MutableLiveData<ScreenState<List<FavoriteUiData>>>()
     val favoriteCarts: LiveData<ScreenState<List<FavoriteUiData>>> get() = _favoriteCarts
 
-    init {
-        getFavoriteProducts()
-    }
-
-    private fun getFavoriteProducts() {
+    fun getFavoriteProducts(userId: String) {
         viewModelScope.launch {
-            favoriteUseCase().collect {
+            favoriteUseCase(userId).collect {
                 when (it) {
                     is NetworkResponseState.Error -> _favoriteCarts.postValue(ScreenState.Error(it.exception.message!!))
                     is NetworkResponseState.Loading -> _favoriteCarts.postValue(ScreenState.Loading)

@@ -1,5 +1,6 @@
 package com.mustafaunlu.ecommerce.presentation.favorite
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
+import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentFavoriteBinding
 import com.mustafaunlu.ecommerce.utils.gone
@@ -15,6 +17,7 @@ import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.showToast
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
@@ -23,6 +26,9 @@ class FavoriteFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: FavoriteViewModel by viewModels()
     private lateinit var adapter: FavoriteListAdapter
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +42,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getFavoriteProducts(getUserIdFromSharedPref())
         setupObserver()
     }
 
@@ -54,6 +61,28 @@ class FavoriteFragment : Fragment() {
                     binding.favoriteListview.adapter = adapter
                 }
             }
+        }
+    }
+
+    private fun getUserIdFromSharedPref(): String {
+        val apiUserId = sharedPref.getString(
+            Constants.SHARED_PREF_USERID_KEY,
+            Constants.SHARED_PREF_DEF,
+        ) ?: Constants.SHARED_PREF_DEF
+
+        val firebaseUserId = sharedPref.getString(
+            Constants.SHARED_PREF_FIREBASE_USERID_KEY,
+            Constants.SHARED_PREF_DEF,
+        ) ?: Constants.SHARED_PREF_DEF
+
+        val isFirebaseUser = sharedPref.getBoolean(
+            Constants.SHARED_PREF_IS_FIREBASE_USER,
+            false,
+        )
+        return if (isFirebaseUser) {
+            firebaseUserId
+        } else {
+            apiUserId
         }
     }
 

@@ -4,6 +4,8 @@ object Constants {
     const val PREF_SELECTED_IMAGE_URI = "PREF_SELECTED_IMAGE_URI"
     const val SHARED_PREF_FILE_NAME = "userData"
     const val SHARED_PREF_USERID_KEY = "userId"
+    const val SHARED_PREF_FIREBASE_USERID_KEY = "SHARED_PREF_FIREBASE_USERID_KEY"
+    const val SHARED_PREF_IS_FIREBASE_USER = "SHARED_PREF_IS_FIREBASE_USER"
     const val SHARED_PREF_DEF = ""
     const val SHARED_PREF_BADGE = "cartBadgeVisible"
     const val BASE_URL = "https://dummyjson.com/"

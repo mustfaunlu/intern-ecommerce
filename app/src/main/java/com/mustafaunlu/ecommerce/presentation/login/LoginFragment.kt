@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import arrow.core.getOrElse
 import com.mustafaunlu.ecommerce.R
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
@@ -78,7 +80,7 @@ class LoginFragment : Fragment() {
                     }
                     navigateToHomeScreen()
                     requireView().showToast("Welcome ${loginState.uiData.username}")
-                    saveUserIdToSharedPref(loginState.uiData.id)
+                    saveUserIdToSharedPref(loginState.uiData.id.toString())
                 }
 
                 is ScreenState.Error -> {
@@ -106,6 +108,8 @@ class LoginFragment : Fragment() {
                         loginBtn.isEnabled = true
                     }
                     navigateToHomeScreen()
+                    requireView().showToast("Welcome ${firebaseLoginState.uiData.email}")
+                    saveUserIdToSharedPref(firebaseLoginState.uiData.password.toString())
                 }
                 is ScreenState.Error -> {
                     binding.apply {
@@ -119,10 +123,14 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun saveUserIdToSharedPref(id: Int) {
-        sharedPref.edit()
-            .putString(SHARED_PREF_USERID_KEY, id.toString())
-            .apply()
+    private fun saveUserIdToSharedPref(id: String) {
+        if (binding.firebaseLoginCheckbox!!.isChecked) {
+            sharedPref.edit().putString(SHARED_PREF_FIREBASE_USERID_KEY, id).apply()
+            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox!!.isChecked).apply()
+        } else {
+            sharedPref.edit().putString(SHARED_PREF_USERID_KEY, id).apply()
+            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox!!.isChecked).apply()
+        }
     }
 
     private fun navigateToHomeScreen() {

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalRepository {
 
-    suspend fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>>
+    suspend fun getCartsByUserIdFromLocal(userId: String): Flow<NetworkResponseState<List<UserCartEntity>>>
 
     suspend fun insertCartToDb(userCartEntity: UserCartEntity)
 
@@ -15,7 +15,7 @@ interface LocalRepository {
 
     suspend fun updateUserCartItem(userCartEntity: UserCartEntity)
 
-    suspend fun getFavoriteProductsFromLocal(): Flow<NetworkResponseState<List<FavoriteItemEntity>>>
+    suspend fun getFavoriteProductsFromLocal(userId: String): Flow<NetworkResponseState<List<FavoriteItemEntity>>>
 
     suspend fun insertFavoriteItemToDb(favoriteItemEntity: FavoriteItemEntity)
 

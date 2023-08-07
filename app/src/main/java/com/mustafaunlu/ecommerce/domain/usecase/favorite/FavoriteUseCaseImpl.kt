@@ -9,8 +9,8 @@ import javax.inject.Inject
 class FavoriteUseCaseImpl @Inject constructor(
     private val repository: LocalRepository,
 ) : FavoriteUseCase {
-    override suspend fun invoke(): Flow<NetworkResponseState<List<FavoriteItemEntity>>> =
-        repository.getFavoriteProductsFromLocal()
+    override suspend fun invoke(userId: String): Flow<NetworkResponseState<List<FavoriteItemEntity>>> =
+        repository.getFavoriteProductsFromLocal(userId)
 
     override suspend fun invoke(item: FavoriteItemEntity) {
         repository.insertFavoriteItemToDb(item)

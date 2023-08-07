@@ -10,7 +10,7 @@ class UserCartEntityMapper @Inject constructor() :
     override fun map(input: List<CartResponseProduct>): List<UserCartEntity> {
         return input.map {
             UserCartEntity(
-                userId = 0,
+                userId = 0.toString(),
                 productId = it.id,
                 price = it.price,
                 quantity = it.quantity,

@@ -18,7 +18,7 @@ class LocalRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val localDataSource: LocalDataSource,
 ) : LocalRepository {
-    override suspend fun getCartsByUserIdFromLocal(userId: Int): Flow<NetworkResponseState<List<UserCartEntity>>> {
+    override suspend fun getCartsByUserIdFromLocal(userId: String): Flow<NetworkResponseState<List<UserCartEntity>>> {
         return flow {
             emit(NetworkResponseState.Success(localDataSource.getUserCartByUserIdFromDb(userId)))
         }.flowOn(ioDispatcher)
@@ -42,9 +42,9 @@ class LocalRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFavoriteProductsFromLocal(): Flow<NetworkResponseState<List<FavoriteItemEntity>>> {
+    override suspend fun getFavoriteProductsFromLocal(userId: String): Flow<NetworkResponseState<List<FavoriteItemEntity>>> {
         return flow {
-            emit(NetworkResponseState.Success(localDataSource.getFavoriteProductsFromDb()))
+            emit(NetworkResponseState.Success(localDataSource.getFavoriteProductsFromDb(userId)))
         }.flowOn(ioDispatcher)
     }
 
