@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper

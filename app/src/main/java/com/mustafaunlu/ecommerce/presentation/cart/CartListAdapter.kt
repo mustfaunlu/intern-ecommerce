@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.databinding.CartItemBinding
 import com.mustafaunlu.ecommerce.utils.loadImage
 

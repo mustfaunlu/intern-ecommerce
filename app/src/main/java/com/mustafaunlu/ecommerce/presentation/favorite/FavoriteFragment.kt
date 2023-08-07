@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.FavoriteUiData
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentFavoriteBinding
 import com.mustafaunlu.ecommerce.utils.gone

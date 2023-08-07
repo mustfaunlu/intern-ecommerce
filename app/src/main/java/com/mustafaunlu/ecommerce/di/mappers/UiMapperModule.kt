@@ -1,12 +1,12 @@
 package com.mustafaunlu.ecommerce.di.mappers
 
-import com.mustafaunlu.ecommerce.common.AllProductsUiData
-import com.mustafaunlu.ecommerce.common.FavoriteUiData
-import com.mustafaunlu.ecommerce.common.SignUpUserUiData
-import com.mustafaunlu.ecommerce.common.SingleProductUiData
-import com.mustafaunlu.ecommerce.common.UserCartUiData
-import com.mustafaunlu.ecommerce.common.UserInformationUiData
-import com.mustafaunlu.ecommerce.common.UserUiData
+import com.mustafaunlu.ecommerce.presentation.home.AllProductsUiData
+import com.mustafaunlu.ecommerce.presentation.favorite.FavoriteUiData
+import com.mustafaunlu.ecommerce.presentation.sign_up.SignUpUserUiData
+import com.mustafaunlu.ecommerce.presentation.detail.SingleProductUiData
+import com.mustafaunlu.ecommerce.presentation.cart.UserCartUiData
+import com.mustafaunlu.ecommerce.presentation.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.presentation.login.UserUiData
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
 import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity

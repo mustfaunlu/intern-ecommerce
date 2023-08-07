@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.common.SignUpUserUiData
 import com.mustafaunlu.ecommerce.data.dto.UserSignUp
 import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper

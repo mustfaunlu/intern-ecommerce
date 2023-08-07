@@ -13,7 +13,6 @@ import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_BADGE
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.common.UserCartUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone

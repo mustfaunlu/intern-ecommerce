@@ -1,6 +1,6 @@
 package com.mustafaunlu.ecommerce.presentation.mapper
 
-import com.mustafaunlu.ecommerce.common.FavoriteUiData
+import com.mustafaunlu.ecommerce.presentation.favorite.FavoriteUiData
 import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper

@@ -1,6 +1,6 @@
 package com.mustafaunlu.ecommerce.presentation.mapper
 
-import com.mustafaunlu.ecommerce.common.SingleProductUiData
+import com.mustafaunlu.ecommerce.presentation.detail.SingleProductUiData
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import javax.inject.Inject

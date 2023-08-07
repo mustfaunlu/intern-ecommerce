@@ -14,7 +14,6 @@ import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.common.SingleProductUiData
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection

@@ -1,8 +1,8 @@
 package com.mustafaunlu.ecommerce.presentation.mapper
 
-import com.mustafaunlu.ecommerce.common.SignUpUserUiData
-import com.mustafaunlu.ecommerce.common.UserInformationUiData
-import com.mustafaunlu.ecommerce.common.UserUiData
+import com.mustafaunlu.ecommerce.presentation.sign_up.SignUpUserUiData
+import com.mustafaunlu.ecommerce.presentation.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.presentation.login.UserUiData
 import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
