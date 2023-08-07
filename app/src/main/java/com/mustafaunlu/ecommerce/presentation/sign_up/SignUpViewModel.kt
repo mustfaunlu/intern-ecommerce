@@ -22,6 +22,7 @@ class SignUpViewModel @Inject constructor(
     val signUp: LiveData<ScreenState<SignUpUserUiData>> get() = _signUp
 
     fun signUp(user: SignUpUserUiData) {
+        _signUp.value = ScreenState.Loading
         viewModelScope.launch {
             signUpUseCase.invoke(
                 mapper.map(user),
