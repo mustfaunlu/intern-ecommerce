@@ -1,5 +1,6 @@
 package com.mustafaunlu.ecommerce.domain.repository
 
+import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 
 interface FirebaseRepository {
@@ -10,7 +11,7 @@ interface FirebaseRepository {
     )
 
     fun signInWithFirebase(
-        user: SignUpUserEntity,
+        user: FirebaseSignInUserEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     )

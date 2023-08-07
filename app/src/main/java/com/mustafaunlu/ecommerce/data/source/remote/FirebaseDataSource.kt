@@ -1,5 +1,6 @@
 package com.mustafaunlu.ecommerce.data.source.remote
 
+import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 
 
@@ -11,7 +12,7 @@ interface FirebaseDataSource {
     )
 
     fun signInWithFirebase(
-        user: SignUpUserEntity,
+        user: FirebaseSignInUserEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit,
     )

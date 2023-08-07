@@ -1,6 +1,7 @@
 package com.mustafaunlu.ecommerce.data.source.remote
 
 import com.google.firebase.auth.FirebaseAuth
+import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class FirebaseDataSourceImpl @Inject constructor(
     }
 
     override fun signInWithFirebase(
-        user: SignUpUserEntity,
+        user: FirebaseSignInUserEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
