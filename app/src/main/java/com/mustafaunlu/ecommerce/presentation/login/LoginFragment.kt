@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnForgotPw.setOnClickListener {
-            requireView().showToast("Coming soon...")
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPwFragment)
         }
     }
 
