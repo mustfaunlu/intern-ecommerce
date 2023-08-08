@@ -13,4 +13,16 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="strokeWidth">0dp</item>
     </style>
+
+    <style name="MyTextInputLayoutStyle">
+        <item name="boxCornerRadiusBottomEnd">5dp</item>
+        <item name="boxCornerRadiusBottomStart">5dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+
 </resources>

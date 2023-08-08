@@ -37,6 +37,11 @@ class SignupFragment : Fragment() {
                 viewModel.signUp(user)
             }
         }
+
+        binding.goToLogin.setOnClickListener {
+            val action = SignupFragmentDirections.actionSignupFragmentToLoginFragment()
+            findNavController().navigate(action)
+        }
         observer()
     }
 
@@ -49,7 +54,8 @@ class SignupFragment : Fragment() {
                 is ScreenState.Success -> {
                     binding.btnCreateAccount.isEnabled = true
                     requireView().showToast(getString(R.string.sign_up_success))
-                    findNavController().navigate(R.id.loginFragment)
+                    val action = SignupFragmentDirections.actionSignupFragmentToLoginFragment()
+                    findNavController().navigate(action)
                 }
                 is ScreenState.Error -> {
                     binding.btnCreateAccount.isEnabled = true
