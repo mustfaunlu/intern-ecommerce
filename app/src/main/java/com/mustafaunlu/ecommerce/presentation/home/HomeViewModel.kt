@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +25,7 @@ class HomeViewModel @Inject constructor(
     private val categoryUseCase: CategoryUseCase,
     private val searchUseCase: SearchUseCase,
     private val mapper: ProductListMapper<AllProductsEntity, AllProductsUiData>,
+    private val badgeUseCase: UserCartBadgeUseCase
 ) :
     ViewModel() {
     private val _products = MutableLiveData<ScreenState<List<AllProductsUiData>>>()
@@ -31,9 +34,24 @@ class HomeViewModel @Inject constructor(
     private val _categories = MutableLiveData<ScreenState<List<String>>>()
     val categories: LiveData<ScreenState<List<String>>> get() = _categories
 
+    private val _badge = MutableLiveData<ScreenState<UserCartBadgeEntity>>()
+    val badge: LiveData<ScreenState<UserCartBadgeEntity>> get() = _badge
+
     init {
         getAllCategory()
         getAllProducts()
+    }
+
+    fun getBadgeState (userUniqueInfo: String) {
+        viewModelScope.launch {
+            badgeUseCase(userUniqueInfo).onEach {
+                when (it) {
+                    is NetworkResponseState.Error -> _badge.postValue(ScreenState.Error(it.exception.message!!))
+                    is NetworkResponseState.Loading -> _badge.postValue(ScreenState.Loading)
+                    is NetworkResponseState.Success -> _badge.postValue(ScreenState.Success(it.result))
+                }
+            }.launchIn(viewModelScope)
+        }
     }
     private fun getAllProducts() {
         getAllProductsUseCase().onEach {

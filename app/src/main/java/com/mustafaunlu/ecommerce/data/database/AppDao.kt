@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 
 @Dao
@@ -31,4 +32,10 @@ interface AppDao {
 
     @Delete(FavoriteItemEntity::class)
     suspend fun deleteFavoriteItem(favoriteItemEntity: FavoriteItemEntity)
+
+    @Query("SELECT * FROM user_badges WHERE userUniqueInfo = :userUniqueInfo")
+    fun getUserBadge(userUniqueInfo: String): UserCartBadgeEntity
+
+    @Insert(UserCartBadgeEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserBadge(userBadge: UserCartBadgeEntity)
 }

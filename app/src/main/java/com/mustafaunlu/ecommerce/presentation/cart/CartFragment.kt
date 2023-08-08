@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_BADGE
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
@@ -123,14 +123,10 @@ class CartFragment : Fragment() {
             totalPrice = calculateTotalPrice(newList).toString()
             binding.totalPrice.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
-            setBadgeVisibility(newList.isEmpty())
-        }
-    }
-
-    private fun setBadgeVisibility(isListEmpty: Boolean) {
-        if (isListEmpty) {
-            sharedPref.edit().putBoolean(SHARED_PREF_BADGE, false).apply()
-            showBadgeVisibility(false)
+            if (newList.isEmpty()) {
+                viewModel.setBadgeState(UserCartBadgeEntity(getUserIdFromSharedPref(), false))
+                showBadgeVisibility(false)
+            }
         }
     }
 

@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
@@ -130,8 +130,12 @@ class DetailFragment : Fragment() {
         binding.btnAddToCart.setOnClickListener {
             detailViewModel.addToCart(userCart)
             requireView().showToast(getString(R.string.added_to_cart))
-            showBadgeVisibility(true)
-            sharedPref.edit().putBoolean(Constants.SHARED_PREF_BADGE, true).apply()
+            val badgeEntity = UserCartBadgeEntity(
+                userUniqueInfo = userCart.userId,
+                hasBadge = true,
+            )
+            detailViewModel.insertBadgeStatusToDb(badgeEntity)
+            showBadgeVisibility(badgeEntity.hasBadge)
         }
     }
 

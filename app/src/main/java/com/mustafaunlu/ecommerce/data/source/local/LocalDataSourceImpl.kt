@@ -2,6 +2,7 @@ package com.mustafaunlu.ecommerce.data.source.local
 
 import com.mustafaunlu.ecommerce.data.database.AppDao
 import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import javax.inject.Inject
 
@@ -32,5 +33,13 @@ class LocalDataSourceImpl @Inject constructor(private val appDao: AppDao) : Loca
 
     override suspend fun deleteFavoriteItemFromDb(favoriteItemEntity: FavoriteItemEntity) {
         appDao.deleteFavoriteItem(favoriteItemEntity)
+    }
+
+    override suspend fun getUserCartBadgeStateFromDb(userUniqueInfo: String): UserCartBadgeEntity {
+        return appDao.getUserBadge(userUniqueInfo)
+    }
+
+    override suspend fun insertUserCartBadgeCountToDb(userBadge: UserCartBadgeEntity) {
+        appDao.insertUserBadge(userBadge)
     }
 }

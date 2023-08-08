@@ -4,6 +4,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCase
@@ -145,4 +147,10 @@ abstract class UseCaseModule {
     abstract fun bindFirebaseReadUserUseCase(
         firebaseReadUserCaseImpl: FirebaseReadUserUseCaseImpl,
     ): FirebaseReadUserUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUserCartBadgeUseCase(
+        userCartBadgeUseCaseImpl: UserCartBadgeUseCaseImpl,
+    ): UserCartBadgeUseCase
 }

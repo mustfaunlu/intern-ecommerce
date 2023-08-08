@@ -4,6 +4,7 @@ import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.source.local.LocalDataSource
 import com.mustafaunlu.ecommerce.di.coroutine.IoDispatcher
 import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.repository.LocalRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -57,6 +58,22 @@ class LocalRepositoryImpl @Inject constructor(
     override suspend fun deleteFavoriteItem(favoriteItemEntity: FavoriteItemEntity) {
         withContext(ioDispatcher) {
             localDataSource.deleteFavoriteItemFromDb(favoriteItemEntity)
+        }
+    }
+
+    override suspend fun getUserCartBadgeStateFromLocal(userUniqueInfo: String): Flow<NetworkResponseState<UserCartBadgeEntity>> {
+        return flow {
+            try {
+                emit(NetworkResponseState.Success(localDataSource.getUserCartBadgeStateFromDb(userUniqueInfo)))
+            } catch (e: Exception) {
+                emit(NetworkResponseState.Success(UserCartBadgeEntity("", false)))
+            }
+        }.flowOn(ioDispatcher)
+    }
+
+    override suspend fun insertUserCartBadgeStateToDb(userBadge: UserCartBadgeEntity) {
+        withContext(ioDispatcher) {
+            localDataSource.insertUserCartBadgeCountToDb(userBadge)
         }
     }
 }

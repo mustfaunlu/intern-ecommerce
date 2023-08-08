@@ -52,11 +52,28 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkInternetConnection()
-        showBadgeVisibility(sharedPref.getBoolean(Constants.SHARED_PREF_BADGE, false))
         setObservers()
+        homeViewModel.getBadgeState(getUserIdFromSharedPref())
     }
 
     private fun setObservers() {
+        homeViewModel.badge.observe(viewLifecycleOwner) {
+            when (it) {
+                is ScreenState.Error -> {
+                    binding.progressBar.gone()
+                    requireView().showToast(it.message)
+                }
+
+                is ScreenState.Loading -> {
+                    binding.progressBar.visible()
+                }
+
+                is ScreenState.Success -> {
+                    showBadgeVisibility(it.uiData.hasBadge)
+                    binding.progressBar.gone()
+                }
+            }
+        }
         homeViewModel.products.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
@@ -87,9 +104,10 @@ class HomeFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    binding.rvCategory.adapter = CategoryAdapter(homepageState.uiData) { categoryName ->
-                        getProductsByCategoryName(categoryName)
-                    }
+                    binding.rvCategory.adapter =
+                        CategoryAdapter(homepageState.uiData) { categoryName ->
+                            getProductsByCategoryName(categoryName)
+                        }
                     binding.progressBar.gone()
                 }
             }
@@ -103,6 +121,28 @@ class HomeFragment : Fragment() {
 
     private fun getProductsByCategoryName(categoryName: String) {
         homeViewModel.getProductsByCategory(categoryName)
+    }
+
+    private fun getUserIdFromSharedPref(): String {
+        val apiUserId = sharedPref.getString(
+            Constants.SHARED_PREF_USERID_KEY,
+            Constants.SHARED_PREF_DEF,
+        ) ?: Constants.SHARED_PREF_DEF
+
+        val firebaseUserId = sharedPref.getString(
+            Constants.SHARED_PREF_FIREBASE_USERID_KEY,
+            Constants.SHARED_PREF_DEF,
+        ) ?: Constants.SHARED_PREF_DEF
+
+        val isFirebaseUser = sharedPref.getBoolean(
+            Constants.SHARED_PREF_IS_FIREBASE_USER,
+            false,
+        )
+        return if (isFirebaseUser) {
+            firebaseUserId
+        } else {
+            apiUserId
+        }
     }
 
     @OptIn(FlowPreview::class)
