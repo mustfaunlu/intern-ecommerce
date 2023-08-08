@@ -59,6 +59,10 @@ class LoginFragment : Fragment() {
             val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
             findNavController().navigate(action)
         }
+
+        binding.btnForgotPw.setOnClickListener {
+            requireView().showToast("Coming soon...")
+        }
     }
 
     private fun setupObservers() {
