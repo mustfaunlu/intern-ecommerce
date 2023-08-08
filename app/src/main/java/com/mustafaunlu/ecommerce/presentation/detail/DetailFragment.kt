@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
@@ -57,6 +59,7 @@ class DetailFragment : Fragment() {
             addToFavorite()
         }
     }
+
     private fun setupProductDetail() {
         detailViewModel.product.observe(viewLifecycleOwner) { productState ->
             when (productState) {
@@ -75,6 +78,7 @@ class DetailFragment : Fragment() {
             }
         }
     }
+
     @SuppressLint("SetTextI18n")
     private fun bindProductDetailToView(product: SingleProductUiData) {
         binding.apply {
@@ -86,7 +90,7 @@ class DetailFragment : Fragment() {
 
             val userId = getUserIdFromSharedPref()
             userCart = UserCartEntity(
-                userId = userId.toInt(),
+                userId = userId,
                 productId = product.id,
                 quantity = 1,
                 price = product.price.toInt(),
@@ -97,10 +101,25 @@ class DetailFragment : Fragment() {
     }
 
     private fun getUserIdFromSharedPref(): String {
-        return sharedPref.getString(
+        val apiUserId = sharedPref.getString(
             SHARED_PREF_USERID_KEY,
             SHARED_PREF_DEF,
         ) ?: SHARED_PREF_DEF
+
+        val firebaseUserId = sharedPref.getString(
+            SHARED_PREF_FIREBASE_USERID_KEY,
+            SHARED_PREF_DEF,
+        ) ?: SHARED_PREF_DEF
+
+        val isFirebaseUser = sharedPref.getBoolean(
+            SHARED_PREF_IS_FIREBASE_USER,
+            false,
+        )
+        return if (isFirebaseUser) {
+            firebaseUserId
+        } else {
+            apiUserId
+        }
     }
 
     private fun addToFavorite() {
@@ -111,10 +130,15 @@ class DetailFragment : Fragment() {
         binding.btnAddToCart.setOnClickListener {
             detailViewModel.addToCart(userCart)
             requireView().showToast(getString(R.string.added_to_cart))
-            showBadgeVisibility(true)
-            sharedPref.edit().putBoolean(Constants.SHARED_PREF_BADGE, true).apply()
+            val badgeEntity = UserCartBadgeEntity(
+                userUniqueInfo = userCart.userId,
+                hasBadge = true,
+            )
+            detailViewModel.insertBadgeStatusToDb(badgeEntity)
+            showBadgeVisibility(badgeEntity.hasBadge)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -5,5 +5,5 @@ import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import kotlinx.coroutines.flow.Flow
 
 interface UserInfoUseCase {
-    operator fun invoke(userId: Int): Flow<NetworkResponseState<UserInformationEntity>>
+    operator fun invoke(userId: String): Flow<NetworkResponseState<UserInformationEntity>>
 }

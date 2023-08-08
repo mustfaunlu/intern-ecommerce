@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.presentation.favorite
 
 data class FavoriteUiData(
-    val userId: Int,
+    val userId: String,
     val productId: Int,
     val price: Int,
     val quantity: Int,

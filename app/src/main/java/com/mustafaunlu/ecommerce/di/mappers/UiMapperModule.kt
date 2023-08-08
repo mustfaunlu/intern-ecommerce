@@ -20,11 +20,13 @@ import com.mustafaunlu.ecommerce.presentation.mapper.CartUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.FavoriteItemUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductDetailUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductHomeUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.SignUpUserEntityUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartToFavoriteEntityMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleFavoriteItemUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.UserInformationUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.UserSignUpUiMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.UserSignUpUiMapperToEntity
 import com.mustafaunlu.ecommerce.presentation.mapper.UserUiMapper
 import dagger.Binds
 import dagger.Module
@@ -62,6 +64,14 @@ abstract class UiMapperModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUserSignUpUiMapper(userSignUpUiMapper: UserSignUpUiMapper): ProductBaseMapper<SignUpUserEntity, SignUpUserUiData>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSignUpUserEntityMapperToUi(userSignUpUserEntityMapperToUi: SignUpUserEntityUiMapper): ProductBaseMapper<SignUpUserEntity, UserInformationUiData>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUserSignUpUiMapperToEntity(userSignUpUiMapperToEntity: UserSignUpUiMapperToEntity): ProductBaseMapper<SignUpUserUiData, SignUpUserEntity>
 
     @Binds
     @ViewModelScoped

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class UserInfoUseCaseImpl @Inject constructor(
     private val remoteRepository: RemoteRepository
 ): UserInfoUseCase {
-    override fun invoke(userId: Int): Flow<NetworkResponseState<UserInformationEntity>> {
+    override fun invoke(userId: String): Flow<NetworkResponseState<UserInformationEntity>> {
         return remoteRepository.getUserInformationByIdFromApi(userId)
     }
 }

@@ -24,7 +24,7 @@ interface RemoteRepository {
 
     fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<List<AllProductsEntity>>>
 
-    fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInformationEntity>>
+    fun getUserInformationByIdFromApi(userId: String): Flow<NetworkResponseState<UserInformationEntity>>
 
     fun postSignUpRequest(user: UserSignUp): Flow<NetworkResponseState<SignUpUserEntity>>
 }

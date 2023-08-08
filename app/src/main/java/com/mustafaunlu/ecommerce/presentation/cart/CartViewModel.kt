@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,13 +25,14 @@ class CartViewModel @Inject constructor(
     private val deleteCartUseCase: DeleteUserCartUseCase,
     private val mapper: ProductListMapper<UserCartEntity, UserCartUiData>,
     private val singleMapper: ProductBaseMapper<UserCartUiData, UserCartEntity>,
+    private val badgeUseCase: UserCartBadgeUseCase
 ) : ViewModel() {
     private val _userCarts = MutableLiveData<ScreenState<List<UserCartUiData>>>()
     val userCarts: LiveData<ScreenState<List<UserCartUiData>>> get() = _userCarts
 
     private val _totalPriceLiveData: MutableLiveData<Double> = MutableLiveData()
     val totalPriceLiveData: LiveData<Double> get() = _totalPriceLiveData
-    fun getCartsByUserId(userId: Int) {
+    fun getCartsByUserId(userId: String) {
         viewModelScope.launch {
             cartUseCase(userId).collect {
                 when (it) {
@@ -52,6 +55,12 @@ class CartViewModel @Inject constructor(
     fun updateUserCartItem(userCartUiData: UserCartUiData) {
         viewModelScope.launch() {
             updateCartUseCase(singleMapper.map(userCartUiData))
+        }
+    }
+
+    fun setBadgeState(badgeState: UserCartBadgeEntity) {
+        viewModelScope.launch {
+            badgeUseCase(badgeState)
         }
     }
 }

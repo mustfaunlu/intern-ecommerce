@@ -87,7 +87,7 @@ class RemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInfo>> {
+    override fun getUserInformationByIdFromApi(userId: String): Flow<NetworkResponseState<UserInfo>> {
         return flow {
             try {
                 emit(NetworkResponseState.Loading)

@@ -22,7 +22,7 @@ interface RemoteDataSource {
 
     fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<Products>>
 
-    fun getUserInformationByIdFromApi(userId: Int): Flow<NetworkResponseState<UserInfo>>
+    fun getUserInformationByIdFromApi(userId: String): Flow<NetworkResponseState<UserInfo>>
 
     fun postSignUpRequest(user: UserSignUp): Flow<NetworkResponseState<UserSignUp>>
 }

@@ -31,11 +31,34 @@ class UserInformationUiMapper @Inject constructor() : ProductBaseMapper<UserInfo
     }
 }
 
+class SignUpUserEntityUiMapper @Inject constructor() : ProductBaseMapper<SignUpUserEntity, UserInformationUiData> {
+    override fun map(input: SignUpUserEntity): UserInformationUiData {
+        return UserInformationUiData(
+            name = input.firstName,
+            surname = input.lastName,
+            email = input.email,
+            phone = input.phone,
+            image = "",
+        )
+    }
+}
 class UserSignUpUiMapper @Inject constructor() : ProductBaseMapper<SignUpUserEntity, SignUpUserUiData> {
     override fun map(input: SignUpUserEntity): SignUpUserUiData {
         return SignUpUserUiData(
             name = input.firstName,
             surname = input.lastName,
+            email = input.email,
+            phone = input.phone,
+            password = input.password,
+        )
+    }
+}
+
+class UserSignUpUiMapperToEntity @Inject constructor() : ProductBaseMapper<SignUpUserUiData, SignUpUserEntity> {
+    override fun map(input: SignUpUserUiData): SignUpUserEntity {
+        return SignUpUserEntity(
+            firstName = input.name,
+            lastName = input.surname,
             email = input.email,
             phone = input.phone,
             password = input.password,

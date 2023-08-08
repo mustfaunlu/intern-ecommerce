@@ -1,7 +1,9 @@
 package com.mustafaunlu.ecommerce.di.repository
 
+import com.mustafaunlu.ecommerce.data.repository.FirebaseRepositoryImpl
 import com.mustafaunlu.ecommerce.data.repository.LocalRepositoryImpl
 import com.mustafaunlu.ecommerce.data.repository.RemoteRepositoryImpl
+import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import com.mustafaunlu.ecommerce.domain.repository.LocalRepository
 import com.mustafaunlu.ecommerce.domain.repository.RemoteRepository
 import dagger.Binds
@@ -25,4 +27,10 @@ abstract class RepositoryModule {
     abstract fun bindLocalRepository(
         repository: LocalRepositoryImpl,
     ): LocalRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindFirebaseRepository(
+        repository: FirebaseRepositoryImpl,
+    ): FirebaseRepository
 }

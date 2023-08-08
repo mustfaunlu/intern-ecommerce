@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_BADGE
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
+import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
+import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
@@ -42,10 +44,16 @@ class CartFragment : Fragment() {
     ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val userId = getUserIdFromSharedPref()
-        viewModel.getCartsByUserId(userId.toInt())
-        adapter = CartListAdapter(::onItemLongClicked, ::updateSubmittedAdapterItemsTotalPrice, ::updateCartItemWhenClickedIncDecButton, ::onItemShortClicked)
+        viewModel.getCartsByUserId(userId)
+        adapter = CartListAdapter(
+            ::onItemLongClicked,
+            ::updateSubmittedAdapterItemsTotalPrice,
+            ::updateCartItemWhenClickedIncDecButton,
+            ::onItemShortClicked
+        )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkInternetConnection()
@@ -64,6 +72,7 @@ class CartFragment : Fragment() {
                     binding.progressBar.gone()
                     requireView().showToast(userCartState.message)
                 }
+
                 ScreenState.Loading -> binding.progressBar.visible()
                 is ScreenState.Success -> {
                     binding.progressBar.gone()
@@ -75,7 +84,25 @@ class CartFragment : Fragment() {
     }
 
     private fun getUserIdFromSharedPref(): String {
-        return sharedPref.getString(SHARED_PREF_USERID_KEY, SHARED_PREF_DEF) ?: SHARED_PREF_DEF
+        val apiUserId = sharedPref.getString(
+            SHARED_PREF_USERID_KEY,
+            SHARED_PREF_DEF,
+        ) ?: SHARED_PREF_DEF
+
+        val firebaseUserId = sharedPref.getString(
+            SHARED_PREF_FIREBASE_USERID_KEY,
+            SHARED_PREF_DEF,
+        ) ?: SHARED_PREF_DEF
+
+        val isFirebaseUser = sharedPref.getBoolean(
+            SHARED_PREF_IS_FIREBASE_USER,
+            false,
+        )
+        return if (isFirebaseUser) {
+            firebaseUserId
+        } else {
+            apiUserId
+        }
     }
 
     private fun updateSubmittedAdapterItemsTotalPrice() {
@@ -96,18 +123,16 @@ class CartFragment : Fragment() {
             totalPrice = calculateTotalPrice(newList).toString()
             binding.totalPrice.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
-            setBadgeVisibility(newList.isEmpty())
-        }
-    }
-    private fun setBadgeVisibility(isListEmpty: Boolean) {
-        if (isListEmpty) {
-            sharedPref.edit().putBoolean(SHARED_PREF_BADGE, false).apply()
-            showBadgeVisibility(false)
+            if (newList.isEmpty()) {
+                viewModel.setBadgeState(UserCartBadgeEntity(getUserIdFromSharedPref(), false))
+                showBadgeVisibility(false)
+            }
         }
     }
 
     private fun onItemShortClicked(userCartUiData: UserCartUiData) {
-        val action = CartFragmentDirections.actionCartFragmentToDetailFragment(userCartUiData.productId)
+        val action =
+            CartFragmentDirections.actionCartFragmentToDetailFragment(userCartUiData.productId)
         findNavController().navigate(action)
     }
 

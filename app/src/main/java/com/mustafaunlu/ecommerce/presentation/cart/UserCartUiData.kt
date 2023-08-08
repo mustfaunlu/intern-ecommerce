@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.presentation.cart
 
 data class UserCartUiData(
-    val userId: Int,
+    val userId: String,
     val productId: Int,
     val price: Int,
     val quantity: Int,
