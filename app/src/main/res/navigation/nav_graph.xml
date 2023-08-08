@@ -20,6 +20,9 @@
             app:destination="@id/signupFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPwFragment"
+            app:destination="@id/forgotPwFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -85,4 +88,8 @@
             android:id="@+id/action_favoriteFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/forgotPwFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.forgot_pw.ForgotPwFragment"
+        android:label="ForgotPwFragment" />
 </navigation>
