@@ -57,4 +57,6 @@
     <string name="your_surname_hint">Your surname</string>
     <string name="do_you_want_to_exit">Do you want to exit?</string>
     <string name="sign_up_error">Account not created!</string>
+    <string name="please_enter_your_email">Please Enter Your Email</string>
+    <string name="reset_password">Reset Password</string>
 </resources>
