@@ -26,6 +26,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseSignUpU
 import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseSignUpUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.FirebaseWriteUserCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.FirebaseWriteUserUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.forgot_pw.ForgotPwUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.forgot_pw.ForgotPwUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCase
@@ -153,4 +155,10 @@ abstract class UseCaseModule {
     abstract fun bindUserCartBadgeUseCase(
         userCartBadgeUseCaseImpl: UserCartBadgeUseCaseImpl,
     ): UserCartBadgeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindForgotPwUseCase(
+        forgotPwUseCaseImpl: ForgotPwUseCaseImpl,
+    ): ForgotPwUseCase
 }
