@@ -1,11 +1,13 @@
 package com.mustafaunlu.ecommerce.presentation.login
 
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,6 +28,8 @@ import com.mustafaunlu.ecommerce.utils.showToast
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.nefilim.kjwt.JWT
+import io.github.nefilim.kjwt.toJWTKeyID
+import java.time.Instant
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,7 +43,7 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var tokenManager: TokenManager
 
-    private lateinit var expirationTime: String
+    private var expirationTime: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +54,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
@@ -65,6 +70,7 @@ class LoginFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupObservers() {
         viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
             when (loginState) {
@@ -107,6 +113,8 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is ScreenState.Success -> {
+                    extractExpirationTimeFromToken(createJwtTokenForFirebaseUser())
+                    tokenManager.saveToken(createJwtTokenForFirebaseUser(), expirationTime.toLong())
                     binding.apply {
                         loading.gone()
                         loginBtn.isEnabled = true
@@ -128,12 +136,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun saveUserIdToSharedPref(id: String) {
+        val editor = sharedPref.edit()
         if (binding.firebaseLoginCheckbox.isChecked) {
-            sharedPref.edit().putString(SHARED_PREF_FIREBASE_USERID_KEY, id).apply()
-            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
+            editor.putString(SHARED_PREF_FIREBASE_USERID_KEY, id).apply()
+            editor.putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
         } else {
-            sharedPref.edit().putString(SHARED_PREF_USERID_KEY, id).apply()
-            sharedPref.edit().putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
+            editor.putString(SHARED_PREF_USERID_KEY, id).apply()
+            editor.putBoolean(SHARED_PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
         }
     }
 
@@ -150,6 +159,18 @@ class LoginFragment : Fragment() {
                 Log.d("LoginFragment", "Expiration time: $expirationTime")
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createJwtTokenForFirebaseUser(): String {
+        val now = Instant.now()
+        val expirationTime = now.plusSeconds(180)
+        val jwt = JWT.es256("fb-user123".toJWTKeyID()) {
+            issuedAt(now)
+            claim("exp", expirationTime.epochSecond)
+        }.encode()
+        Log.d("JWT", "Firebase JWT: $jwt")
+        return jwt
     }
 
     private fun setupLoginButton() {

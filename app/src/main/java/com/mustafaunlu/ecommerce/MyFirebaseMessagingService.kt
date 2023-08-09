@@ -67,7 +67,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun scheduleJob() {
         // [START dispatch_job]
-        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
+        val work = OneTimeWorkRequest.Builder(NotificationWorker::class.java).build()
         WorkManager.getInstance(this).beginWith(work).enqueue()
         // [END dispatch_job]
     }

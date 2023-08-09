@@ -1,6 +1,7 @@
 package com.mustafaunlu.ecommerce.presentation
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.mustafaunlu.ecommerce.NotificationWorker
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.databinding.ActivityMainBinding
 import com.mustafaunlu.ecommerce.utils.TokenManager
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -31,12 +36,21 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var tokenManager: TokenManager
 
+    @Inject
+    lateinit var sharedPref: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupFCMToken()
         setupNavigation()
+        if (isAppFirstTimeOpen) {
+            setupLocalNotification()
+            sharedPref.edit().putBoolean("isAppFirstTimeOpen", false).apply()
+        }
+
+
     }
 
     override fun onResume() {
@@ -44,6 +58,19 @@ class MainActivity : AppCompatActivity() {
         if (!tokenManager.isTokenValid()) {
             navController.navigate(R.id.action_global_loginFragment)
         }
+    }
+
+    private val isAppFirstTimeOpen: Boolean
+        get() = sharedPref.getBoolean("isAppFirstTimeOpen", true)
+
+    private fun setupLocalNotification() {
+        val periodicWorkerRequest = PeriodicWorkRequest.Builder(
+            NotificationWorker::class.java,
+            15,
+            TimeUnit.MINUTES
+        ).build()
+
+        WorkManager.getInstance(this).enqueue(periodicWorkerRequest)
     }
     private fun setupFCMToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
