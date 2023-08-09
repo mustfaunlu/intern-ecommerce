@@ -109,9 +109,8 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    // JWT Decode
+    // JWT
     implementation "io.github.nefilim.kjwt:kjwt-core:0.8.0"
-
     implementation "io.github.nefilim.kjwt:kjwt-jwks:0.8.0"
     implementation "io.arrow-kt:arrow-core:1.0.1"
 
