@@ -59,4 +59,5 @@
     <string name="sign_up_error">Account not created!</string>
     <string name="please_enter_your_email">Please Enter Your Email</string>
     <string name="reset_password">Reset Password</string>
+    <string name="do_you_want_to_delete_profile_picture">Do you want to delete profile picture?</string>
 </resources>
