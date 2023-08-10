@@ -22,6 +22,7 @@ import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentProfileBinding
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
+import com.mustafaunlu.ecommerce.utils.getUserIdFromSharedPref
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.visible
@@ -77,6 +78,13 @@ class ProfileFragment : Fragment() {
             openImagePicker()
         }
 
+        binding.pfpImage.setOnLongClickListener {
+            showConfirmationDialog(getString(R.string.do_you_want_to_delete_profile_picture)) {
+                deleteProfilePicture()
+            }
+            true
+        }
+
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
             themeSwitchLogic(isChecked)
         }
@@ -89,13 +97,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun themeSwitchLogic(isChecked: Boolean) {
-        if (isChecked) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, true).apply()
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, false).apply()
-        }
+        val nightMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(nightMode)
+        sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, isChecked).apply()
     }
 
     private fun openImagePicker() {
@@ -104,42 +108,20 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchUserInfo() {
+        val userId = getUserIdFromSharedPref(sharedPrefs)
         val isFirebaseUser = sharedPrefs.getBoolean(
             Constants.SHARED_PREF_IS_FIREBASE_USER,
             false,
         )
-        val userId = getUserIdFromSharedPref()
         if (isFirebaseUser) {
             viewModel.getUserInfosFromFirebase(userId)
         } else {
-            viewModel.getUserInfos(userId)
-        }
-    }
-
-    private fun getUserIdFromSharedPref(): String {
-        val apiUserId = sharedPrefs.getString(
-            Constants.SHARED_PREF_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        ) ?: Constants.SHARED_PREF_DEF
-
-        val firebaseUserId = sharedPrefs.getString(
-            Constants.SHARED_PREF_FIREBASE_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        ) ?: Constants.SHARED_PREF_DEF
-
-        val isFirebaseUser = sharedPrefs.getBoolean(
-            Constants.SHARED_PREF_IS_FIREBASE_USER,
-            false,
-        )
-        return if (isFirebaseUser) {
-            firebaseUserId
-        } else {
-            apiUserId
+            viewModel.getUserInfosFromApi(userId)
         }
     }
 
     private fun observeUserInfo() {
-        viewModel.userInformation.observe(viewLifecycleOwner) { userInfoState ->
+        viewModel.userInfos.observe(viewLifecycleOwner) { userInfoState ->
             when (userInfoState) {
                 ScreenState.Loading -> binding.progressBar.visible()
                 is ScreenState.Success -> {
@@ -179,6 +161,11 @@ class ProfileFragment : Fragment() {
         } else {
             binding.pfpImage.setImageResource(R.drawable.ic_plus)
         }
+    }
+
+    private fun deleteProfilePicture() {
+        sharedPrefs.edit().remove(Constants.PREF_SELECTED_IMAGE_URI).apply()
+        binding.pfpImage.setImageResource(R.drawable.ic_plus)
     }
 
     override fun onDestroyView() {

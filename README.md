@@ -40,6 +40,7 @@ A sample e-commerce app built to demonstrate the use of Modern Android developme
 - [Retrofit](https://square.github.io/retrofit/) A type-safe HTTP client for Android and Java
 - [OkHttp](https://square.github.io/okhttp/) An HTTP client that efficiently make network requests
 - [Glide](https://github.com/bumptech/glide) An image loading and caching library for Android focused on smooth scrolling
+- [ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpager2) ViewPager2 is the replacement of ViewPager, It is a widget that allows the user to swipe left or right to see an entirely new screen.
 - [Moshi](https://github.com/square/moshi) Moshi is a modern JSON library for Android, Java and Kotlin. It makes it easy to parse JSON into Java and Kotlin classes.
 - [Room](https://developer.android.com/training/data-storage/room) The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) WorkManager is an API that makes it easy to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or device restarts.

@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presentation.forgot_pw
+package com.mustafaunlu.ecommerce.presentation.auth.forgot_pw
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,24 +28,27 @@ class ForgotPwFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observer()
 
-        viewModel.forgotPassword.observe(viewLifecycleOwner) {
-            when (it) {
+        binding.btnResetPassword.setOnClickListener {
+            checkEmail { email ->
+                viewModel.forgotPassword(email)
+            }
+        }
+    }
+
+    private fun observer() {
+        viewModel.forgotPassword.observe(viewLifecycleOwner) { forgotPwState ->
+            when (forgotPwState) {
                 is ScreenState.Success -> {
-                    requireView().showToast("Password reset link sent to your email address")
+                    requireView().showToast(getString(R.string.password_reset_link_sent))
                     findNavController().popBackStack()
                 }
 
                 ScreenState.Loading -> {}
                 is ScreenState.Error -> {
-                    requireView().showToast(it.message)
+                    requireView().showToast(forgotPwState.message)
                 }
-            }
-        }
-
-        binding.btnResetPassword.setOnClickListener {
-            checkEmail { email ->
-                viewModel.forgotPassword(email)
             }
         }
     }

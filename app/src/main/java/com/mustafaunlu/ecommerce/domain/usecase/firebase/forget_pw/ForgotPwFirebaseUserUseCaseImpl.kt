@@ -1,11 +1,11 @@
-package com.mustafaunlu.ecommerce.domain.usecase.forgot_pw
+package com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw
 
 import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
-class ForgotPwUseCaseImpl @Inject constructor(
+class ForgotPwFirebaseUserUseCaseImpl @Inject constructor(
     private val repository: FirebaseRepository,
-): ForgotPwUseCase {
+): ForgotPwFirebaseUserUseCase {
     override fun invoke(email: String, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         repository.forgotPassword(
             email,

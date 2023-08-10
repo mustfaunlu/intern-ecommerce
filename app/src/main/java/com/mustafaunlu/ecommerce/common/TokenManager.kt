@@ -1,18 +1,19 @@
-package com.mustafaunlu.ecommerce.utils
+package com.mustafaunlu.ecommerce.common
 
 import android.content.SharedPreferences
 import android.util.Log
-import com.mustafaunlu.ecommerce.common.Constants
+import arrow.core.getOrElse
+import io.github.nefilim.kjwt.JWT
 import javax.inject.Inject
 
 class TokenManager @Inject constructor(
     private val sharedPref: SharedPreferences,
 ) {
-    fun saveToken(token: String, expirationTime: Long) {
-        sharedPref.edit().apply {
-            putString(Constants.USER_TOKEN, token).apply()
-            putLong(Constants.USER_TOKEN_EXPIRATION_TIME, expirationTime).apply()
-        }
+    fun saveToken(token: String) {
+        sharedPref.edit()
+            .putString(Constants.USER_TOKEN, token)
+            .putLong(Constants.USER_TOKEN_EXPIRATION_TIME, extractExpirationTimeFromToken(token))
+            .apply()
     }
 
     fun getToken(): String? {
@@ -32,5 +33,18 @@ class TokenManager @Inject constructor(
         val expirationTime = getTokenExpirationTime()
         Log.d("TokenManager", "Token is valid: ${System.currentTimeMillis() / 1000 < expirationTime}")
         return (System.currentTimeMillis() / 1000) < expirationTime
+    }
+
+    private fun extractExpirationTimeFromToken(token: String) : Long {
+        var expirationTime = 0L
+        JWT.decode(
+            token
+        ).also {
+            it.tap { decodedJWT ->
+                expirationTime = decodedJWT.claimValueAsLong("exp").getOrElse { 0L }
+                Log.d("TokenManager", "Expiration time: $expirationTime")
+            }
+        }
+        return expirationTime
     }
 }

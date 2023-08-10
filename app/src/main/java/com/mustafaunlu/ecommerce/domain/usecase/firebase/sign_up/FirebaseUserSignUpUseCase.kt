@@ -1,10 +1,10 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up
 
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 
-interface FirebaseSignUpUseCase {
+interface FirebaseUserSignUpUseCase {
     operator fun invoke(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     )

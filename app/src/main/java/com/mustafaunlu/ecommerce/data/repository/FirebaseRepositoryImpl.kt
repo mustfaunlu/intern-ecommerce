@@ -2,7 +2,7 @@ package com.mustafaunlu.ecommerce.data.repository
 
 import com.mustafaunlu.ecommerce.data.source.remote.FirebaseDataSource
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
@@ -10,7 +10,7 @@ class FirebaseRepositoryImpl @Inject constructor(
     private val firebaseDataSource: FirebaseDataSource,
 ) : FirebaseRepository {
     override fun signUpWithFirebase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -19,7 +19,7 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun signInWithFirebase(
         user: FirebaseSignInUserEntity,
-        onSuccess: () -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
         firebaseDataSource.signInWithFirebase(user, onSuccess, onFailure)
@@ -30,7 +30,7 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override fun writeNewUserToFirebaseDatabase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -39,7 +39,7 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun readUserFromFirebaseDatabase(
         userMail: String,
-        onSuccess: (SignUpUserEntity) -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
         firebaseDataSource.readUserDataFromFirebase(userMail, onSuccess, onFailure)

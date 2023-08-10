@@ -1,9 +1,9 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw
 
-interface FirebaseForgetPwUseCase {
+interface ForgotPwFirebaseUserUseCase {
     operator fun invoke(
         email: String,
-        onSuccess: () -> Unit,
-        onFailure: (String) -> Unit
+        onSuccess: (String) -> Unit,
+        onFailure: (String) -> Unit,
     )
 }

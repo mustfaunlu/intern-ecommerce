@@ -1,32 +1,32 @@
 package com.mustafaunlu.ecommerce.domain.repository
 
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 
 interface FirebaseRepository {
     fun signUpWithFirebase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun signInWithFirebase(
         user: FirebaseSignInUserEntity,
-        onSuccess: () -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun forgotPassword(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit)
 
     fun writeNewUserToFirebaseDatabase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun readUserFromFirebaseDatabase(
         userMail: String,
-        onSuccess: (SignUpUserEntity) -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     )
 }

@@ -2,14 +2,12 @@ package com.mustafaunlu.ecommerce.di.mappers
 
 import com.mustafaunlu.ecommerce.presentation.home.AllProductsUiData
 import com.mustafaunlu.ecommerce.presentation.favorite.FavoriteUiData
-import com.mustafaunlu.ecommerce.presentation.sign_up.SignUpUserUiData
 import com.mustafaunlu.ecommerce.presentation.detail.SingleProductUiData
 import com.mustafaunlu.ecommerce.presentation.cart.UserCartUiData
-import com.mustafaunlu.ecommerce.presentation.profile.UserInformationUiData
-import com.mustafaunlu.ecommerce.presentation.login.UserUiData
+import com.mustafaunlu.ecommerce.presentation.profile.FirebaseUserUiData
+import com.mustafaunlu.ecommerce.presentation.auth.sign_in.ApiUserUiData
 import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
 import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
@@ -20,13 +18,11 @@ import com.mustafaunlu.ecommerce.presentation.mapper.CartUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.FavoriteItemUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductDetailUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.ProductHomeUiMapper
-import com.mustafaunlu.ecommerce.presentation.mapper.SignUpUserEntityUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartToFavoriteEntityMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleCartUiMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.SingleFavoriteItemUiMapper
-import com.mustafaunlu.ecommerce.presentation.mapper.UserInformationUiMapper
-import com.mustafaunlu.ecommerce.presentation.mapper.UserSignUpUiMapper
-import com.mustafaunlu.ecommerce.presentation.mapper.UserSignUpUiMapperToEntity
+import com.mustafaunlu.ecommerce.presentation.mapper.UserInfoEntityToUiDataMapper
+import com.mustafaunlu.ecommerce.presentation.mapper.UserInfoUiDataToEntityMapper
 import com.mustafaunlu.ecommerce.presentation.mapper.UserUiMapper
 import dagger.Binds
 import dagger.Module
@@ -55,23 +51,15 @@ abstract class UiMapperModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUserUiMapper(userUiDataMapper: UserUiMapper): ProductBaseMapper<UserResponseEntity, UserUiData>
+    abstract fun bindUserUiMapper(userUiDataMapper: UserUiMapper): ProductBaseMapper<UserResponseEntity, ApiUserUiData>
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUserInformationUiMapper(userInformationUiDataMapper: UserInformationUiMapper): ProductBaseMapper<UserInformationEntity, UserInformationUiData>
+    abstract fun bindUserInfoEntityToUiDataMapper(userInformationUiDataMapper: UserInfoEntityToUiDataMapper): ProductBaseMapper<UserInformationEntity, FirebaseUserUiData>
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUserSignUpUiMapper(userSignUpUiMapper: UserSignUpUiMapper): ProductBaseMapper<SignUpUserEntity, SignUpUserUiData>
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindSignUpUserEntityMapperToUi(userSignUpUserEntityMapperToUi: SignUpUserEntityUiMapper): ProductBaseMapper<SignUpUserEntity, UserInformationUiData>
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindUserSignUpUiMapperToEntity(userSignUpUiMapperToEntity: UserSignUpUiMapperToEntity): ProductBaseMapper<SignUpUserUiData, SignUpUserEntity>
+    abstract fun bindUserInfoUiDataToEntityMapper(userInformationEntityMapperToUi: UserInfoUiDataToEntityMapper): ProductBaseMapper<FirebaseUserUiData, UserInformationEntity>
 
     @Binds
     @ViewModelScoped

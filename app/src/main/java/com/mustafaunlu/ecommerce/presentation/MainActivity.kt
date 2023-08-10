@@ -19,7 +19,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.mustafaunlu.ecommerce.NotificationWorker
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.databinding.ActivityMainBinding
-import com.mustafaunlu.ecommerce.utils.TokenManager
+import com.mustafaunlu.ecommerce.common.TokenManager
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint

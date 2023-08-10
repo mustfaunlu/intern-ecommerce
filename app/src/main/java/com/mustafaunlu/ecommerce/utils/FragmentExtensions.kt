@@ -1,5 +1,6 @@
 package com.mustafaunlu.ecommerce.utils
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mustafaunlu.ecommerce.R
+import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.InternetPermissionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,5 +51,27 @@ fun Fragment.checkInternetConnection() {
                 )
             }
         }
+    }
+}
+
+fun Fragment.getUserIdFromSharedPref(sharedPrefs: SharedPreferences): String {
+    val apiUserId = sharedPrefs.getString(
+        Constants.SHARED_PREF_USERID_KEY,
+        Constants.SHARED_PREF_DEF,
+    ) ?: Constants.SHARED_PREF_DEF
+
+    val firebaseUserId = sharedPrefs.getString(
+        Constants.SHARED_PREF_FIREBASE_USERID_KEY,
+        Constants.SHARED_PREF_DEF,
+    ) ?: Constants.SHARED_PREF_DEF
+
+    val isFirebaseUser = sharedPrefs.getBoolean(
+        Constants.SHARED_PREF_IS_FIREBASE_USER,
+        false,
+    )
+    return if (isFirebaseUser) {
+        firebaseUserId
+    } else {
+        apiUserId
     }
 }

@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.data.api
 
 import android.util.Log
-import com.mustafaunlu.ecommerce.utils.TokenManager
+import com.mustafaunlu.ecommerce.common.TokenManager
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

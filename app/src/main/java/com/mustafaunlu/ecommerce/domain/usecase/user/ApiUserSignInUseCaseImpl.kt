@@ -7,9 +7,9 @@ import com.mustafaunlu.ecommerce.domain.repository.RemoteRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UserUseCaseImpl @Inject constructor(
+class ApiUserSignInUseCaseImpl @Inject constructor(
     private val repository: RemoteRepository,
-) : UserUseCase {
+) : ApiUserSignInUseCase {
     override fun invoke(user: User): Flow<NetworkResponseState<UserResponseEntity>> {
         return repository.postLoginRequest(user)
     }

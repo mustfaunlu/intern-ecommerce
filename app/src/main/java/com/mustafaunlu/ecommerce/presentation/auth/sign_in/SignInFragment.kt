@@ -1,26 +1,23 @@
-package com.mustafaunlu.ecommerce.presentation.login
+package com.mustafaunlu.ecommerce.presentation.auth.sign_in
 
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import arrow.core.getOrElse
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
-import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.utils.TokenManager
+import com.mustafaunlu.ecommerce.databinding.FragmentSignInBinding
+import com.mustafaunlu.ecommerce.common.TokenManager
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.safeNavigate
@@ -33,9 +30,9 @@ import java.time.Instant
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+class SignInFragment : Fragment() {
+    private lateinit var binding: FragmentSignInBinding
+    private val viewModel: SigInViewModel by viewModels()
 
     @Inject
     lateinit var sharedPref: SharedPreferences
@@ -43,25 +40,22 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var tokenManager: TokenManager
 
-    private var expirationTime: String = ""
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentSignInBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
         setupObservers()
 
         binding.signUpBtn.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+            val action = SignInFragmentDirections.actionLoginFragmentToSignupFragment()
             findNavController().navigate(action)
         }
 
@@ -70,10 +64,9 @@ class LoginFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupObservers() {
-        viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
-            when (loginState) {
+        viewModel.apiLoginState.observe(viewLifecycleOwner) { apiLoginState ->
+            when (apiLoginState) {
                 ScreenState.Loading -> {
                     binding.apply {
                         loading.visible()
@@ -82,15 +75,14 @@ class LoginFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    extractExpirationTimeFromToken(loginState.uiData.token)
-                    tokenManager.saveToken(loginState.uiData.token, expirationTime.toLong())
+                    tokenManager.saveToken(apiLoginState.uiData.token)
                     binding.apply {
                         loading.gone()
                         loginBtn.isEnabled = true
                     }
                     navigateToHomeScreen()
-                    requireView().showToast("Welcome ${loginState.uiData.username}")
-                    saveUserIdToSharedPref(loginState.uiData.id.toString())
+                    requireView().showToast("Welcome ${apiLoginState.uiData.username}")
+                    saveUserIdToSharedPref(apiLoginState.uiData.id.toString())
                 }
 
                 is ScreenState.Error -> {
@@ -113,15 +105,14 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is ScreenState.Success -> {
-                    extractExpirationTimeFromToken(createJwtTokenForFirebaseUser())
-                    tokenManager.saveToken(createJwtTokenForFirebaseUser(), expirationTime.toLong())
+                    tokenManager.saveToken(createJwtTokenForFirebaseUser())
                     binding.apply {
                         loading.gone()
                         loginBtn.isEnabled = true
                     }
                     navigateToHomeScreen()
-                    requireView().showToast("Welcome ${firebaseLoginState.uiData.email}")
-                    saveUserIdToSharedPref(firebaseLoginState.uiData.email)
+                    requireView().showToast("Welcome ${firebaseLoginState.uiData.name}")
+                    saveUserIdToSharedPref(firebaseLoginState.uiData.id)
                 }
                 is ScreenState.Error -> {
                     binding.apply {
@@ -147,21 +138,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHomeScreen() {
-        findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        findNavController().safeNavigate(SignInFragmentDirections.actionLoginFragmentToHomeFragment())
     }
-
-    private fun extractExpirationTimeFromToken(token: String) {
-        JWT.decode(
-            token,
-        ).also {
-            it.tap { decodedJWT ->
-                expirationTime = decodedJWT.claimValueAsLong("exp").getOrElse { 0L }.toString()
-                Log.d("LoginFragment", "Expiration time: $expirationTime")
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createJwtTokenForFirebaseUser(): String {
         val now = Instant.now()
         val expirationTime = now.plusSeconds(180)

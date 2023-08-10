@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".presentation.login.LoginFragment">
+    tools:context=".presentation.auth.sign_in.SignInFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_input_container"
@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
             android:inputType="textPersonName"
-            android:text="kmeus4" />
+            android:text="kminchelle"
+            android:autofillHints="username"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +53,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
-            android:text="aUTdmmmbH" />
+            android:text="0lelplR"
+            android:autofillHints="password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -89,7 +91,7 @@
         android:layout_width="73dp"
         android:layout_height="43dp"
         android:layout_marginBottom="16dp"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="?android:colorPrimary"
         android:textSize="12sp"
@@ -104,7 +106,7 @@
         android:id="@+id/firebase_login_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Firebase Login"
+        android:text="@string/firebase_login"
         app:layout_constraintBottom_toTopOf="@+id/username_input_container"
         app:layout_constraintStart_toStartOf="@+id/username_input_container"
         app:layout_constraintTop_toTopOf="parent" />
@@ -114,7 +116,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:text="Don't have account?"
+        android:text="@string/don_t_have_account"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/signUpBtn"
         app:layout_constraintStart_toStartOf="@+id/loginBtn"
@@ -126,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:text="Forgot your password?"
+        android:text="@string/forgot_your_password"
         android:textColor="?android:colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/loginBtn"
         app:layout_constraintEnd_toEndOf="@+id/password_input_container"
