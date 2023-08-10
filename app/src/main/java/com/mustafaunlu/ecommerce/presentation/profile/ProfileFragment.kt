@@ -22,6 +22,7 @@ import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentProfileBinding
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
+import com.mustafaunlu.ecommerce.utils.getUserIdFromSharedPref
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
 import com.mustafaunlu.ecommerce.utils.visible
@@ -107,7 +108,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchUserInfo() {
-        val userId = getUserIdFromSharedPref()
+        val userId = getUserIdFromSharedPref(sharedPrefs)
         val isFirebaseUser = sharedPrefs.getBoolean(
             Constants.SHARED_PREF_IS_FIREBASE_USER,
             false,
@@ -116,28 +117,6 @@ class ProfileFragment : Fragment() {
             viewModel.getUserInfosFromFirebase(userId)
         } else {
             viewModel.getUserInfosFromApi(userId)
-        }
-    }
-
-    private fun getUserIdFromSharedPref(): String {
-        val apiUserId = sharedPrefs.getString(
-            Constants.SHARED_PREF_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        ) ?: Constants.SHARED_PREF_DEF
-
-        val firebaseUserId = sharedPrefs.getString(
-            Constants.SHARED_PREF_FIREBASE_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        ) ?: Constants.SHARED_PREF_DEF
-
-        val isFirebaseUser = sharedPrefs.getBoolean(
-            Constants.SHARED_PREF_IS_FIREBASE_USER,
-            false,
-        )
-        return if (isFirebaseUser) {
-            firebaseUserId
-        } else {
-            apiUserId
         }
     }
 

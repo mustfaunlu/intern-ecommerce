@@ -9,14 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentCartBinding
 import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
+import com.mustafaunlu.ecommerce.utils.getUserIdFromSharedPref
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
 import com.mustafaunlu.ecommerce.utils.showConfirmationDialog
@@ -43,7 +40,7 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
-        val userId = getUserIdFromSharedPref()
+        val userId = getUserIdFromSharedPref(sharedPref)
         viewModel.getCartsByUserId(userId)
         adapter = CartListAdapter(
             ::onItemLongClicked,
@@ -83,28 +80,6 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun getUserIdFromSharedPref(): String {
-        val apiUserId = sharedPref.getString(
-            SHARED_PREF_USERID_KEY,
-            SHARED_PREF_DEF,
-        ) ?: SHARED_PREF_DEF
-
-        val firebaseUserId = sharedPref.getString(
-            SHARED_PREF_FIREBASE_USERID_KEY,
-            SHARED_PREF_DEF,
-        ) ?: SHARED_PREF_DEF
-
-        val isFirebaseUser = sharedPref.getBoolean(
-            SHARED_PREF_IS_FIREBASE_USER,
-            false,
-        )
-        return if (isFirebaseUser) {
-            firebaseUserId
-        } else {
-            apiUserId
-        }
-    }
-
     private fun updateSubmittedAdapterItemsTotalPrice() {
         val cartList = adapter.currentList
         val totalPrice = calculateTotalPrice(cartList)
@@ -124,7 +99,12 @@ class CartFragment : Fragment() {
             binding.totalPrice.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
             if (newList.isEmpty()) {
-                viewModel.setBadgeState(UserCartBadgeEntity(getUserIdFromSharedPref(), false))
+                viewModel.setBadgeState(
+                    UserCartBadgeEntity(
+                        getUserIdFromSharedPref(sharedPref),
+                        false
+                    )
+                )
                 showBadgeVisibility(false)
             }
         }

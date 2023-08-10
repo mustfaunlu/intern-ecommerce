@@ -10,15 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_DEF
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
 import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
+import com.mustafaunlu.ecommerce.utils.getUserIdFromSharedPref
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
 import com.mustafaunlu.ecommerce.utils.showToast
@@ -87,7 +84,7 @@ class DetailFragment : Fragment() {
             detailProductRatingTxt?.text = product.rating
             detailProductRating?.rating = product.rating.toFloat()
 
-            val userId = getUserIdFromSharedPref()
+            val userId = getUserIdFromSharedPref(sharedPref)
             userCart = UserCartEntity(
                 userId = userId,
                 productId = product.id,
@@ -96,28 +93,6 @@ class DetailFragment : Fragment() {
                 title = product.title,
                 image = product.imageUrl[0],
             )
-        }
-    }
-
-    private fun getUserIdFromSharedPref(): String {
-        val apiUserId = sharedPref.getString(
-            SHARED_PREF_USERID_KEY,
-            SHARED_PREF_DEF,
-        ) ?: SHARED_PREF_DEF
-
-        val firebaseUserId = sharedPref.getString(
-            SHARED_PREF_FIREBASE_USERID_KEY,
-            SHARED_PREF_DEF,
-        ) ?: SHARED_PREF_DEF
-
-        val isFirebaseUser = sharedPref.getBoolean(
-            SHARED_PREF_IS_FIREBASE_USER,
-            false,
-        )
-        return if (isFirebaseUser) {
-            firebaseUserId
-        } else {
-            apiUserId
         }
     }
 

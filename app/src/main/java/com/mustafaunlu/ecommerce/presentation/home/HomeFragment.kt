@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.mustafaunlu.ecommerce.common.Constants
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentHomeBinding
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
+import com.mustafaunlu.ecommerce.utils.getUserIdFromSharedPref
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.observeTextChanges
 import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkInternetConnection()
         setObservers()
-        homeViewModel.getBadgeState(getUserIdFromSharedPref())
+        homeViewModel.getBadgeState(getUserIdFromSharedPref(sharedPref))
     }
 
     private fun setObservers() {
@@ -121,28 +121,6 @@ class HomeFragment : Fragment() {
 
     private fun getProductsByCategoryName(categoryName: String) {
         homeViewModel.getProductsByCategory(categoryName)
-    }
-
-    private fun getUserIdFromSharedPref(): String {
-        val apiUserId = sharedPref.getString(
-            Constants.SHARED_PREF_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        ) ?: Constants.SHARED_PREF_DEF
-
-        val firebaseUserId = sharedPref.getString(
-            Constants.SHARED_PREF_FIREBASE_USERID_KEY,
-            Constants.SHARED_PREF_DEF,
-        ) ?: Constants.SHARED_PREF_DEF
-
-        val isFirebaseUser = sharedPref.getBoolean(
-            Constants.SHARED_PREF_IS_FIREBASE_USER,
-            false,
-        )
-        return if (isFirebaseUser) {
-            firebaseUserId
-        } else {
-            apiUserId
-        }
     }
 
     @OptIn(FlowPreview::class)
