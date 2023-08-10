@@ -86,7 +86,8 @@ class DetailFragment : Fragment() {
             productPrice.text = "${product.price} TL"
             productDescription.text = product.description
             productImg.loadImage(product.imageUrl)
-            productRating.text = "Rating ${product.rating}"
+            detailProductRatingTxt?.text = product.rating
+            detailProductRating?.rating = product.rating.toFloat()
 
             val userId = getUserIdFromSharedPref()
             userCart = UserCartEntity(

@@ -31,6 +31,7 @@ class ProductAdapter(
                 productPrice.text = "${product.price} TL"
                 productDescription.text = product.description
                 productImg.loadImage(product.imageUrl)
+                productRating?.rating = product.rating.toFloat()
             }
             binding.root.setOnClickListener {
                 onItemClicked(product.id)

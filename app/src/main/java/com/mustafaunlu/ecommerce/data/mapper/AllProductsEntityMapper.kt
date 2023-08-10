@@ -15,6 +15,7 @@ class AllProductsEntityMapper @Inject constructor() :
                 description = it.description,
                 price = it.price.toString(),
                 imageUrl = it.images[0],
+                rating = it.rating,
             )
         }
     }

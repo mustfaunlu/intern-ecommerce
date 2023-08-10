@@ -28,7 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             tools:text = "Title"
-            android:textSize="18sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:ems="4"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:padding="8dp" />
 
@@ -44,6 +47,17 @@
             android:layout_margin="10dp"
             android:justificationMode="inter_word"
             android:padding="8dp" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_rating"
+            android:numStars="5"
+            android:rating="3"
+            style="?attr/ratingBarStyleSmall"
+            android:layout_margin="15dp"
+            />
+
 
         <TextView
             android:id="@+id/product_price"

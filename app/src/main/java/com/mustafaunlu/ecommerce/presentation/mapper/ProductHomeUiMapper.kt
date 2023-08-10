@@ -15,6 +15,7 @@ class ProductHomeUiMapper @Inject constructor() :
                 description = it.description,
                 price = it.price,
                 imageUrl = it.imageUrl,
+                rating = it.rating,
             )
         }
     }
