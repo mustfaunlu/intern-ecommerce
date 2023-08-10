@@ -28,8 +28,6 @@ import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebas
 import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCase
@@ -99,12 +97,6 @@ abstract class UseCaseModule {
     abstract fun bindUpdateCartUseCase(
         updateCartUseCaseImpl: UpdateCartUseCaseImpl,
     ): UpdateCartUseCase
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindSignUpUseCase(
-        signUpUseCaseImpl: SignUpUseCaseImpl,
-    ): SignUpUseCase
 
     @Binds
     @ViewModelScoped
