@@ -22,8 +22,10 @@ MVVM + Clean Architecture approach.
 <img src="/previews/shopping-list.png" width="20%"/>
 <img src="/previews/shopping-list-1.png" width="20%"/>
 </p>
+Coming soon...
 
 ## App Gif
+Coming soon...
 
 <p align="center">
 <img src="/previews/app.gif" width="30%"/>
