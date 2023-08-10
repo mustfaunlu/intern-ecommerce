@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.mustafaunlu.ecommerce.common.Constants.BASE_URL
 import com.mustafaunlu.ecommerce.data.api.ApiService
 import com.mustafaunlu.ecommerce.data.api.AuthInterceptor
-import com.mustafaunlu.ecommerce.utils.TokenManager
+import com.mustafaunlu.ecommerce.common.TokenManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
