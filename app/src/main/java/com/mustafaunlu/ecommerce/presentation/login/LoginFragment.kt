@@ -1,17 +1,14 @@
 package com.mustafaunlu.ecommerce.presentation.login
 
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import arrow.core.getOrElse
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FIREBASE_USERID_KEY
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
@@ -20,7 +17,7 @@ import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.utils.TokenManager
+import com.mustafaunlu.ecommerce.common.TokenManager
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.safeNavigate
@@ -43,8 +40,6 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var tokenManager: TokenManager
 
-    private var expirationTime: String = ""
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +49,6 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
@@ -70,7 +64,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupObservers() {
         viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
             when (loginState) {
@@ -82,8 +75,7 @@ class LoginFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    extractExpirationTimeFromToken(loginState.uiData.token)
-                    tokenManager.saveToken(loginState.uiData.token, expirationTime.toLong())
+                    tokenManager.saveToken(loginState.uiData.token)
                     binding.apply {
                         loading.gone()
                         loginBtn.isEnabled = true
@@ -113,8 +105,7 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is ScreenState.Success -> {
-                    extractExpirationTimeFromToken(createJwtTokenForFirebaseUser())
-                    tokenManager.saveToken(createJwtTokenForFirebaseUser(), expirationTime.toLong())
+                    tokenManager.saveToken(createJwtTokenForFirebaseUser())
                     binding.apply {
                         loading.gone()
                         loginBtn.isEnabled = true
@@ -149,19 +140,6 @@ class LoginFragment : Fragment() {
     private fun navigateToHomeScreen() {
         findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
     }
-
-    private fun extractExpirationTimeFromToken(token: String) {
-        JWT.decode(
-            token,
-        ).also {
-            it.tap { decodedJWT ->
-                expirationTime = decodedJWT.claimValueAsLong("exp").getOrElse { 0L }.toString()
-                Log.d("LoginFragment", "Expiration time: $expirationTime")
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createJwtTokenForFirebaseUser(): String {
         val now = Instant.now()
         val expirationTime = now.plusSeconds(180)
