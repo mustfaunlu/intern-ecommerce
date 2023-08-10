@@ -91,7 +91,7 @@
         android:layout_marginBottom="16dp"
         android:text="Sign Up"
         android:textAllCaps="false"
-        android:textColor="@color/md_theme_dark_inversePrimary"
+        android:textColor="?android:colorPrimary"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/loginBtn"
@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:text="Forgot your password?"
-        android:textColor="@color/md_theme_dark_inversePrimary"
+        android:textColor="?android:colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/loginBtn"
         app:layout_constraintEnd_toEndOf="@+id/password_input_container"
         app:layout_constraintTop_toBottomOf="@+id/password_input_container" />

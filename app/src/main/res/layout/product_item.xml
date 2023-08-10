@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
+    android:layout_margin="1dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true">
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:layout_margin="10dp"
+
             tools:srcCompat="@tools:sample/avatars[1]" />
 
         <TextView
@@ -28,7 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             tools:text = "Title"
-            android:textSize="18sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:ems="4"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:padding="8dp" />
 
@@ -45,11 +48,24 @@
             android:justificationMode="inter_word"
             android:padding="8dp" />
 
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_rating"
+            android:numStars="5"
+            android:rating="3"
+            style="?attr/ratingBarStyleSmall"
+            android:layout_margin="15dp"
+            />
+
+
         <TextView
             android:id="@+id/product_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Hi I am Amiyo, you can see how to ellipse works. Hi I am Amiyo, you can see how to ellipse works."
+            android:textColor = "?android:colorPrimary"
+            tools:text="1000 TL"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:singleLine="true"
             android:ems="4"

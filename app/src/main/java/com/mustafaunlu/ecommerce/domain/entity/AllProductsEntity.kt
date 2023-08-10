@@ -6,4 +6,5 @@ data class AllProductsEntity(
     val description: String,
     val price: String,
     val imageUrl: String,
+    val rating: Double,
 )
