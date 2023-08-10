@@ -77,6 +77,13 @@ class ProfileFragment : Fragment() {
             openImagePicker()
         }
 
+        binding.pfpImage.setOnLongClickListener {
+            showConfirmationDialog(getString(R.string.do_you_want_to_delete_profile_picture)) {
+                deleteProfilePicture()
+            }
+            true
+        }
+
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
             themeSwitchLogic(isChecked)
         }
@@ -104,11 +111,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchUserInfo() {
+        val userId = getUserIdFromSharedPref()
         val isFirebaseUser = sharedPrefs.getBoolean(
             Constants.SHARED_PREF_IS_FIREBASE_USER,
             false,
         )
-        val userId = getUserIdFromSharedPref()
         if (isFirebaseUser) {
             viewModel.getUserInfosFromFirebase(userId)
         } else {
@@ -179,6 +186,11 @@ class ProfileFragment : Fragment() {
         } else {
             binding.pfpImage.setImageResource(R.drawable.ic_plus)
         }
+    }
+
+    private fun deleteProfilePicture() {
+        sharedPrefs.edit().remove(Constants.PREF_SELECTED_IMAGE_URI).apply()
+        binding.pfpImage.setImageResource(R.drawable.ic_plus)
     }
 
     override fun onDestroyView() {
