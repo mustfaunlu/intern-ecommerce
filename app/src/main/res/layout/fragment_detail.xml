@@ -13,14 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/product_img"
+        <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
             android:layout_margin="10dp"
-            android:contentDescription="@string/product_image"
-            tools:srcCompat="@tools:sample/avatars[1]" />
+            android:orientation="horizontal"
+            android:id="@+id/viewPager"
+            />
 
         <TextView
             android:id="@+id/product_title"
@@ -34,7 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Description"
-            style="@style/ProductTitleTextView" />
+            android:singleLine="false"
+            android:lines="3"
+            style="@style/ProductTextView" />
 
         <TextView
             android:id="@+id/product_price"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:id="@+id/detail_product_rating_txt"

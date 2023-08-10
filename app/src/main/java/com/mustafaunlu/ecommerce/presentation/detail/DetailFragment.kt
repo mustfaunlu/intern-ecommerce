@@ -20,7 +20,6 @@ import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
-import com.mustafaunlu.ecommerce.utils.loadImage
 import com.mustafaunlu.ecommerce.utils.showBadgeVisibility
 import com.mustafaunlu.ecommerce.utils.showToast
 import com.mustafaunlu.ecommerce.utils.visible
@@ -54,7 +53,6 @@ class DetailFragment : Fragment() {
         checkInternetConnection()
         setupProductDetail()
         setupAddToCartButton()
-
         binding.favoriteBtn.setOnClickListener {
             addToFavorite()
         }
@@ -72,6 +70,7 @@ class DetailFragment : Fragment() {
                     binding.progressBar.gone()
                     val product = productState.uiData
                     bindProductDetailToView(product)
+                    binding.viewPager?.adapter = DetailImageViewPagerAdapter(product.imageUrl)
                 }
 
                 ScreenState.Loading -> binding.progressBar.visible()
@@ -85,7 +84,6 @@ class DetailFragment : Fragment() {
             productTitle.text = product.title
             productPrice.text = "${product.price} TL"
             productDescription.text = product.description
-            productImg.loadImage(product.imageUrl)
             detailProductRatingTxt?.text = product.rating
             detailProductRating?.rating = product.rating.toFloat()
 
@@ -96,7 +94,7 @@ class DetailFragment : Fragment() {
                 quantity = 1,
                 price = product.price.toInt(),
                 title = product.title,
-                image = product.imageUrl,
+                image = product.imageUrl[0],
             )
         }
     }

@@ -13,7 +13,7 @@ class SingleProductEntityMapper @Inject constructor() :
             title = input.title,
             description = input.description,
             price = input.price.toString(),
-            imageUrl = input.images[0],
+            imageUrl = input.images,
             rating = input.rating.toString(),
         )
     }
