@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presentation.login
+package com.mustafaunlu.ecommerce.presentation.auth.sign_in
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -15,8 +15,8 @@ import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_IS_FIREBASE_USER
 import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.data.dto.User
-import com.mustafaunlu.ecommerce.databinding.FragmentLoginBinding
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
+import com.mustafaunlu.ecommerce.databinding.FragmentSignInBinding
 import com.mustafaunlu.ecommerce.common.TokenManager
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
@@ -30,9 +30,9 @@ import java.time.Instant
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+class SignInFragment : Fragment() {
+    private lateinit var binding: FragmentSignInBinding
+    private val viewModel: SigInViewModel by viewModels()
 
     @Inject
     lateinit var sharedPref: SharedPreferences
@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentSignInBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
         setupObservers()
 
         binding.signUpBtn.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+            val action = SignInFragmentDirections.actionLoginFragmentToSignupFragment()
             findNavController().navigate(action)
         }
 
@@ -65,8 +65,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.loginState.observe(viewLifecycleOwner) { loginState ->
-            when (loginState) {
+        viewModel.apiLoginState.observe(viewLifecycleOwner) { apiLoginState ->
+            when (apiLoginState) {
                 ScreenState.Loading -> {
                     binding.apply {
                         loading.visible()
@@ -75,14 +75,14 @@ class LoginFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    tokenManager.saveToken(loginState.uiData.token)
+                    tokenManager.saveToken(apiLoginState.uiData.token)
                     binding.apply {
                         loading.gone()
                         loginBtn.isEnabled = true
                     }
                     navigateToHomeScreen()
-                    requireView().showToast("Welcome ${loginState.uiData.username}")
-                    saveUserIdToSharedPref(loginState.uiData.id.toString())
+                    requireView().showToast("Welcome ${apiLoginState.uiData.username}")
+                    saveUserIdToSharedPref(apiLoginState.uiData.id.toString())
                 }
 
                 is ScreenState.Error -> {
@@ -111,8 +111,8 @@ class LoginFragment : Fragment() {
                         loginBtn.isEnabled = true
                     }
                     navigateToHomeScreen()
-                    requireView().showToast("Welcome ${firebaseLoginState.uiData.email}")
-                    saveUserIdToSharedPref(firebaseLoginState.uiData.email)
+                    requireView().showToast("Welcome ${firebaseLoginState.uiData.name}")
+                    saveUserIdToSharedPref(firebaseLoginState.uiData.id)
                 }
                 is ScreenState.Error -> {
                     binding.apply {
@@ -138,7 +138,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHomeScreen() {
-        findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        findNavController().safeNavigate(SignInFragmentDirections.actionLoginFragmentToHomeFragment())
     }
     private fun createJwtTokenForFirebaseUser(): String {
         val now = Instant.now()

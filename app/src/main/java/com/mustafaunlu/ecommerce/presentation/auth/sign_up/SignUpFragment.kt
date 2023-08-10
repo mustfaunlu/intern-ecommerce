@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.presentation.sign_up
+package com.mustafaunlu.ecommerce.presentation.auth.sign_up
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentSignUpBinding
+import com.mustafaunlu.ecommerce.presentation.profile.FirebaseUserUiData
 import com.mustafaunlu.ecommerce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,7 +67,7 @@ class SignupFragment : Fragment() {
     }
 
     private fun checkEmptyFields(
-        onSuccess: (SignUpUserUiData) -> Unit,
+        onSuccess: (FirebaseUserUiData) -> Unit,
     ) {
         val email = binding.email.text.toString()
         val password = binding.password.text.toString()
@@ -76,11 +77,13 @@ class SignupFragment : Fragment() {
 
         if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty()) {
             onSuccess(
-                SignUpUserUiData(
+                FirebaseUserUiData(
+                    id = "",
                     name = name,
                     surname = surname,
                     email = email,
                     phone = phone,
+                    image = "",
                     password = password,
                 ),
             )

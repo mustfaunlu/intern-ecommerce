@@ -6,9 +6,9 @@ import com.mustafaunlu.ecommerce.domain.repository.RemoteRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UserInfoUseCaseImpl @Inject constructor(
+class ReadApiUserInfosUseCaseImpl @Inject constructor(
     private val remoteRepository: RemoteRepository
-): UserInfoUseCase {
+): ReadApiUserInfosUseCase {
     override fun invoke(userId: String): Flow<NetworkResponseState<UserInformationEntity>> {
         return remoteRepository.getUserInformationByIdFromApi(userId)
     }

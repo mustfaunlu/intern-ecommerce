@@ -96,13 +96,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun themeSwitchLogic(isChecked: Boolean) {
-        if (isChecked) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, true).apply()
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, false).apply()
-        }
+        val nightMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(nightMode)
+        sharedPrefs.edit().putBoolean(Constants.PREF_THEME_KEY, isChecked).apply()
     }
 
     private fun openImagePicker() {
@@ -119,7 +115,7 @@ class ProfileFragment : Fragment() {
         if (isFirebaseUser) {
             viewModel.getUserInfosFromFirebase(userId)
         } else {
-            viewModel.getUserInfos(userId)
+            viewModel.getUserInfosFromApi(userId)
         }
     }
 
@@ -146,7 +142,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeUserInfo() {
-        viewModel.userInformation.observe(viewLifecycleOwner) { userInfoState ->
+        viewModel.userInfos.observe(viewLifecycleOwner) { userInfoState ->
             when (userInfoState) {
                 ScreenState.Loading -> binding.progressBar.visible()
                 is ScreenState.Success -> {

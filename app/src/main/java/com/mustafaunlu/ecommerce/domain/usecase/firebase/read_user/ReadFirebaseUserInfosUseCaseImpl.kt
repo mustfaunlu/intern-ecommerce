@@ -1,15 +1,15 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user
 
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
-class FirebaseReadUserUseCaseImpl @Inject constructor(
+class ReadFirebaseUserInfosUseCaseImpl @Inject constructor(
     private val repository: FirebaseRepository
-): FirebaseReadUserUseCase {
+): ReadFirebaseUserInfosUseCase {
     override fun invoke(
         userMail: String,
-        onSuccess: (SignUpUserEntity) -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
         repository.readUserFromFirebaseDatabase(userMail, onSuccess, onFailure)

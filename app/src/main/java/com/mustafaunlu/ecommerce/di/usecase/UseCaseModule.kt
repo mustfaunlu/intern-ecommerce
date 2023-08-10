@@ -16,28 +16,26 @@ import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.FirebaseForgetPwUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.FirebaseForgetPwUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.FirebaseReadUserUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.FirebaseReadUserUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseSignInUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseSignInUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseSignUpUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseSignUpUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.FirebaseWriteUserCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.FirebaseWriteUserUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.forgot_pw.ForgotPwUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.forgot_pw.ForgotPwUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.ForgotPwFirebaseUserUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.ForgotPwFirebaseUserUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.ReadFirebaseUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.ReadFirebaseUserInfosUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseUserSingInUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseUserSingInUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseUserSignUpUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseUserSignUpUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.sign_up.SignUpUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.user.UserInfoUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.UserInfoUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.UserUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.ApiUserSignInUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.ApiUserSignInUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -75,8 +73,8 @@ abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUserUseCase(
-        userUseCaseImpl: UserUseCaseImpl,
-    ): UserUseCase
+        userUseCaseImpl: ApiUserSignInUseCaseImpl,
+    ): ApiUserSignInUseCase
 
     @Binds
     @ViewModelScoped
@@ -93,8 +91,8 @@ abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUserInfoUseCase(
-        userInfoUseCaseImpl: UserInfoUseCaseImpl,
-    ): UserInfoUseCase
+        userInfoUseCaseImpl: ReadApiUserInfosUseCaseImpl,
+    ): ReadApiUserInfosUseCase
 
     @Binds
     @ViewModelScoped
@@ -123,32 +121,32 @@ abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindFirebaseSignUpUseCase(
-        firebaseSignUpUseCaseImpl: FirebaseSignUpUseCaseImpl,
-    ): FirebaseSignUpUseCase
+        firebaseSignUpUseCaseImpl: FirebaseUserSignUpUseCaseImpl,
+    ): FirebaseUserSignUpUseCase
 
     @Binds
     @ViewModelScoped
     abstract fun bindFirebaseSignInUseCase(
-        firebaseSignInUseCaseImpl: FirebaseSignInUseCaseImpl,
-    ): FirebaseSignInUseCase
+        firebaseSignInUseCaseImpl: FirebaseUserSingInUseCaseImpl,
+    ): FirebaseUserSingInUseCase
 
     @Binds
     @ViewModelScoped
     abstract fun bindFirebaseForgetPwUseCase(
-        firebaseForgetPwUseCaseImpl: FirebaseForgetPwUseCaseImpl,
-    ): FirebaseForgetPwUseCase
+        firebaseForgetPwUseCaseImpl: ForgotPwFirebaseUserUseCaseImpl,
+    ): ForgotPwFirebaseUserUseCase
 
     @Binds
     @ViewModelScoped
     abstract fun bindFirebaseWriteUserUseCase(
-        firebaseWriteUserUseCaseImpl: FirebaseWriteUserCaseImpl,
-    ): FirebaseWriteUserUseCase
+        firebaseWriteUserUseCaseImpl: WriteFirebaseUserInfosCaseImpl,
+    ): WriteFirebaseUserInfosUseCase
 
     @Binds
     @ViewModelScoped
     abstract fun bindFirebaseReadUserUseCase(
-        firebaseReadUserCaseImpl: FirebaseReadUserUseCaseImpl,
-    ): FirebaseReadUserUseCase
+        firebaseReadUserCaseImpl: ReadFirebaseUserInfosUseCaseImpl,
+    ): ReadFirebaseUserInfosUseCase
 
     @Binds
     @ViewModelScoped
@@ -156,9 +154,4 @@ abstract class UseCaseModule {
         userCartBadgeUseCaseImpl: UserCartBadgeUseCaseImpl,
     ): UserCartBadgeUseCase
 
-    @Binds
-    @ViewModelScoped
-    abstract fun bindForgotPwUseCase(
-        forgotPwUseCaseImpl: ForgotPwUseCaseImpl,
-    ): ForgotPwUseCase
 }

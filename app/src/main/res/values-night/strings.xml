@@ -58,4 +58,9 @@
     <string name="please_enter_your_email">Please Enter Your Email</string>
     <string name="reset_password">Reset Password</string>
     <string name="do_you_want_to_delete_profile_picture">Do you want to delete profile picture?</string>
+    <string name="password_reset_link_sent">Password reset link sent to your email address</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="firebase_login">Firebase Login</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="forgot_your_password">Forgot your password?</string>
 </resources>

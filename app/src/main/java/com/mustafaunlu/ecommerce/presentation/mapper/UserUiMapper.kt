@@ -1,17 +1,15 @@
 package com.mustafaunlu.ecommerce.presentation.mapper
 
-import com.mustafaunlu.ecommerce.presentation.sign_up.SignUpUserUiData
-import com.mustafaunlu.ecommerce.presentation.profile.UserInformationUiData
-import com.mustafaunlu.ecommerce.presentation.login.UserUiData
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.presentation.profile.FirebaseUserUiData
+import com.mustafaunlu.ecommerce.presentation.auth.sign_in.ApiUserUiData
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import javax.inject.Inject
 
-class UserUiMapper @Inject constructor() : ProductBaseMapper<UserResponseEntity, UserUiData> {
-    override fun map(input: UserResponseEntity): UserUiData {
-        return UserUiData(
+class UserUiMapper @Inject constructor() : ProductBaseMapper<UserResponseEntity, ApiUserUiData> {
+    override fun map(input: UserResponseEntity): ApiUserUiData {
+        return ApiUserUiData(
             id = input.id,
             token = input.token,
             username = input.username,
@@ -19,48 +17,29 @@ class UserUiMapper @Inject constructor() : ProductBaseMapper<UserResponseEntity,
     }
 }
 
-class UserInformationUiMapper @Inject constructor() : ProductBaseMapper<UserInformationEntity, UserInformationUiData> {
-    override fun map(input: UserInformationEntity): UserInformationUiData {
-        return UserInformationUiData(
+class UserInfoEntityToUiDataMapper @Inject constructor() : ProductBaseMapper<UserInformationEntity, FirebaseUserUiData> {
+    override fun map(input: UserInformationEntity): FirebaseUserUiData {
+        return FirebaseUserUiData(
+            id = input.id,
             name = input.name,
             surname = input.surname,
             email = input.email,
             phone = input.phone,
             image = input.image,
-        )
-    }
-}
-
-class SignUpUserEntityUiMapper @Inject constructor() : ProductBaseMapper<SignUpUserEntity, UserInformationUiData> {
-    override fun map(input: SignUpUserEntity): UserInformationUiData {
-        return UserInformationUiData(
-            name = input.firstName,
-            surname = input.lastName,
-            email = input.email,
-            phone = input.phone,
-            image = "",
-        )
-    }
-}
-class UserSignUpUiMapper @Inject constructor() : ProductBaseMapper<SignUpUserEntity, SignUpUserUiData> {
-    override fun map(input: SignUpUserEntity): SignUpUserUiData {
-        return SignUpUserUiData(
-            name = input.firstName,
-            surname = input.lastName,
-            email = input.email,
-            phone = input.phone,
             password = input.password,
         )
     }
 }
 
-class UserSignUpUiMapperToEntity @Inject constructor() : ProductBaseMapper<SignUpUserUiData, SignUpUserEntity> {
-    override fun map(input: SignUpUserUiData): SignUpUserEntity {
-        return SignUpUserEntity(
-            firstName = input.name,
-            lastName = input.surname,
+class UserInfoUiDataToEntityMapper @Inject constructor() : ProductBaseMapper<FirebaseUserUiData, UserInformationEntity> {
+    override fun map(input: FirebaseUserUiData): UserInformationEntity {
+        return UserInformationEntity(
+            id = input.id,
+            name = input.name,
+            surname = input.surname,
             email = input.email,
             phone = input.phone,
+            image = input.image,
             password = input.password,
         )
     }

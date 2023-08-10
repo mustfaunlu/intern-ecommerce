@@ -1,19 +1,19 @@
 package com.mustafaunlu.ecommerce.data.source.remote
 
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 
 
 interface FirebaseDataSource {
     fun signUpWithFirebase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit,
     )
 
     fun signInWithFirebase(
         user: FirebaseSignInUserEntity,
-        onSuccess: () -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit,
     )
 
@@ -24,14 +24,14 @@ interface FirebaseDataSource {
     )
 
     fun writeUserDataToFirebase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit,
     )
 
     fun readUserDataFromFirebase(
-        userMail: String,
-        onSuccess: (SignUpUserEntity) -> Unit,
+        userId: String,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit,
     )
 }

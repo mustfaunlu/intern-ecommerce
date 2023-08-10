@@ -5,6 +5,6 @@ import com.mustafaunlu.ecommerce.data.dto.User
 import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
 import kotlinx.coroutines.flow.Flow
 
-interface UserUseCase {
+interface ApiUserSignInUseCase {
     operator fun invoke(user: User): Flow<NetworkResponseState<UserResponseEntity>>
 }

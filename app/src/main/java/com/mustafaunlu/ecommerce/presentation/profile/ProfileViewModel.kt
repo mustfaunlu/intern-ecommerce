@@ -6,48 +6,46 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.FirebaseReadUserUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.UserInfoUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.ReadFirebaseUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val userInformationUseCase: UserInfoUseCase,
-    private val firebaseReadUserUseCase: FirebaseReadUserUseCase,
-    private val userInformationMapper: ProductBaseMapper<UserInformationEntity, UserInformationUiData>,
-    private val signUpUserEntityMapper: ProductBaseMapper<SignUpUserEntity, UserInformationUiData>,
+    private val userInformationUseCase: ReadApiUserInfosUseCase,
+    private val readFirebaseUserInfosUseCase: ReadFirebaseUserInfosUseCase,
+    private val firebaseUserInfoToUiData: ProductBaseMapper<UserInformationEntity, FirebaseUserUiData>,
 ) : ViewModel() {
-    private val _userInformation = MutableLiveData<ScreenState<UserInformationUiData>>()
-    val userInformation: LiveData<ScreenState<UserInformationUiData>> get() = _userInformation
+    private val _userInfos = MutableLiveData<ScreenState<FirebaseUserUiData>>()
+    val userInfos: LiveData<ScreenState<FirebaseUserUiData>> get() = _userInfos
 
-    fun getUserInfos(userId: String) {
+    fun getUserInfosFromApi(userId: String) {
         viewModelScope.launch {
             userInformationUseCase(userId).collect {
                 when (it) {
-                    NetworkResponseState.Loading -> _userInformation.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _userInformation.postValue(ScreenState.Success(userInformationMapper.map(it.result)))
-                    is NetworkResponseState.Error -> _userInformation.postValue(ScreenState.Error(it.exception.message!!))
+                    NetworkResponseState.Loading -> _userInfos.postValue(ScreenState.Loading)
+                    is NetworkResponseState.Success -> _userInfos.postValue(ScreenState.Success(firebaseUserInfoToUiData.map(it.result)))
+                    is NetworkResponseState.Error -> _userInfos.postValue(ScreenState.Error(it.exception.message!!))
                 }
             }
         }
     }
 
     fun getUserInfosFromFirebase(userMail: String) {
-        _userInformation.value = ScreenState.Loading
+        _userInfos.value = ScreenState.Loading
         viewModelScope.launch {
-            firebaseReadUserUseCase.invoke(
+            readFirebaseUserInfosUseCase.invoke(
                 userMail,
                 onSuccess = {
-                    _userInformation.postValue(ScreenState.Success(signUpUserEntityMapper.map(it)))
-                },
-                onFailure = {
-                    _userInformation.postValue(ScreenState.Error(it))
-                })
+                    _userInfos.postValue(ScreenState.Success(firebaseUserInfoToUiData.map(it)))
+                }
+            ) {
+                _userInfos.postValue(ScreenState.Error(it))
+            }
         }
     }
 }

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.login.LoginFragment"
+        android:id="@+id/signInFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.auth.sign_in.SignInFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_sign_in" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            app:destination="@id/signInFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
@@ -67,18 +67,18 @@
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
-        app:destination="@id/loginFragment"
+        app:destination="@id/signInFragment"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.sign_up.SignupFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.auth.sign_up.SignupFragment"
         android:label="SignupFragment" >
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:popUpTo="@id/signupFragment"
             app:popUpToInclusive="true"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -90,6 +90,6 @@
     </fragment>
     <dialog
         android:id="@+id/forgotPwFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.forgot_pw.ForgotPwFragment"
+        android:name="com.mustafaunlu.ecommerce.presentation.auth.forgot_pw.ForgotPwFragment"
         android:label="ForgotPwFragment" />
 </navigation>

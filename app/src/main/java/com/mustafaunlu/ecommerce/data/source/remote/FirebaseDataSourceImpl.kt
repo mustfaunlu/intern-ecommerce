@@ -3,7 +3,7 @@ package com.mustafaunlu.ecommerce.data.source.remote
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import javax.inject.Inject
 
 class FirebaseDataSourceImpl @Inject constructor(
@@ -11,7 +11,7 @@ class FirebaseDataSourceImpl @Inject constructor(
     private val firestore: FirebaseFirestore
 ) : FirebaseDataSource {
     override fun signUpWithFirebase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -25,12 +25,23 @@ class FirebaseDataSourceImpl @Inject constructor(
 
     override fun signInWithFirebase(
         user: FirebaseSignInUserEntity,
-        onSuccess: () -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
         firebaseAuth.signInWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
-                onSuccess()
+                val firebaseUser = it.user
+                onSuccess(
+                    UserInformationEntity(
+                        id = firebaseUser?.uid ?: "",
+                        name = firebaseUser?.displayName ?: "",
+                        surname = "",
+                        email = firebaseUser?.email ?: "",
+                        phone = firebaseUser?.phoneNumber ?: "",
+                        image = firebaseUser?.photoUrl.toString(),
+                        password = "",
+                    )
+                )
             }.addOnFailureListener {
                 onFailure(it.message ?: "An error occurred")
             }
@@ -46,18 +57,19 @@ class FirebaseDataSourceImpl @Inject constructor(
     }
 
     override fun writeUserDataToFirebase(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
         val userMap = hashMapOf(
             "id" to firebaseAuth.uid,
-            "name" to user.firstName,
-            "surname" to user.lastName,
+            "name" to user.name,
+            "surname" to user.surname,
             "email" to user.email,
             "phone" to user.phone,
+            "image" to user.image,
         )
-        firestore.collection("users").document(user.email).set(userMap)
+        firestore.collection("users").document(firebaseAuth.uid!!).set(userMap)
             .addOnSuccessListener {
                 onSuccess()
             }.addOnFailureListener {
@@ -66,18 +78,20 @@ class FirebaseDataSourceImpl @Inject constructor(
     }
 
     override fun readUserDataFromFirebase(
-        userMail: String,
-        onSuccess: (SignUpUserEntity) -> Unit,
+        userId: String,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        firestore.collection("users").document(userMail).get()
+        firestore.collection("users").document(userId).get()
             .addOnSuccessListener { snapshot ->
                 onSuccess(
-                    SignUpUserEntity(
-                        firstName = snapshot.getString("name") ?: "",
-                        lastName = snapshot.getString("surname") ?: "",
+                    UserInformationEntity(
+                        id = snapshot.getString("id") ?: "",
+                        name = snapshot.getString("name") ?: "",
+                        surname = snapshot.getString("surname") ?: "",
                         email = snapshot.getString("email") ?: "",
                         phone = snapshot.getString("phone") ?: "",
+                        image = snapshot.getString("image") ?: "",
                         password = "",
                     )
                 )

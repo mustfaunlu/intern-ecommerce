@@ -1,14 +1,14 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up
 
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
-class FirebaseSignUpUseCaseImpl @Inject constructor(
+class FirebaseUserSignUpUseCaseImpl @Inject constructor(
     private val firebaseRepository: FirebaseRepository
-) : FirebaseSignUpUseCase {
+) : FirebaseUserSignUpUseCase {
     override fun invoke(
-        user: SignUpUserEntity,
+        user: UserInformationEntity,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {

@@ -1,11 +1,11 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user
 
-import com.mustafaunlu.ecommerce.domain.entity.SignUpUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
 
-interface FirebaseReadUserUseCase {
+interface ReadFirebaseUserInfosUseCase {
     operator fun invoke(
         userMail: String,
-        onSuccess: (SignUpUserEntity) -> Unit,
+        onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     )
 }
