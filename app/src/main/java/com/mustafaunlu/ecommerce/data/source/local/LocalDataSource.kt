@@ -1,8 +1,8 @@
 package com.mustafaunlu.ecommerce.data.source.local
 
-import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
+import com.mustafaunlu.ecommerce.domain.entity.product.FavoriteProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartBadgeEntity
+import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartEntity
 
 interface LocalDataSource {
     suspend fun getUserCartByUserIdFromDb(userId: String): List<UserCartEntity>
@@ -13,11 +13,11 @@ interface LocalDataSource {
 
     suspend fun updateUserCartFromDb(userCartEntity: UserCartEntity)
 
-    suspend fun getFavoriteProductsFromDb(userId: String): List<FavoriteItemEntity>
+    suspend fun getFavoriteProductsFromDb(userId: String): List<FavoriteProductEntity>
 
-    suspend fun insertFavoriteItemToDb(favoriteItemEntity: FavoriteItemEntity)
+    suspend fun insertFavoriteItemToDb(favoriteProductEntity: FavoriteProductEntity)
 
-    suspend fun deleteFavoriteItemFromDb(favoriteItemEntity: FavoriteItemEntity)
+    suspend fun deleteFavoriteItemFromDb(favoriteProductEntity: FavoriteProductEntity)
 
     suspend fun getUserCartBadgeStateFromDb(userUniqueInfo: String): UserCartBadgeEntity
 

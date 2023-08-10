@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.data.source.remote
 
-import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 
 
 interface FirebaseDataSource {

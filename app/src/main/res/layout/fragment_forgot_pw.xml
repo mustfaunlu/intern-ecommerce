@@ -24,17 +24,18 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_input_container"
+        android:id="@+id/forgot_pw_email_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/MyTextInputLayoutStyle"
         >
 
         <EditText
-            android:id="@+id/forgot_mail_edtxt"
+            android:id="@+id/forgot_mail_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/please_enter_your_email"
+            android:autofillHints="emailAddress"
             android:inputType="textEmailAddress"
             />
     </com.google.android.material.textfield.TextInputLayout>

@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.data.mapper
 
 import com.mustafaunlu.ecommerce.data.dto.UserInfo
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import javax.inject.Inject
 

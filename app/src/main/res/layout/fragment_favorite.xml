@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favorite_listview"
+        android:id="@+id/favorite_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -19,7 +19,7 @@
         tools:listitem="@layout/favorite_item" />
 
     <ImageView
-        android:id="@+id/progress_bar"
+        android:id="@+id/fav_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/md_theme_dark_secondary"

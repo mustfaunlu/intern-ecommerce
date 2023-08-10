@@ -7,10 +7,10 @@ import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import com.mustafaunlu.ecommerce.data.source.remote.RemoteDataSource
 import com.mustafaunlu.ecommerce.di.coroutine.IoDispatcher
-import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
-import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
+import com.mustafaunlu.ecommerce.domain.entity.product.ProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.product.DetailProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.repository.RemoteRepository
@@ -25,11 +25,11 @@ class RemoteRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val userResponseEntityMapper: ProductBaseMapper<UserResponse, UserResponseEntity>,
-    private val allProductsMapper: ProductListMapper<Product, AllProductsEntity>,
-    private val singleProductMapper: ProductBaseMapper<Product, SingleProductEntity>,
+    private val allProductsMapper: ProductListMapper<Product, ProductEntity>,
+    private val singleProductMapper: ProductBaseMapper<Product, DetailProductEntity>,
     private val userInfoEntityMapper: ProductBaseMapper<UserInfo, UserInformationEntity>,
 ) : RemoteRepository {
-    override fun getProductsListFromApi(): Flow<NetworkResponseState<List<AllProductsEntity>>> {
+    override fun getProductsListFromApi(): Flow<NetworkResponseState<List<ProductEntity>>> {
         return remoteDataSource.getProductsListFromApi().map {
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading
@@ -39,7 +39,7 @@ class RemoteRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getSingleProductByIdFromApi(productId: Int): Flow<NetworkResponseState<SingleProductEntity>> {
+    override fun getSingleProductByIdFromApi(productId: Int): Flow<NetworkResponseState<DetailProductEntity>> {
         return remoteDataSource.getSingleProductByIdFromApi(productId).map {
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading
@@ -49,7 +49,7 @@ class RemoteRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getProductsListBySearchFromApi(query: String): Flow<NetworkResponseState<List<AllProductsEntity>>> {
+    override fun getProductsListBySearchFromApi(query: String): Flow<NetworkResponseState<List<ProductEntity>>> {
         return remoteDataSource.getProductsListBySearchFromApi(query).map {
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading
@@ -79,7 +79,7 @@ class RemoteRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<List<AllProductsEntity>>> {
+    override fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<List<ProductEntity>>> {
         return remoteDataSource.getProductsListByCategoryNameFromApi(categoryName).map {
             when (it) {
                 is NetworkResponseState.Loading -> NetworkResponseState.Loading

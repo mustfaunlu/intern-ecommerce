@@ -22,7 +22,7 @@ interface ApiService {
     suspend fun getSingleProductByIdFromApi(@Path(ID) productId: Int): Product
 
     @POST(AUTH_LOGIN)
-    suspend fun postLoginRequest(@Body user: User): UserResponse
+    suspend fun postLoginRequestToApi(@Body user: User): UserResponse
 
     @GET(PRODUCTS_CATEGORIES)
     suspend fun getAllCategoriesListFromApi(): List<String>
@@ -34,14 +34,14 @@ interface ApiService {
     suspend fun getUserInformationByIdFromApi(@Path(ID) userId: String): UserInfo
 
     companion object {
-        const val PRODUCTS = "products"
-        const val SEARCH_PRODUCTS = "products/search"
-        const val ID = "id"
-        const val PRODUCTS_ID = "products/{$ID}"
-        const val AUTH_LOGIN = "auth/login"
-        const val PRODUCTS_CATEGORIES = "products/categories"
-        const val CATEGORY_NAME = "categoryName"
-        const val PRODUCTS_CATEGORY = "products/category/{$CATEGORY_NAME}"
-        const val USERS = "users/{$ID}"
+        private const val PRODUCTS = "products"
+        private const val SEARCH_PRODUCTS = "products/search"
+        private const val ID = "id"
+        private const val PRODUCTS_ID = "products/{$ID}"
+        private const val AUTH_LOGIN = "auth/login"
+        private const val PRODUCTS_CATEGORIES = "products/categories"
+        private const val CATEGORY_NAME = "categoryName"
+        private const val PRODUCTS_CATEGORY = "products/category/{$CATEGORY_NAME}"
+        private const val USERS = "users/{$ID}"
     }
 }

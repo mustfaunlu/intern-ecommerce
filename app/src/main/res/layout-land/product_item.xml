@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/product_img"
+            android:id="@+id/detail_item_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/product_title"
+                android:id="@+id/detail_product_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text = "Title"
@@ -37,7 +37,7 @@
                 android:padding="8dp" />
 
             <TextView
-                android:id="@+id/product_description"
+                android:id="@+id/detail_product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Hi I am Amiyo, you can see how to ellipse works. Hi I am Amiyo, you can see how to ellipse works."
@@ -48,7 +48,7 @@
                 android:padding="8dp" />
 
             <TextView
-                android:id="@+id/product_price"
+                android:id="@+id/detail_product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Hi I am Amiyo, you can see how to ellipse works. Hi I am Amiyo, you can see how to ellipse works."

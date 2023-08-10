@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.presentation.contract.AbstractTextWatcher
+import com.mustafaunlu.ecommerce.ui.contract.AbstractTextWatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

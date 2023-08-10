@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.auth.sign_in.SignInFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.auth.sign_in.SignInFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.profile.ProfileFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.cart.CartFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.detail.DetailFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.home.HomeFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -72,7 +72,7 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.auth.sign_up.SignupFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.auth.sign_up.SignupFragment"
         android:label="SignupFragment" >
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.favorite.FavoriteFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.favorite.FavoriteFragment"
         android:label="FavoriteFragment" >
         <action
             android:id="@+id/action_favoriteFragment_to_detailFragment"
@@ -90,6 +90,6 @@
     </fragment>
     <dialog
         android:id="@+id/forgotPwFragment"
-        android:name="com.mustafaunlu.ecommerce.presentation.auth.forgot_pw.ForgotPwFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.auth.forgot_pw.ForgotPwFragment"
         android:label="ForgotPwFragment" />
 </navigation>

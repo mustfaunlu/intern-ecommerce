@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.di.usecase
 
-import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.all.GetAllProductsUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.products.GetAllProductsUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.products.GetAllProductsUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
@@ -28,8 +28,8 @@ import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebas
 import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.single.GetSingleProductUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.detail.GetSingleProductUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.detail.GetSingleProductUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.user.ApiUserSignInUseCase

@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.domain.repository
 
-import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 
 interface FirebaseRepository {
     fun signUpWithFirebase(

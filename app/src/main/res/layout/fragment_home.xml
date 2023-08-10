@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_input_container"
@@ -29,7 +29,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_category"
+        android:id="@+id/home_category_rv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -37,7 +37,7 @@
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/product_rv"
+        app:layout_constraintBottom_toTopOf="@+id/home_product_rv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         tools:listitem="@layout/category_item" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/product_rv"
+        android:id="@+id/home_product_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -54,11 +54,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_category"
+        app:layout_constraintTop_toBottomOf="@+id/home_category_rv"
         tools:listitem="@layout/product_item" />
 
     <ImageView
-        android:id="@+id/progress_bar"
+        android:id="@+id/home_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"

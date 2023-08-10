@@ -34,14 +34,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="sensor"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true" >
         </activity>
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".AppFirebaseMessagingService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -14,7 +14,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/itemNameTextView"
+            android:id="@+id/fav_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -26,44 +26,46 @@
             tools:text="Item Name"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/fav_item_img_view"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/itemPriceTextView"
+            android:id="@+id/fav_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             tools:text="Item Price"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/itemNameTextView" />
+            app:layout_constraintStart_toEndOf="@+id/fav_item_img_view"
+            app:layout_constraintTop_toBottomOf="@+id/fav_item_title" />
 
         <TextView
-            android:id="@+id/itemId"
+            android:id="@+id/fav_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             tools:text="Item ID"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/itemPriceTextView" />
+            app:layout_constraintStart_toEndOf="@+id/fav_item_img_view"
+            app:layout_constraintTop_toBottomOf="@+id/fav_item_price" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/fav_item_img_view"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/product_image_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/fav_item_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:contentDescription="@string/filled_heart_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

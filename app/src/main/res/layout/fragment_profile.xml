@@ -77,7 +77,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnExit"
+        android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -85,10 +85,10 @@
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="@+id/profile_phone"
         app:layout_constraintStart_toStartOf="@+id/profile_phone"
-        app:layout_constraintTop_toBottomOf="@+id/theme_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_theme" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/theme_switch"
+        android:id="@+id/switch_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_phone" />
 
     <ImageView
-        android:id="@+id/progress_bar"
+        android:id="@+id/profile_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"

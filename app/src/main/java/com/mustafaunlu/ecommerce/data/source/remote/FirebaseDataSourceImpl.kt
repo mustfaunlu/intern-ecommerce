@@ -2,8 +2,8 @@ package com.mustafaunlu.ecommerce.data.source.remote
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import javax.inject.Inject
 
 class FirebaseDataSourceImpl @Inject constructor(

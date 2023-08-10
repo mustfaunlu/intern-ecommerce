@@ -6,9 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.mustafaunlu.ecommerce.domain.entity.FavoriteItemEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserCartBadgeEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
+import com.mustafaunlu.ecommerce.domain.entity.product.FavoriteProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartBadgeEntity
+import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartEntity
 
 @Dao
 interface AppDao {
@@ -25,13 +25,13 @@ interface AppDao {
     suspend fun updateUserCartItem(userCartEntity: UserCartEntity)
 
     @Query("SELECT * FROM favorite_items WHERE userId = :userId")
-    suspend fun getFavoriteProducts(userId: String): List<FavoriteItemEntity>
+    suspend fun getFavoriteProducts(userId: String): List<FavoriteProductEntity>
 
-    @Insert(FavoriteItemEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavoriteItem(favoriteItemEntity: FavoriteItemEntity)
+    @Insert(FavoriteProductEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavoriteItem(favoriteProductEntity: FavoriteProductEntity)
 
-    @Delete(FavoriteItemEntity::class)
-    suspend fun deleteFavoriteItem(favoriteItemEntity: FavoriteItemEntity)
+    @Delete(FavoriteProductEntity::class)
+    suspend fun deleteFavoriteItem(favoriteProductEntity: FavoriteProductEntity)
 
     @Query("SELECT * FROM user_badges WHERE userUniqueInfo = :userUniqueInfo")
     fun getUserBadge(userUniqueInfo: String): UserCartBadgeEntity

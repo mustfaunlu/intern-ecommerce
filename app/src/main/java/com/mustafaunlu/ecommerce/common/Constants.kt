@@ -2,13 +2,14 @@ package com.mustafaunlu.ecommerce.common
 
 object Constants {
     const val PREF_SELECTED_IMAGE_URI = "PREF_SELECTED_IMAGE_URI"
-    const val SHARED_PREF_FILE_NAME = "userData"
-    const val SHARED_PREF_USERID_KEY = "userId"
-    const val SHARED_PREF_FIREBASE_USERID_KEY = "SHARED_PREF_FIREBASE_USERID_KEY"
-    const val SHARED_PREF_IS_FIREBASE_USER = "SHARED_PREF_IS_FIREBASE_USER"
-    const val SHARED_PREF_DEF = ""
-    const val BASE_URL = "https://dummyjson.com/"
+    const val PREF_FILE_NAME = "userData"
+    const val PREF_IS_APP_FIRST_OPEN = "isAppFirstTimeOpen"
+    const val PREF_USERID_KEY = "userId"
+    const val PREF_FIREBASE_USERID_KEY = "SHARED_PREF_FIREBASE_USERID_KEY"
+    const val PREF_IS_FIREBASE_USER = "SHARED_PREF_IS_FIREBASE_USER"
+    const val PREF_DEF_STR = ""
     const val PREF_THEME_KEY = "PREF_THEME_KEY"
+    const val BASE_URL = "https://dummyjson.com/"
     const val USER_TOKEN = "USER_TOKEN"
     const val USER_TOKEN_EXPIRATION_TIME = "USER_TOKEN_EXPIRATION_TIME"
 }

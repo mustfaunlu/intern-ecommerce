@@ -15,15 +15,15 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/product_img"
+            android:id="@+id/home_item_img"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-
+            android:contentDescription="@string/product_image_content"
             tools:srcCompat="@tools:sample/avatars[1]" />
 
         <TextView
-            android:id="@+id/product_title"
+            android:id="@+id/home_product_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -36,7 +36,7 @@
             android:padding="8dp" />
 
         <TextView
-            android:id="@+id/product_description"
+            android:id="@+id/home_product_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Hi I am Amiyo, you can see how to ellipse works. Hi I am Amiyo, you can see how to ellipse works."
@@ -51,7 +51,7 @@
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/product_rating"
+            android:id="@+id/home_product_rating"
             android:numStars="5"
             android:rating="3"
             style="?attr/ratingBarStyleSmall"
@@ -60,7 +60,7 @@
 
 
         <TextView
-            android:id="@+id/product_price"
+            android:id="@+id/home_product_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor = "?android:colorPrimary"

@@ -1,8 +1,8 @@
 package com.mustafaunlu.ecommerce.data.repository
 
 import com.mustafaunlu.ecommerce.data.source.remote.FirebaseDataSource
-import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import javax.inject.Inject
 

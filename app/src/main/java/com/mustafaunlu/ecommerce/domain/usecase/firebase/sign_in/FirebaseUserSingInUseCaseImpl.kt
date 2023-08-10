@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in
 
-import com.mustafaunlu.ecommerce.domain.entity.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.repository.FirebaseRepository
 import javax.inject.Inject
 

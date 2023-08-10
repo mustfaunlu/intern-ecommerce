@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cart_listview"
+        android:id="@+id/cart_fragment_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/total_price"
+        app:layout_constraintBottom_toTopOf="@+id/cart_fragment_total_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +18,7 @@
         tools:listitem="@layout/cart_item" />
 
     <ImageView
-        android:id="@+id/progress_bar"
+        android:id="@+id/cart_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/md_theme_dark_secondary"
@@ -31,15 +31,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/total_price"
+        android:id="@+id/cart_fragment_total_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:text="Total Price"
+        android:text="@string/total_price"
         android:textColor="?android:colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cart_listview" />
+        app:layout_constraintTop_toBottomOf="@+id/cart_fragment_rv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

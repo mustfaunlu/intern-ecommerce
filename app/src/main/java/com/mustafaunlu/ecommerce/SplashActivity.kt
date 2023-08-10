@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.mustafaunlu.ecommerce.databinding.ActivitySplashBinding
-import com.mustafaunlu.ecommerce.presentation.MainActivity
+import com.mustafaunlu.ecommerce.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,12 +27,16 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         lifecycleScope.launch {
-            delay(3000)
+            delay(DURATION_MS_DELAY)
             withContext(Dispatchers.Main) {
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
+    }
+
+    companion object {
+        private const val DURATION_MS_DELAY = 3000L
     }
 }

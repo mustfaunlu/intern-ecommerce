@@ -64,4 +64,14 @@
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="added_to_favorite">Added to favorite</string>
+    <string name="your_name">Your name</string>
+    <string name="your_surname">Your surname</string>
+    <string name="your_phone">Your phone</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="log_in">Log in</string>
+    <string name="product_image_content">Product Image</string>
+    <string name="total_price">Total Price</string>
+    <string name="filled_heart_content">filled heart</string>
+    <string name="decrement_button">decrement button</string>
+    <string name="increment_button">increment button</string>
 </resources>

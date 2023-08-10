@@ -2,7 +2,7 @@ package com.mustafaunlu.ecommerce.di.sharedpref
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.mustafaunlu.ecommerce.common.Constants.SHARED_PREF_FILE_NAME
+import com.mustafaunlu.ecommerce.common.Constants.PREF_FILE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +16,6 @@ object SharedPreferencesModule {
     @Singleton
     @Provides
     fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
+        return context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
     }
 }

@@ -54,7 +54,7 @@ class RemoteDataSourceImpl @Inject constructor(
         return flow {
             emit(NetworkResponseState.Loading)
             try {
-                val response = apiService.postLoginRequest(user)
+                val response = apiService.postLoginRequestToApi(user)
                 emit(NetworkResponseState.Success(response))
             } catch (e: Exception) {
                 emit(NetworkResponseState.Error(e))

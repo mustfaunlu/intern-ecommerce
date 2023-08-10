@@ -1,6 +1,6 @@
 package com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user
 
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 
 interface WriteFirebaseUserInfosUseCase {
     operator fun invoke(

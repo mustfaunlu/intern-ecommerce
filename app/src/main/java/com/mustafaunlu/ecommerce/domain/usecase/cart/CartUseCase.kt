@@ -1,7 +1,7 @@
 package com.mustafaunlu.ecommerce.domain.usecase.cart
 
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
-import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
+import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartEntity
 import kotlinx.coroutines.flow.Flow
 
 interface CartUseCase {

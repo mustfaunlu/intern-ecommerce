@@ -4,16 +4,16 @@ import com.mustafaunlu.ecommerce.data.dto.CartResponseProduct
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.UserInfo
 import com.mustafaunlu.ecommerce.data.dto.UserResponse
-import com.mustafaunlu.ecommerce.data.mapper.AllProductsEntityMapper
+import com.mustafaunlu.ecommerce.data.mapper.ProductEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.SingleProductEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.UserCartEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.UserInfoEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.UserResponseEntityMapper
-import com.mustafaunlu.ecommerce.domain.entity.AllProductsEntity
-import com.mustafaunlu.ecommerce.domain.entity.SingleProductEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserCartEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserInformationEntity
-import com.mustafaunlu.ecommerce.domain.entity.UserResponseEntity
+import com.mustafaunlu.ecommerce.domain.entity.product.ProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.product.DetailProductEntity
+import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
+import com.mustafaunlu.ecommerce.domain.entity.user.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import dagger.Binds
@@ -28,11 +28,11 @@ abstract class MapperModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindAllProductsEntityMapper(allProductsEntityMapper: AllProductsEntityMapper): ProductListMapper<Product, AllProductsEntity>
+    abstract fun bindAllProductsEntityMapper(productEntityMapper: ProductEntityMapper): ProductListMapper<Product, ProductEntity>
 
     @Binds
     @ViewModelScoped
-    abstract fun bindSingleProductEntityMapper(singleProductEntityMapper: SingleProductEntityMapper): ProductBaseMapper<Product, SingleProductEntity>
+    abstract fun bindSingleProductEntityMapper(singleProductEntityMapper: SingleProductEntityMapper): ProductBaseMapper<Product, DetailProductEntity>
 
     @Binds
     @ViewModelScoped
