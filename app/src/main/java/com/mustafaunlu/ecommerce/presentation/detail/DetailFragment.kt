@@ -123,6 +123,7 @@ class DetailFragment : Fragment() {
 
     private fun addToFavorite() {
         detailViewModel.addToFavorite(userCart)
+        requireView().showToast(getString(R.string.added_to_favorite))
     }
 
     private fun setupAddToCartButton() {
