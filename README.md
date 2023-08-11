@@ -90,6 +90,11 @@ Coming soon...
       no cost.
 - [SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences) Store
   private primitive data in key-value pairs.
+- Testing
+    - [Mockito](https://site.mockito.org/) A mocking framework that tastes really good. It lets you write beautiful tests with a clean & simple API
+    - [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) A scriptable web server for testing HTTP clients
+    - [Truth](https://truth.dev/) A library for performing assertions in tests
+    - [Turbine](https://github.com/cashapp/turbine) A small testing library for kotlinx.coroutines Flow
 
 ## Architecture
 
