@@ -11,25 +11,20 @@ MVVM + Clean Architecture approach.
 
 ## Screenshots
 
-<p align="center">
-<img src="/previews/login-screen.png" width="20%"/>
-<img src="/previews/login-screen-loading.png" width="20%"/>
-<img src="/previews/product-list-screen.png" width="20%"/>
-<img src="/previews/product-list-screen-1.png" width="20%"/>
-<img src="/previews/category-screen.png" width="20%"/>
-<img src="/previews/product-detail-screen.png" width="20%"/>
-<img src="/previews/add-to-cart.png" width="20%"/>
-<img src="/previews/shopping-list.png" width="20%"/>
-<img src="/previews/shopping-list-1.png" width="20%"/>
-</p>
-Coming soon...
-
-## App Gif
-Coming soon...
-API(DummyJson) USER | FIREBASE USER | PUSH NOTIF. | LOCAL NOTIF. |
+SCREEN1 | SCREEN2 |
 --- | --- | --- | --- |
-![](/previews/apiuser.mp4) |![](/previews/firebaseuser.mp4) | ![](/previews/pushnotif.mp4) |![](/previews/local%20notif%20final.mp4) |
+![](/previews/) |![](/previews/) |
 
+Coming soon...
+
+## App Videos
+
+<p align="center">
+<img src="/previews/firebaseuser.mp4" width="30%"/>
+<img src="/previews/apiuser.mp4" width="30%"/>
+<img src="/previews/local notif final.mp4" width="30%"/>
+<img src="/previews/pushnotif.mp4" width="30%"/>
+</p>
 
 ## Tech stack & Open-source libraries
 
