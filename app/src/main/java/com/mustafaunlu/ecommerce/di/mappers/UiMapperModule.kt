@@ -4,7 +4,7 @@ import com.mustafaunlu.ecommerce.ui.home.ProductUiData
 import com.mustafaunlu.ecommerce.ui.favorite.FavoriteUiData
 import com.mustafaunlu.ecommerce.ui.detail.DetailProductUiData
 import com.mustafaunlu.ecommerce.ui.cart.UserCartUiData
-import com.mustafaunlu.ecommerce.ui.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
 import com.mustafaunlu.ecommerce.ui.auth.sign_in.ApiUserUiData
 import com.mustafaunlu.ecommerce.domain.entity.product.ProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.product.FavoriteProductEntity

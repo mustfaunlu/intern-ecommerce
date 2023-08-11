@@ -11,9 +11,9 @@ import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.user.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseUserSingInUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.ApiUserSignInUseCase
-import com.mustafaunlu.ecommerce.ui.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.FirebaseUserSingInUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.ApiUserSignInUseCase
+import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

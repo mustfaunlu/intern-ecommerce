@@ -1,6 +1,6 @@
 package com.mustafaunlu.ecommerce.ui.mapper
 
-import com.mustafaunlu.ecommerce.ui.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
 import com.mustafaunlu.ecommerce.ui.auth.sign_in.ApiUserUiData
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.entity.user.UserResponseEntity

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentSignUpBinding
-import com.mustafaunlu.ecommerce.ui.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
 import com.mustafaunlu.ecommerce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseUserSignUpUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosUseCase
-import com.mustafaunlu.ecommerce.ui.profile.UserInformationUiData
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_up.FirebaseUserSignUpUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.write_user.WriteFirebaseUserInfosUseCase
+import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

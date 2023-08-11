@@ -10,7 +10,7 @@ import com.mustafaunlu.ecommerce.domain.entity.product.FavoriteProductEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.DeleteFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

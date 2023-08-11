@@ -9,10 +9,10 @@ import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.domain.entity.product.ProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartBadgeEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
-import com.mustafaunlu.ecommerce.domain.usecase.products.GetAllProductsUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.GetAllProductsUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.SearchProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val categoryUseCase: CategoryUseCase,
-    private val searchUseCase: SearchUseCase,
+    private val searchProductUseCase: SearchProductUseCase,
     private val mapper: ProductListMapper<ProductEntity, ProductUiData>,
     private val badgeUseCase: UserCartBadgeUseCase
 ) :
@@ -65,7 +65,7 @@ class HomeViewModel @Inject constructor(
 
     fun searchProduct(query: String) {
         viewModelScope.launch {
-            searchUseCase(query).onEach {
+            searchProductUseCase(query).onEach {
                 when (it) {
                     is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
                     is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
@@ -86,7 +86,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getProductsByCategory(categoryName: String) {
-        categoryUseCase(categoryName).onEach {
+        getAllProductsUseCase(categoryName).onEach {
             when (it) {
                 is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
                 is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)

@@ -8,8 +8,9 @@ import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.ReadFirebaseUserInfosUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadFirebaseUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadApiUserInfosUseCase
+import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

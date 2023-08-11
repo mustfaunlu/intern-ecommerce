@@ -14,7 +14,7 @@ import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.detail.GetSingleProductUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.GetSingleProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

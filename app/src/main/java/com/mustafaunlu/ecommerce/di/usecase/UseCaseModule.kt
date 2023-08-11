@@ -1,39 +1,39 @@
 package com.mustafaunlu.ecommerce.di.usecase
 
-import com.mustafaunlu.ecommerce.domain.usecase.products.GetAllProductsUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.products.GetAllProductsUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.product.GetAllProductsUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.GetAllProductsUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.CartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.cart.delete_cart.DeleteUserCartUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.cart.update_cart.UpdateCartUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.cart.DeleteUserCartUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.DeleteUserCartUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.cart.UpdateCartUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.cart.UpdateCartUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.favorite.delete_favorite.DeleteFavoriteUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.ForgotPwFirebaseUserUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.forget_pw.ForgotPwFirebaseUserUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.ReadFirebaseUserInfosUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.read_user.ReadFirebaseUserInfosUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseUserSingInUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_in.FirebaseUserSingInUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseUserSignUpUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.sign_up.FirebaseUserSignUpUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.firebase.write_user.WriteFirebaseUserInfosUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.search.SearchUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.detail.GetSingleProductUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.detail.GetSingleProductUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.ReadApiUserInfosUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.user.ApiUserSignInUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.ApiUserSignInUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.DeleteFavoriteUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.DeleteFavoriteUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.forget_pw.ForgotPwFirebaseUserUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.forget_pw.ForgotPwFirebaseUserUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadFirebaseUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadFirebaseUserInfosUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.FirebaseUserSingInUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.FirebaseUserSingInUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_up.FirebaseUserSignUpUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_up.FirebaseUserSignUpUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.write_user.WriteFirebaseUserInfosCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.write_user.WriteFirebaseUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.SearchProductUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.SearchProductUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.product.GetSingleProductUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.product.GetSingleProductUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadApiUserInfosUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadApiUserInfosUseCaseImpl
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.ApiUserSignInUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.ApiUserSignInUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -83,8 +83,8 @@ abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindSearchUseCase(
-        searchUseCaseImpl: SearchUseCaseImpl,
-    ): SearchUseCase
+        searchUseCaseImpl: SearchProductUseCaseImpl,
+    ): SearchProductUseCase
 
     @Binds
     @ViewModelScoped
