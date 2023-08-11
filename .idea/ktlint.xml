@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="KtlintProjectConfiguration">
+    <enableKtlint>false</enableKtlint>
+    <androidMode>true</androidMode>
+    <treatAsErrors>false</treatAsErrors>
+    <disabledRules>
+      <list>
+        <option value="max-line-length" />
+        <option value="max-line-length" />
+      </list>
+    </disabledRules>
+  </component>
+</project>
