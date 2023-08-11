@@ -26,6 +26,9 @@ Coming soon...
 
 ## App Gif
 Coming soon...
+API(DummyJson) USER | FIREBASE USER | PUSH NOTIF. | LOCAL NOTIF. |
+--- | --- | --- | --- |
+![](/previews/apiuser.mp4) |![](/previews/firebaseuser.mp4) | ![](/previews/pushnotif.mp4) |![](/previews/local%20notif%20final.mp4) |
 
 <p align="center">
 <img src="/previews/app.gif" width="30%"/>
