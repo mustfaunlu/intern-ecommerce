@@ -68,6 +68,10 @@ dependencies {
     testImplementation "org.mockito.kotlin:mockito-kotlin:5.1.0"
     // Optional -- Mockk framework
     testImplementation "io.mockk:mockk:1.13.5"
+    // Optional -- Truth framework
+    testImplementation "com.google.truth:truth:1.1.5"
+    // Optional -- Turbine framework
+    testImplementation "app.cash.turbine:turbine:1.0.0"
 
     // WorkManager
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
