@@ -11,20 +11,15 @@ MVVM + Clean Architecture approach.
 
 ## Screenshots
 
-SCREEN1 | SCREEN2 |
---- | --- | --- | --- |
-![](/previews/) |![](/previews/) |
+| SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         |
+|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
+| ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) |
 
-Coming soon...
+Coming soon..
 
 ## App Videos
 
-<p align="center">
-<img src="/previews/firebaseuser.mp4" width="30%"/>
-<img src="/previews/apiuser.mp4" width="30%"/>
-<img src="/previews/local notif final.mp4" width="30%"/>
-<img src="/previews/pushnotif.mp4" width="30%"/>
-</p>
+Coming soon..
 
 ## Tech stack & Open-source libraries
 
