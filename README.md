@@ -3,7 +3,10 @@
 A sample e-commerce app built to demonstrate the use of Modern Android development tools. E-commerce App is a modern Android application that uses the latest tools and technologies. Built with Kotlin and Android Architecture Components, it uses the latest cutting-edge technologies, components, and patterns. 
 MVVM + Clean Architecture approach.
 
-- Note: Our application offers two different login options. You can either create an account using Firebase or log in using the [DummyJson](https://dummyjson.com/docs/auth) API. The choice is yours!
+- Note: Our application offers two different login options. You can either create an account using
+  Firebase or log in using the [DummyJson](https://dummyjson.com/docs/auth) API. The choice is
+  yours!
+
 </p></br>
 
 <p align="center">
@@ -12,15 +15,17 @@ MVVM + Clean Architecture approach.
 </p>
 
 ## Screenshots (Dark Theme & Light Theme)
+
 App videos are available at the bottom of the page.
 Just portrait mode is supported for now.
 This app is still under development and more screens will be added soon.
 
-
-| SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         |
-|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
-| ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) |
-
+| SCREEN SIGNUP                     | SCREEN SIGNIN                   | SCREEN RESETPW                 | SCREEN HOME                  | SCREEN DETAIL                  | SCREEN FAV                  | SCREEN CART                  | SCREEN PROFILE                  |
+|-----------------------------------|---------------------------------|--------------------------------|------------------------------|--------------------------------|-----------------------------|------------------------------|---------------------------------|
+| ![](/previews/create_account.png) | ![](/previews/login_screen.png) | ![](/previews/forgot_pass.png) | ![](/previews/home.png)      | ![](/previews/detail.png)      | ![](/previews/fav.png)      | ![](/previews/cart.png)      | ![](/previews/profile.png)      |
+| -----------------                 | -----------------               | -----------------              | -----------------            | -----------------              | -----------------           | -----------------            | -----------------               |
+| ![](/previews/create_dark.png)    | ![](/previews/login_dark.png)   | ![](/previews/forgot_dark.png) | ![](/previews/home_dark.png) | ![](/previews/detail_dark.png) | ![](/previews/fav_dark.png) | ![](/previews/cart_dark.png) | ![](/previews/profile_dark.png) |
+| -----------------                 | -----------------               | -----------------              | -----------------            | -----------------              | -----------------           | -----------------            | -----------------               |
 Coming soon..
 
 ## Tech stack & Open-source libraries
@@ -83,14 +88,19 @@ Coming soon..
 - [SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences) Store
   private primitive data in key-value pairs.
 - Testing
-    - [Mockito](https://site.mockito.org/) A mocking framework that tastes really good. It lets you write beautiful tests with a clean & simple API
-    - [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) A scriptable web server for testing HTTP clients
+    - [Mockito](https://site.mockito.org/) A mocking framework that tastes really good. It lets you
+      write beautiful tests with a clean & simple API
+    - [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) A scriptable web
+      server for testing HTTP clients
     - [Truth](https://truth.dev/) A library for performing assertions in tests
-    - [Turbine](https://github.com/cashapp/turbine) A small testing library for kotlinx.coroutines Flow
+    - [Turbine](https://github.com/cashapp/turbine) A small testing library for kotlinx.coroutines
+      Flow
 
 ## Architecture
 
-This app uses [MVVM (Model View View-Model) + Clean Architecture](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) architecture
+This app
+uses [MVVM (Model View View-Model) + Clean Architecture](https://developer.android.com/jetpack/docs/guide#recommended-app-arch)
+architecture
 
 ![](https://user-images.githubusercontent.com/21035435/69536839-9f4c8e80-0fa0-11ea-85ee-d7823e5a46b0.png)
 
@@ -110,7 +120,8 @@ https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/1e9d684e-54a7-44e
 
 https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/28665c10-8533-4be8-8b98-676be33b6a73
 
-- If the application is not in the foreground or background and the notification settings are enabled, a local notification is sent every 15 minutes</br>
+- If the application is not in the foreground or background and the notification settings are
+  enabled, a local notification is sent every 15 minutes</br>
 
 https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/967167ac-b755-47d5-b5da-40721932ece3
 
@@ -118,6 +129,9 @@ https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/967167ac-b755-47d
 
 https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/0ceaec5e-dc6b-485b-9fb1-43a2afbe3cf7
 
-- JWT token expiration sample: Our application automatically refreshes the JWT token every 3 minutes. If the token has expired and the application is sent to the background, upon returning to the foreground, you will be directed to the login screen. This ensures the security of your session and requires you to log in again only if necessary.</br>
+- JWT token expiration sample: Our application automatically refreshes the JWT token every 3
+  minutes. If the token has expired and the application is sent to the background, upon returning to
+  the foreground, you will be directed to the login screen. This ensures the security of your
+  session and requires you to log in again only if necessary.</br>
 
 https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/03d8145a-ab57-4d9f-b2c6-8a82d6ffe739
