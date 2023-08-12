@@ -2,6 +2,8 @@
 <p align="center">  
 A sample e-commerce app built to demonstrate the use of Modern Android development tools. E-commerce App is a modern Android application that uses the latest tools and technologies. Built with Kotlin and Android Architecture Components, it uses the latest cutting-edge technologies, components, and patterns. 
 MVVM + Clean Architecture approach.
+
+- Note: Our application offers two different login options. You can either create an account using Firebase or log in using the [DummyJson](https://dummyjson.com/docs/auth) API. The choice is yours!
 </p></br>
 
 <p align="center">
@@ -9,15 +11,20 @@ MVVM + Clean Architecture approach.
   <a href="https://github.com/mustfaunlu"><img alt="Profile" src="https://img.shields.io/badge/github-mustfaunlu-blue"/></a> 
 </p>
 
-## Screenshots
+## Screenshots (Dark Theme & Light Theme)
+App videos are available at the bottom of the page.
+Just portrait mode is supported for now.
+This app is still under development and more screens will be added soon.
+
 
 | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         | SCREEN1         | SCREEN2         |
 |-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
 | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) |
 
-Coming soon..
+| SCREEN1DARK     | SCREEN2DARK     | SCREEN1DARK     | SCREEN2DARK     | SCREEN1DARK     | SCREEN2DARK     | SCREEN1DARK     | SCREEN2DARK     |
+|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
+| ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) |
 
-## App Videos
 
 Coming soon..
 
@@ -97,4 +104,21 @@ This app uses [MVVM (Model View View-Model) + Clean Architecture](https://develo
 E-commerce App uses the [DummyJson](https://dummyjson.com/) for constructing RESTful API.<br>
 And also uses [Firebase](https://firebase.google.com/) for authentication, crashlytics, analytics,
 firestore and messaging.
+
+## App Videos
+
+- Login as a firebase user: Create your own user from the "Create Account" screen.</br>
+[Login_as_firebase_user.mp4](previews/Login_as_firebase_user.mp4)
+
+- Login as [DummyJson](https://dummyjson.com/) api user</br>
+[Login_as_dummyJson_api_user.mp4](previews/Login_as_dummyJson_api_user.mp4)
+
+- If the application is not in the foreground or background and the notification settings are enabled, a local notification is sent every 15 minutes</br>
+[Local_nofitication.mp4](previews/Local_nofitication.mp4)
+
+- Firebase push notification sample</br>
+[Push_notification.mp4](previews/Push_notification.mp4)
+
+- JWT token expiration sample: Our application automatically refreshes the JWT token every 3 minutes. If the token has expired and the application is sent to the background, upon returning to the foreground, you will be directed to the login screen. This ensures the security of your session and requires you to log in again only if necessary.</br>
+[Jwt_expire_sample.mp4](previews/Jwt_expire_sample.mp4)
 
