@@ -21,11 +21,6 @@ This app is still under development and more screens will be added soon.
 |-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
 | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) |
 
-| SCREEN1DARK     | SCREEN2DARK     | SCREEN1DARK     | SCREEN2DARK     | SCREEN1DARK     | SCREEN2DARK     | SCREEN1DARK     | SCREEN2DARK     |
-|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
-| ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) | ![](/previews/) |
-
-
 Coming soon..
 
 ## Tech stack & Open-source libraries
@@ -108,17 +103,21 @@ firestore and messaging.
 ## App Videos
 
 - Login as a firebase user: Create your own user from the "Create Account" screen.</br>
-[Login_as_firebase_user.mp4](previews/Login_as_firebase_user.mp4)
+
+https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/1e9d684e-54a7-44e0-b4d8-9d20af5dd062
 
 - Login as [DummyJson](https://dummyjson.com/) api user</br>
-[Login_as_dummyJson_api_user.mp4](previews/Login_as_dummyJson_api_user.mp4)
+
+https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/28665c10-8533-4be8-8b98-676be33b6a73
 
 - If the application is not in the foreground or background and the notification settings are enabled, a local notification is sent every 15 minutes</br>
-[Local_nofitication.mp4](previews/Local_nofitication.mp4)
+
+https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/967167ac-b755-47d5-b5da-40721932ece3
 
 - Firebase push notification sample</br>
-[Push_notification.mp4](previews/Push_notification.mp4)
+
+https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/0ceaec5e-dc6b-485b-9fb1-43a2afbe3cf7
 
 - JWT token expiration sample: Our application automatically refreshes the JWT token every 3 minutes. If the token has expired and the application is sent to the background, upon returning to the foreground, you will be directed to the login screen. This ensures the security of your session and requires you to log in again only if necessary.</br>
-[Jwt_expire_sample.mp4](previews/Jwt_expire_sample.mp4)
 
+https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/03d8145a-ab57-4d9f-b2c6-8a82d6ffe739
