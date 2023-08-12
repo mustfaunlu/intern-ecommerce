@@ -1,14 +1,14 @@
 package com.mustafaunlu.ecommerce.ui.detail
 
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
-import com.mustafaunlu.ecommerce.domain.detailProductEntity
+import com.mustafaunlu.ecommerce.ui.detailProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.product.DetailProductEntity
 import com.mustafaunlu.ecommerce.domain.usecase.product.GetSingleProductUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 
-class FakeGetSingleProductUseCase : GetSingleProductUseCase {
+class FakeGetSingleProductUseCaseUi : GetSingleProductUseCase {
 
     private var showError = false
 
