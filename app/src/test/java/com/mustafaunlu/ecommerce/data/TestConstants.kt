@@ -18,10 +18,10 @@ const val categoryName: String = "smartphones"
 const val productId: Int = 1
 
 @VisibleForTesting
-const val query: String = "trend"
+const val query: String = "phone"
 
 @VisibleForTesting
-val singleProduct = Product(
+val singleProductResponse = Product(
     brand = "Apple",
     category = "smartphones",
     description = "",
@@ -42,15 +42,15 @@ val singleProduct = Product(
 )
 
 @VisibleForTesting
-val allProducts = Products(
+val allProductsResponse = Products(
     limit = 30,
     total = 100,
     skip = 0,
-    products = listOf(singleProduct)
+    products = listOf(singleProductResponse)
 )
 
 @VisibleForTesting
-val productList = listOf(singleProduct)
+val productList = listOf(singleProductResponse)
 
 @VisibleForTesting
 const val SERVER_PORT = 8000
