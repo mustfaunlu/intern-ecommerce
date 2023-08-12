@@ -84,6 +84,6 @@ val productEntity =
     )
 
 @VisibleForTesting
-val productEntityList = listOf(
+val allProductEntities = listOf(
     productEntity,
 )
