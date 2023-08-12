@@ -33,7 +33,7 @@ class DetailViewModel @Inject constructor(
 
     fun getProduct(id: Int) {
         viewModelScope.launch {
-            getSingleProductUseCase(id).collect {
+            getSingleProductUseCase.invoke(id).collect {
                 when (it) {
                     is NetworkResponseState.Error -> _product.postValue(ScreenState.Error(it.exception.message!!))
                     is NetworkResponseState.Loading -> _product.postValue(ScreenState.Loading)
@@ -45,19 +45,19 @@ class DetailViewModel @Inject constructor(
 
     fun addToCart(userCartEntity: UserCartEntity) {
         viewModelScope.launch {
-            cartUseCase(userCartEntity)
+            cartUseCase.invoke(userCartEntity)
         }
     }
 
     fun addToFavorite(userCartUiData: UserCartEntity) {
         viewModelScope.launch {
-            favoriteUseCase(cartToFavoriteUiMapper.map(userCartUiData))
+            favoriteUseCase.invoke(cartToFavoriteUiMapper.map(userCartUiData))
         }
     }
 
     fun insertBadgeStatusToDb(userCartBadgeEntity: UserCartBadgeEntity) {
         viewModelScope.launch {
-            badgeUseCase(userCartBadgeEntity)
+            badgeUseCase.invoke(userCartBadgeEntity)
         }
     }
 }
