@@ -16,17 +16,15 @@ MVVM + Clean Architecture approach.
 
 ## Screenshots (Dark Theme & Light Theme)
 
-App videos are available at the bottom of the page.
+### App videos are available at the bottom of the page.
 Just portrait mode is supported for now.
 This app is still under development and more screens will be added soon.
 
 | SCREEN SIGNUP                     | SCREEN SIGNIN                   | SCREEN RESETPW                 | SCREEN HOME                  | SCREEN DETAIL                  | SCREEN FAV                  | SCREEN CART                  | SCREEN PROFILE                  |
 |-----------------------------------|---------------------------------|--------------------------------|------------------------------|--------------------------------|-----------------------------|------------------------------|---------------------------------|
 | ![](/previews/create_account.png) | ![](/previews/login_screen.png) | ![](/previews/forgot_pass.png) | ![](/previews/home.png)      | ![](/previews/detail.png)      | ![](/previews/fav.png)      | ![](/previews/cart.png)      | ![](/previews/profile.png)      |
-| -----------------                 | -----------------               | -----------------              | -----------------            | -----------------              | -----------------           | -----------------            | -----------------               |
 | ![](/previews/create_dark.png)    | ![](/previews/login_dark.png)   | ![](/previews/forgot_dark.png) | ![](/previews/home_dark.png) | ![](/previews/detail_dark.png) | ![](/previews/fav_dark.png) | ![](/previews/cart_dark.png) | ![](/previews/profile_dark.png) |
-| -----------------                 | -----------------               | -----------------              | -----------------            | -----------------              | -----------------           | -----------------            | -----------------               |
-Coming soon..
+
 
 ## Tech stack & Open-source libraries
 
