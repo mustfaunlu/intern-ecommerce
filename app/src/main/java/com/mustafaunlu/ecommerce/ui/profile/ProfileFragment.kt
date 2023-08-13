@@ -85,11 +85,11 @@ class ProfileFragment : Fragment() {
             true
         }
 
-        binding.switchTheme?.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
             themeSwitchLogic(isChecked)
         }
 
-        binding.btnLogout?.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             showConfirmationDialog(getString(R.string.do_you_want_to_exit)) {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
             }
@@ -109,23 +109,15 @@ class ProfileFragment : Fragment() {
 
     private fun fetchUserInfo() {
         val userId = getUserIdFromSharedPref(sharedPrefs)
-        val isFirebaseUser = sharedPrefs.getBoolean(
-            Constants.PREF_IS_FIREBASE_USER,
-            false,
-        )
-        if (isFirebaseUser) {
-            viewModel.getUserInfosFromFirebase(userId)
-        } else {
-            viewModel.getUserInfosFromApi(userId)
-        }
+        viewModel.getUserInfosFromFirebase(userId)
     }
 
     private fun observeUserInfo() {
         viewModel.userInfos.observe(viewLifecycleOwner) { userInfoState ->
             when (userInfoState) {
-                ScreenState.Loading -> binding.profileProgressBar?.visible()
+                ScreenState.Loading -> binding.profileProgressBar.visible()
                 is ScreenState.Success -> {
-                    binding.profileProgressBar?.gone()
+                    binding.profileProgressBar.gone()
                     val userInfo = userInfoState.uiData
                     binding.apply {
                         profileName.text = userInfo.name
@@ -135,7 +127,7 @@ class ProfileFragment : Fragment() {
                     }
                 }
 
-                is ScreenState.Error -> binding.profileProgressBar?.gone()
+                is ScreenState.Error -> binding.profileProgressBar.gone()
             }
         }
     }

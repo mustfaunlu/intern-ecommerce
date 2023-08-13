@@ -42,7 +42,7 @@ class FavoriteViewModel @Inject constructor(
     }
 
     fun deleteFavoriteItem(favoriteUiData: FavoriteUiData) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             deleteCartUseCase(singleMapper.map(favoriteUiData))
         }
     }

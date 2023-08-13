@@ -3,9 +3,6 @@ package com.mustafaunlu.ecommerce.data.source.remote
 import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.Products
-import com.mustafaunlu.ecommerce.data.dto.User
-import com.mustafaunlu.ecommerce.data.dto.UserInfo
-import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
@@ -15,11 +12,7 @@ interface RemoteDataSource {
 
     fun getProductsListBySearchFromApi(query: String): Flow<NetworkResponseState<Products>>
 
-    fun postLoginRequest(user: User): Flow<NetworkResponseState<UserResponse>>
-
     fun getAllCategoriesListFromApi(): Flow<NetworkResponseState<List<String>>>
 
     fun getProductsListByCategoryNameFromApi(categoryName: String): Flow<NetworkResponseState<Products>>
-
-    fun getUserInformationByIdFromApi(userId: String): Flow<NetworkResponseState<UserInfo>>
 }

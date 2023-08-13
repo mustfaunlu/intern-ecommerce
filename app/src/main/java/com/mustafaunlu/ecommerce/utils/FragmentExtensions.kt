@@ -55,23 +55,8 @@ fun Fragment.checkInternetConnection() {
 }
 
 fun getUserIdFromSharedPref(sharedPrefs: SharedPreferences): String {
-    val apiUserId = sharedPrefs.getString(
-        Constants.PREF_USERID_KEY,
-        Constants.PREF_DEF_STR,
-    ) ?: Constants.PREF_DEF_STR
-
-    val firebaseUserId = sharedPrefs.getString(
+    return sharedPrefs.getString(
         Constants.PREF_FIREBASE_USERID_KEY,
         Constants.PREF_DEF_STR,
     ) ?: Constants.PREF_DEF_STR
-
-    val isFirebaseUser = sharedPrefs.getBoolean(
-        Constants.PREF_IS_FIREBASE_USER,
-        false,
-    )
-    return if (isFirebaseUser) {
-        firebaseUserId
-    } else {
-        apiUserId
-    }
 }

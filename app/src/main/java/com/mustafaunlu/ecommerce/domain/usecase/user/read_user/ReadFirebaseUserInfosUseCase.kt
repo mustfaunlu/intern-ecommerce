@@ -4,7 +4,7 @@ import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
 
 interface ReadFirebaseUserInfosUseCase {
     operator fun invoke(
-        userMail: String,
+        userId: String,
         onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     )

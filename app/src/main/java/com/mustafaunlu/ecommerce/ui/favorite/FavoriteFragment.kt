@@ -50,15 +50,15 @@ class FavoriteFragment : Fragment() {
         viewModel.favoriteCarts.observe(viewLifecycleOwner) { favoriteItem ->
             when (favoriteItem) {
                 is ScreenState.Error -> {
-                    binding.favProgressBar?.gone()
+                    binding.favProgressBar.gone()
                     requireView().showToast(favoriteItem.message)
                 }
 
-                ScreenState.Loading -> binding.favProgressBar?.visible()
+                ScreenState.Loading -> binding.favProgressBar.visible()
                 is ScreenState.Success -> {
-                    binding.favProgressBar?.gone()
+                    binding.favProgressBar.gone()
                     adapter.submitList(favoriteItem.uiData)
-                    binding.favoriteRv?.adapter = adapter
+                    binding.favoriteRv.adapter = adapter
                 }
             }
         }

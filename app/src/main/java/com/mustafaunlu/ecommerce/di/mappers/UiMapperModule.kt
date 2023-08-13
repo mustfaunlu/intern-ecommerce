@@ -5,13 +5,11 @@ import com.mustafaunlu.ecommerce.ui.favorite.FavoriteUiData
 import com.mustafaunlu.ecommerce.ui.detail.DetailProductUiData
 import com.mustafaunlu.ecommerce.ui.cart.UserCartUiData
 import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
-import com.mustafaunlu.ecommerce.ui.auth.sign_in.ApiUserUiData
 import com.mustafaunlu.ecommerce.domain.entity.product.ProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.product.FavoriteProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.product.DetailProductEntity
 import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartEntity
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
-import com.mustafaunlu.ecommerce.domain.entity.user.UserResponseEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
 import com.mustafaunlu.ecommerce.ui.mapper.CartEntityToUiMapper
@@ -23,7 +21,6 @@ import com.mustafaunlu.ecommerce.ui.mapper.CartUiToEntityMapper
 import com.mustafaunlu.ecommerce.ui.mapper.FavoriteUiToEntityMapper
 import com.mustafaunlu.ecommerce.ui.mapper.UserInfoEntityToUiDataMapper
 import com.mustafaunlu.ecommerce.ui.mapper.UserInfoUiDataToEntityMapper
-import com.mustafaunlu.ecommerce.ui.mapper.ApiUserUiMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -48,10 +45,6 @@ abstract class UiMapperModule {
     @Binds
     @ViewModelScoped
     abstract fun bindSingleCartUiMapper(singleCartUiDataMapper: CartUiToEntityMapper): ProductBaseMapper<UserCartUiData, UserCartEntity>
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindUserUiMapper(userUiDataMapper: ApiUserUiMapper): ProductBaseMapper<UserResponseEntity, ApiUserUiData>
 
     @Binds
     @ViewModelScoped

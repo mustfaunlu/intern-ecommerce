@@ -27,11 +27,11 @@ class ProductAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(product: ProductUiData) {
             binding.apply {
-                homeProductTitle?.text = product.title
-                homeProductPrice?.text = "${product.price} TL"
-                homeProductDescription?.text = product.description
-                homeItemImg?.loadImage(product.imageUrl)
-                homeProductRating?.rating = product.rating.toFloat()
+                homeProductTitle.text = product.title
+                homeProductPrice.text = "${product.price} TL"
+                homeProductDescription.text = product.description
+                homeItemImg.loadImage(product.imageUrl)
+                homeProductRating.rating = product.rating.toFloat()
             }
             binding.root.setOnClickListener {
                 onItemClicked(product.id)

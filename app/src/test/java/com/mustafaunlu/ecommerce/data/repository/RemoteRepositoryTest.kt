@@ -8,8 +8,6 @@ import com.mustafaunlu.ecommerce.data.api.ApiService
 import com.mustafaunlu.ecommerce.data.categoryName
 import com.mustafaunlu.ecommerce.data.mapper.ProductEntityMapper
 import com.mustafaunlu.ecommerce.data.mapper.SingleProductEntityMapper
-import com.mustafaunlu.ecommerce.data.mapper.UserInfoEntityMapper
-import com.mustafaunlu.ecommerce.data.mapper.UserResponseEntityMapper
 import com.mustafaunlu.ecommerce.data.productId
 import com.mustafaunlu.ecommerce.data.query
 import com.mustafaunlu.ecommerce.data.singleProductResponse
@@ -37,10 +35,8 @@ class RemoteRepositoryTest {
         remoteDataSource = RemoteDataSourceImpl(apiService)
         remoteRepository = RemoteRepositoryImpl(
             remoteDataSource,
-            userResponseEntityMapper = UserResponseEntityMapper(),
             allProductsMapper = ProductEntityMapper(),
             singleProductMapper = SingleProductEntityMapper(),
-            userInfoEntityMapper = UserInfoEntityMapper()
         )
     }
 

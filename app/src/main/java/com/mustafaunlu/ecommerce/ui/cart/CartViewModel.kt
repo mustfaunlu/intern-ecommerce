@@ -48,12 +48,12 @@ class CartViewModel @Inject constructor(
         _totalPriceLiveData.value = totalPrice
     }
     fun deleteUserCartItem(userCartUiData: UserCartUiData) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             deleteCartUseCase(singleMapper.map(userCartUiData))
         }
     }
     fun updateUserCartItem(userCartUiData: UserCartUiData) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             updateCartUseCase(singleMapper.map(userCartUiData))
         }
     }

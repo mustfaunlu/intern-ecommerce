@@ -3,10 +3,6 @@
 A sample e-commerce app built to demonstrate the use of Modern Android development tools. E-commerce App is a modern Android application that uses the latest tools and technologies. Built with Kotlin and Android Architecture Components, it uses the latest cutting-edge technologies, components, and patterns. 
 MVVM + Clean Architecture approach.
 
-- Note: Our application offers two different login options. You can either create an account using
-  Firebase or log in using the [DummyJson](https://dummyjson.com/docs/auth) API. The choice is
-  yours!
-
 </p></br>
 
 <p align="center">
@@ -113,10 +109,6 @@ firestore and messaging.
 - Login as a firebase user: Create your own user from the "Create Account" screen.</br>
 
 https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/1e9d684e-54a7-44e0-b4d8-9d20af5dd062
-
-- Login as [DummyJson](https://dummyjson.com/) api user</br>
-
-https://github.com/mustfaunlu/intern-ecommerce/assets/38860392/28665c10-8533-4be8-8b98-676be33b6a73
 
 - If the application is not in the foreground or background and the notification settings are
   enabled, a local notification is sent every 15 minutes</br>

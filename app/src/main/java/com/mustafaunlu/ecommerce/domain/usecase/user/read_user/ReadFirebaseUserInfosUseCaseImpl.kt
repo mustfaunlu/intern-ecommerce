@@ -8,10 +8,10 @@ class ReadFirebaseUserInfosUseCaseImpl @Inject constructor(
     private val repository: FirebaseRepository
 ): ReadFirebaseUserInfosUseCase {
     override fun invoke(
-        userMail: String,
+        userId: String,
         onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        repository.readUserFromFirebaseDatabase(userMail, onSuccess, onFailure)
+        repository.readUserFromFirebaseDatabase(userId, onSuccess, onFailure)
     }
 }
