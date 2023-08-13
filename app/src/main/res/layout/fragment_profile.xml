@@ -10,7 +10,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        app:strokeColor="@color/md_theme_dark_inversePrimary"
+        app:strokeColor="?android:colorPrimary"
         app:strokeWidth="1dp"
         android:layout_margin="32dp"
         android:contentDescription="@string/profile_picture_content_desc"
