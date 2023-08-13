@@ -78,7 +78,7 @@ class SignInFragment : Fragment() {
                         btnSignIn.isEnabled = true
                     }
                     navigateToHomeScreen()
-                    requireView().showToast("Welcome")
+                    requireView().showToast("Welcome ${firebaseLoginState.uiData.name}")
                     saveUserIdToSharedPref(firebaseLoginState.uiData.id)
                 }
 

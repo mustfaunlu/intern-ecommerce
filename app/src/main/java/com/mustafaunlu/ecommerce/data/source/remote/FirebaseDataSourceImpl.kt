@@ -1,6 +1,8 @@
 package com.mustafaunlu.ecommerce.data.source.remote
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
@@ -8,8 +10,10 @@ import javax.inject.Inject
 
 class FirebaseDataSourceImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    firestore: FirebaseFirestore
 ) : FirebaseDataSource {
+
+    private val collection = firestore.collection("users")
     override fun signUpWithFirebase(
         user: UserInformationEntity,
         onSuccess: () -> Unit,
@@ -69,7 +73,13 @@ class FirebaseDataSourceImpl @Inject constructor(
             "phone" to user.phone,
             "image" to user.image,
         )
-        firestore.collection("users").document(firebaseAuth.uid!!).set(userMap)
+        val firebaseUser = firebaseAuth.currentUser
+        val profileUpdate = userProfileChangeRequest {
+            displayName = userMap["name"]
+            photoUri = Uri.parse(userMap["image"])
+        }
+        firebaseUser?.updateProfile(profileUpdate)
+        collection.document(firebaseAuth.uid!!).set(userMap)
             .addOnSuccessListener {
                 onSuccess()
             }.addOnFailureListener {
@@ -82,7 +92,7 @@ class FirebaseDataSourceImpl @Inject constructor(
         onSuccess: (UserInformationEntity) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        firestore.collection("users").document(userId).get()
+        collection.document(userId).get()
             .addOnSuccessListener { snapshot ->
                 onSuccess(
                     UserInformationEntity(
