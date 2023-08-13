@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         productAdapter = ProductAdapter(::navigateToProductDetail)
-        binding.homeProductRv?.adapter = productAdapter
+        binding.homeProductRv.adapter = productAdapter
         observeSearchViewTextChanges()
         return binding.root
     }
@@ -60,34 +60,34 @@ class HomeFragment : Fragment() {
         homeViewModel.badge.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
-                    binding.homeProgressBar?.gone()
+                    binding.homeProgressBar.gone()
                     requireView().showToast(it.message)
                 }
 
                 is ScreenState.Loading -> {
-                    binding.homeProgressBar?.visible()
+                    binding.homeProgressBar.visible()
                 }
 
                 is ScreenState.Success -> {
                     showBadgeVisibility(it.uiData.hasBadge)
-                    binding.homeProgressBar?.gone()
+                    binding.homeProgressBar.gone()
                 }
             }
         }
         homeViewModel.products.observe(viewLifecycleOwner) {
             when (it) {
                 is ScreenState.Error -> {
-                    binding.homeProgressBar?.gone()
+                    binding.homeProgressBar.gone()
                     requireView().showToast(it.message)
                 }
 
                 ScreenState.Loading -> {
-                    binding.homeProgressBar?.visible()
+                    binding.homeProgressBar.visible()
                 }
 
                 is ScreenState.Success -> {
                     productAdapter.submitList(it.uiData)
-                    binding.homeProgressBar?.gone()
+                    binding.homeProgressBar.gone()
                 }
             }
         }
@@ -95,20 +95,20 @@ class HomeFragment : Fragment() {
         homeViewModel.categories.observe(viewLifecycleOwner) { homepageState ->
             when (homepageState) {
                 is ScreenState.Error -> {
-                    binding.homeProgressBar?.gone()
+                    binding.homeProgressBar.gone()
                     requireView().showToast(homepageState.message)
                 }
 
                 is ScreenState.Loading -> {
-                    binding.homeProgressBar?.visible()
+                    binding.homeProgressBar.visible()
                 }
 
                 is ScreenState.Success -> {
-                    binding.homeCategoryRv?.adapter =
+                    binding.homeCategoryRv.adapter =
                         CategoryAdapter(homepageState.uiData) { categoryName ->
                             getProductsByCategoryName(categoryName)
                         }
-                    binding.homeProgressBar?.gone()
+                    binding.homeProgressBar.gone()
                 }
             }
         }

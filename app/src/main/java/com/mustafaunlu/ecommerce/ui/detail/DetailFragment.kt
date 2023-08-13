@@ -87,7 +87,7 @@ class DetailFragment : Fragment() {
     private fun bindProductDetailToView(product: DetailProductUiData) {
         binding.apply {
             detailProductTitle.text = product.title
-            detailProductPrice.text = "${product.price} TL"
+            detailProductPrice.text = "${product.price} $"
             detailProductDescription.text = product.description
             detailProductRatingTxt.text = product.rating
             detailProductRating.rating = product.rating.toFloat()

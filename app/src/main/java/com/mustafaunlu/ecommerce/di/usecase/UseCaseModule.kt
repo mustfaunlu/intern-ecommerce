@@ -30,10 +30,6 @@ import com.mustafaunlu.ecommerce.domain.usecase.product.SearchProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.product.SearchProductUseCaseImpl
 import com.mustafaunlu.ecommerce.domain.usecase.product.GetSingleProductUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.product.GetSingleProductUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadApiUserInfosUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.read_user.ReadApiUserInfosUseCaseImpl
-import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.ApiUserSignInUseCase
-import com.mustafaunlu.ecommerce.domain.usecase.user.sign_in.ApiUserSignInUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -70,12 +66,6 @@ abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUserUseCase(
-        userUseCaseImpl: ApiUserSignInUseCaseImpl,
-    ): ApiUserSignInUseCase
-
-    @Binds
-    @ViewModelScoped
     abstract fun bindDeleteUserCartUseCase(
         deleteUserCartUseCaseImpl: DeleteUserCartUseCaseImpl,
     ): DeleteUserCartUseCase
@@ -85,12 +75,6 @@ abstract class UseCaseModule {
     abstract fun bindSearchUseCase(
         searchUseCaseImpl: SearchProductUseCaseImpl,
     ): SearchProductUseCase
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindUserInfoUseCase(
-        userInfoUseCaseImpl: ReadApiUserInfosUseCaseImpl,
-    ): ReadApiUserInfosUseCase
 
     @Binds
     @ViewModelScoped

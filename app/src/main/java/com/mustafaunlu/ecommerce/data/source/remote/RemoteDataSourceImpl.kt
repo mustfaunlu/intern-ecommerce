@@ -4,9 +4,6 @@ import com.mustafaunlu.ecommerce.common.NetworkResponseState
 import com.mustafaunlu.ecommerce.data.api.ApiService
 import com.mustafaunlu.ecommerce.data.dto.Product
 import com.mustafaunlu.ecommerce.data.dto.Products
-import com.mustafaunlu.ecommerce.data.dto.User
-import com.mustafaunlu.ecommerce.data.dto.UserInfo
-import com.mustafaunlu.ecommerce.data.dto.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -50,18 +47,6 @@ class RemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun postLoginRequest(user: User): Flow<NetworkResponseState<UserResponse>> {
-        return flow {
-            emit(NetworkResponseState.Loading)
-            try {
-                val response = apiService.postLoginRequestToApi(user)
-                emit(NetworkResponseState.Success(response))
-            } catch (e: Exception) {
-                emit(NetworkResponseState.Error(e))
-            }
-        }
-    }
-
     override fun getAllCategoriesListFromApi(): Flow<NetworkResponseState<List<String>>> {
         return flow {
             emit(NetworkResponseState.Loading)
@@ -79,18 +64,6 @@ class RemoteDataSourceImpl @Inject constructor(
             try {
                 emit(NetworkResponseState.Loading)
                 val response = apiService.getProductsListByCategoryNameFromApi(categoryName)
-                emit(NetworkResponseState.Success(response))
-            } catch (e: Exception) {
-                emit(NetworkResponseState.Error(e))
-            }
-        }
-    }
-
-    override fun getUserInformationByIdFromApi(userId: String): Flow<NetworkResponseState<UserInfo>> {
-        return flow {
-            try {
-                emit(NetworkResponseState.Loading)
-                val response = apiService.getUserInformationByIdFromApi(userId)
                 emit(NetworkResponseState.Success(response))
             } catch (e: Exception) {
                 emit(NetworkResponseState.Error(e))

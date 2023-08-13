@@ -11,13 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants.PREF_FIREBASE_USERID_KEY
-import com.mustafaunlu.ecommerce.common.Constants.PREF_IS_FIREBASE_USER
-import com.mustafaunlu.ecommerce.common.Constants.PREF_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.data.dto.User
-import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
-import com.mustafaunlu.ecommerce.databinding.FragmentSignInBinding
 import com.mustafaunlu.ecommerce.common.TokenManager
+import com.mustafaunlu.ecommerce.databinding.FragmentSignInBinding
+import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.safeNavigate
@@ -65,37 +62,6 @@ class SignInFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.apiLoginState.observe(viewLifecycleOwner) { apiLoginState ->
-            when (apiLoginState) {
-                ScreenState.Loading -> {
-                    binding.apply {
-                        loading.visible()
-                        btnSignIn.isEnabled = false
-                    }
-                }
-
-                is ScreenState.Success -> {
-                    tokenManager.saveToken(apiLoginState.uiData.token)
-                    binding.apply {
-                        loading.gone()
-                        btnSignIn.isEnabled = true
-                    }
-                    navigateToHomeScreen()
-                    requireView().showToast("Welcome ${apiLoginState.uiData.username}")
-                    saveUserIdToSharedPref(apiLoginState.uiData.id.toString())
-                }
-
-                is ScreenState.Error -> {
-                    binding.apply {
-                        loading.gone()
-                        btnSignIn.isEnabled = true
-                    }
-                    checkInternetConnection()
-                    requireView().showToast(getString(R.string.check_username_pass))
-                }
-            }
-        }
-
         viewModel.firebaseLoginState.observe(viewLifecycleOwner) { firebaseLoginState ->
             when (firebaseLoginState) {
                 ScreenState.Loading -> {
@@ -104,6 +70,7 @@ class SignInFragment : Fragment() {
                         btnSignIn.isEnabled = false
                     }
                 }
+
                 is ScreenState.Success -> {
                     tokenManager.saveToken(createJwtTokenForFirebaseUser())
                     binding.apply {
@@ -111,9 +78,10 @@ class SignInFragment : Fragment() {
                         btnSignIn.isEnabled = true
                     }
                     navigateToHomeScreen()
-                    requireView().showToast("Welcome ${firebaseLoginState.uiData.name}")
+                    requireView().showToast("Welcome")
                     saveUserIdToSharedPref(firebaseLoginState.uiData.id)
                 }
+
                 is ScreenState.Error -> {
                     binding.apply {
                         loading.gone()
@@ -127,19 +95,16 @@ class SignInFragment : Fragment() {
     }
 
     private fun saveUserIdToSharedPref(id: String) {
-        val editor = sharedPref.edit()
-        if (binding.firebaseLoginCheckbox.isChecked) {
-            editor.putString(PREF_FIREBASE_USERID_KEY, id).apply()
-            editor.putBoolean(PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
-        } else {
-            editor.putString(PREF_USERID_KEY, id).apply()
-            editor.putBoolean(PREF_IS_FIREBASE_USER, binding.firebaseLoginCheckbox.isChecked).apply()
-        }
+        sharedPref.edit()
+            .putString(PREF_FIREBASE_USERID_KEY, id)
+            .apply()
     }
 
     private fun navigateToHomeScreen() {
         findNavController().safeNavigate(SignInFragmentDirections.actionLoginFragmentToHomeFragment())
     }
+
+    // TODO() Move this logic to backend
     private fun createJwtTokenForFirebaseUser(): String {
         val now = Instant.now()
         val expirationTime = now.plusSeconds(180)
@@ -153,25 +118,8 @@ class SignInFragment : Fragment() {
 
     private fun setupLoginButton() {
         binding.btnSignIn.setOnClickListener {
-            if (binding.firebaseLoginCheckbox.isChecked) {
-                firebaseLoginLogic()
-            } else {
-                apiLoginLogic()
-            }
+            firebaseLoginLogic()
         }
-    }
-
-    private fun apiLoginLogic() {
-        val username = binding.username.text.toString().trim()
-        val password = binding.password.text.toString().trim()
-
-        if (username.isBlank() || password.isBlank()) {
-            requireView().showToast(getString(R.string.please_not_blanks))
-            return
-        }
-
-        val user = User(username, password)
-        viewModel.login(user)
     }
 
     private fun firebaseLoginLogic() {
@@ -182,7 +130,7 @@ class SignInFragment : Fragment() {
             requireView().showToast(getString(R.string.please_not_blanks))
             return
         }
-        val user  = FirebaseSignInUserEntity(email, password)
+        val user = FirebaseSignInUserEntity(email, password)
         viewModel.loginWithFirebase(user)
     }
 }

@@ -66,15 +66,15 @@ class CartFragment : Fragment() {
         viewModel.userCarts.observe(viewLifecycleOwner) { userCartState ->
             when (userCartState) {
                 is ScreenState.Error -> {
-                    binding.cartProgressBar?.gone()
+                    binding.cartProgressBar.gone()
                     requireView().showToast(userCartState.message)
                 }
 
-                ScreenState.Loading -> binding.cartProgressBar?.visible()
+                ScreenState.Loading -> binding.cartProgressBar.visible()
                 is ScreenState.Success -> {
-                    binding.cartProgressBar?.gone()
+                    binding.cartProgressBar.gone()
                     adapter.submitList(userCartState.uiData)
-                    binding.cartFragmentRv?.adapter = adapter
+                    binding.cartFragmentRv.adapter = adapter
                 }
             }
         }

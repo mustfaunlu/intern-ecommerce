@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
             android:inputType="textPersonName"
-            android:text="kminchelle"
             android:autofillHints="username"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +52,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
-            android:text="0lelplR"
             android:autofillHints="password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,15 +94,6 @@
         app:layout_constraintStart_toEndOf="@+id/have_account_txt"
         app:layout_constraintTop_toBottomOf="@+id/btn_sign_in"
         app:layout_constraintVertical_bias="1.0" />
-
-    <CheckBox
-        android:id="@+id/firebase_login_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/firebase_login"
-        app:layout_constraintBottom_toTopOf="@+id/username_input_container"
-        app:layout_constraintStart_toStartOf="@+id/username_input_container"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/have_account_txt"
