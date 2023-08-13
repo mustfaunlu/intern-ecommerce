@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentDetailBinding
@@ -53,6 +54,8 @@ class DetailFragment : Fragment() {
         binding.btnAddToFav.setOnClickListener {
             addToFavorite()
         }
+
+
     }
 
     private fun setupProductDetail() {
@@ -67,12 +70,17 @@ class DetailFragment : Fragment() {
                     binding.detailProgressBar.gone()
                     val product = productState.uiData
                     bindProductDetailToView(product)
-                    binding.viewPager?.adapter = DetailImageViewPagerAdapter(product.imageUrl)
+                    viewPagerSetup(product)
                 }
 
                 ScreenState.Loading -> binding.detailProgressBar.visible()
             }
         }
+    }
+
+    private fun viewPagerSetup(product: DetailProductUiData) {
+        binding.viewPager.adapter = DetailImageViewPagerAdapter(product.imageUrl)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
     }
 
     @SuppressLint("SetTextI18n")
@@ -81,8 +89,8 @@ class DetailFragment : Fragment() {
             detailProductTitle.text = product.title
             detailProductPrice.text = "${product.price} TL"
             detailProductDescription.text = product.description
-            detailProductRatingTxt?.text = product.rating
-            detailProductRating?.rating = product.rating.toFloat()
+            detailProductRatingTxt.text = product.rating
+            detailProductRating.rating = product.rating.toFloat()
 
             val userId = getUserIdFromSharedPref(sharedPref)
             userCart = UserCartEntity(

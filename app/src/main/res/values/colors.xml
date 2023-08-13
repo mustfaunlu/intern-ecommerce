@@ -1,5 +1,6 @@
 
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="seed">#006974</color>
     <color name="md_theme_light_primary">#006973</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
