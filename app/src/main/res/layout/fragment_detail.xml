@@ -20,6 +20,17 @@
             android:orientation="horizontal"
             android:id="@+id/viewPager"
             />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:tabBackground="@drawable/indicator"
+            app:tabGravity="center"
+            android:backgroundTint="@color/transparent"
+            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorGravity="center"
+            app:tabIndicator="@null"/>
 
         <TextView
             android:id="@+id/detail_product_title"
