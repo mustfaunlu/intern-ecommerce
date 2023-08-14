@@ -76,4 +76,6 @@
     <string name="filled_heart_content">filled heart</string>
     <string name="decrement_button">decrement button</string>
     <string name="increment_button">increment button</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="total_amount">Total Amount</string>
 </resources>
