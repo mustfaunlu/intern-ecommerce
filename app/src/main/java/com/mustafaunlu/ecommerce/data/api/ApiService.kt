@@ -7,28 +7,14 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET(PRODUCTS)
+    @GET("products")
     suspend fun getProductsListFromApi(): Products
-
-    @GET(SEARCH_PRODUCTS)
+    @GET("products/search")
     suspend fun getProductsListBySearchFromApi(@Query("q") query: String): Products
-
-    @GET(PRODUCTS_ID)
-    suspend fun getSingleProductByIdFromApi(@Path(ID) productId: Int): Product
-
-    @GET(PRODUCTS_CATEGORIES)
+    @GET("products/{id}")
+    suspend fun getSingleProductByIdFromApi(@Path("id") productId: Int): Product
+    @GET("products/categories")
     suspend fun getAllCategoriesListFromApi(): List<String>
-
-    @GET(PRODUCTS_CATEGORY)
-    suspend fun getProductsListByCategoryNameFromApi(@Path(CATEGORY_NAME) categoryName: String): Products
-
-    companion object {
-        private const val PRODUCTS = "products"
-        private const val SEARCH_PRODUCTS = "products/search"
-        private const val ID = "id"
-        private const val PRODUCTS_ID = "products/{$ID}"
-        private const val PRODUCTS_CATEGORIES = "products/categories"
-        private const val CATEGORY_NAME = "categoryName"
-        private const val PRODUCTS_CATEGORY = "products/category/{$CATEGORY_NAME}"
-    }
+    @GET("products/category/{categoryName}")
+    suspend fun getProductsListByCategoryNameFromApi(@Path("categoryName") categoryName: String): Products
 }
