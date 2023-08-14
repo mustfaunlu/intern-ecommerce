@@ -55,12 +55,16 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkInternetConnection()
         setupObserver()
+
+        binding.btnBuyNow.setOnClickListener {
+            requireView().showToast("Under development")
+        }
     }
 
     private fun setupObserver() {
         viewModel.totalPriceLiveData.observe(viewLifecycleOwner) { totalPrice ->
             this.totalPrice = totalPrice.toString()
-            binding.cartFragmentTotalPrice.text = totalPrice.toString()
+            binding.tvTotalAmount.text = totalPrice.toString()
         }
 
         viewModel.userCarts.observe(viewLifecycleOwner) { userCartState ->
@@ -74,7 +78,7 @@ class CartFragment : Fragment() {
                 is ScreenState.Success -> {
                     binding.cartProgressBar.gone()
                     adapter.submitList(userCartState.uiData)
-                    binding.cartFragmentRv.adapter = adapter
+                    binding.rvCartProducts.adapter = adapter
                 }
             }
         }
@@ -96,7 +100,7 @@ class CartFragment : Fragment() {
             val newList = adapter.currentList.filter { it.productId != userCartUiData.productId }
             adapter.submitList(newList)
             totalPrice = calculateTotalPrice(newList).toString()
-            binding.cartFragmentTotalPrice.text = totalPrice
+            binding.tvTotalAmount.text = totalPrice
             requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
             if (newList.isEmpty()) {
                 viewModel.setBadgeState(
