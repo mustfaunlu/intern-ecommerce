@@ -44,8 +44,8 @@ class CartFragment : Fragment() {
         viewModel.getCartsByUserId(userId)
         adapter = CartListAdapter(
             ::onItemLongClicked,
-            ::updateSubmittedAdapterItemsTotalPrice,
-            ::updateCartItemWhenClickedIncDecButton,
+            ::updateTotalPriceInAdapter,
+            ::updateCartItemQuantity,
             ::onItemShortClicked
         )
         return binding.root
@@ -84,48 +84,57 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun updateSubmittedAdapterItemsTotalPrice() {
+    private fun updateTotalPriceInAdapter() {
         val cartList = adapter.currentList
-        val totalPrice = calculateTotalPrice(cartList)
+        val totalPrice = viewModel.calculateTotalPrice(cartList)
         viewModel.updateTotalPrice(totalPrice)
     }
 
-    private fun updateCartItemWhenClickedIncDecButton(userCartUiData: UserCartUiData) {
+    private fun updateCartItemQuantity(userCartUiData: UserCartUiData) {
         viewModel.updateUserCartItem(userCartUiData)
     }
 
     private fun onItemLongClicked(userCartUiData: UserCartUiData) {
         this.showConfirmationDialog(getString(R.string.shopping_list_delete_warn)) {
-            viewModel.deleteUserCartItem(userCartUiData)
-            val newList = adapter.currentList.filter { it.productId != userCartUiData.productId }
-            adapter.submitList(newList)
-            totalPrice = calculateTotalPrice(newList).toString()
-            binding.tvTotalAmount.text = totalPrice
-            requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
-            if (newList.isEmpty()) {
-                viewModel.setBadgeState(
-                    UserCartBadgeEntity(
-                        getUserIdFromSharedPref(sharedPref),
-                        false
-                    )
-                )
-                showBadgeVisibility(false)
-            }
+            deleteUserCartItemAndUpdateUI(userCartUiData)
         }
+    }
+
+    private fun deleteUserCartItemAndUpdateUI(userCartUiData: UserCartUiData) {
+        viewModel.deleteUserCartItem(userCartUiData)
+        updateAdapterAfterDeletion(userCartUiData)
+    }
+
+    private fun updateAdapterAfterDeletion(userCartUiData: UserCartUiData) {
+        val newList = adapter.currentList.filter { it.productId != userCartUiData.productId }
+        adapter.submitList(newList)
+        updateTotalPriceAndUI(newList)
+        if (newList.isEmpty()) {
+            hideCartBadge()
+        }
+    }
+
+    private fun updateTotalPriceAndUI(cartList: List<UserCartUiData>) {
+        val totalPrice = viewModel.calculateTotalPrice(cartList)
+        viewModel.updateTotalPrice(totalPrice)
+        binding.tvTotalAmount.text = totalPrice.toString()
+        requireView().showToast(getString(R.string.shopping_list_item_deleted_txt))
+    }
+
+    private fun hideCartBadge() {
+        viewModel.setBadgeState(
+            UserCartBadgeEntity(
+                getUserIdFromSharedPref(sharedPref),
+                false
+            )
+        )
+        showBadgeVisibility(false)
     }
 
     private fun onItemShortClicked(userCartUiData: UserCartUiData) {
         val action =
             CartFragmentDirections.actionCartFragmentToDetailFragment(userCartUiData.productId)
         findNavController().navigate(action)
-    }
-
-    private fun calculateTotalPrice(cartList: List<UserCartUiData>): Double {
-        var totalPrice = 0.0
-        for (cart in cartList) {
-            totalPrice += cart.price * cart.quantity
-        }
-        return totalPrice
     }
 
     override fun onDestroyView() {
