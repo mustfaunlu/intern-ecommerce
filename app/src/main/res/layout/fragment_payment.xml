@@ -1,0 +1,192 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_16sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/payment_credit_card"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/til_cardholder_name"
+        app:layout_constraintStart_toStartOf="@+id/til_cardholder_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_cardholder_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/cardholder_name"
+        app:boxStrokeWidth="1dp"
+        app:errorTextColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/til_credit_card_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_cardholder_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_credit_card_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/credit_card_number"
+        app:boxStrokeWidth="1dp"
+        app:errorTextColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/til_expire_on_month"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_cardholder_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_credit_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="0123456789- "
+            android:inputType="number"
+            android:maxLength="25"
+            android:singleLine="true"
+            android:textColorHint="#757575" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_expire_on_month"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/month"
+        app:boxStrokeWidth="1dp"
+        app:errorTextColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/til_cvc_code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_credit_card_number">
+
+        <AutoCompleteTextView
+            android:id="@+id/act_expire_on_month"
+            android:labelFor="@id/act_expire_on_month"
+            android:hint="@string/month"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dropDownHeight="wrap_content"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_expire_on_year"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/year"
+        app:boxStrokeWidth="1dp"
+        app:errorTextColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toBottomOf="@+id/til_expire_on_month"
+        app:layout_constraintStart_toEndOf="@+id/til_expire_on_month"
+        app:layout_constraintTop_toBottomOf="@+id/til_credit_card_number">
+
+        <AutoCompleteTextView
+            android:id="@+id/act_expire_on_year"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dropDownHeight="wrap_content"
+            android:hint="@string/year"
+            android:labelFor="@+id/act_expire_on_year"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_cvc_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/cvc_code"
+        app:boxStrokeWidth="1dp"
+        app:errorTextColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/tv_address"
+        app:layout_constraintEnd_toEndOf="@+id/til_expire_on_month"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_expire_on_month">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_cvc_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789- "
+            android:inputType="number"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:textColorHint="#757575" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/address"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/til_address"
+        app:layout_constraintStart_toStartOf="@+id/til_address"
+        app:layout_constraintTop_toBottomOf="@+id/til_cvc_code" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_address"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/address"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="1dp"
+        app:errorTextColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/btn_pay_now"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:labelFor="@+id/et_address"
+            android:textColorHint="#757575"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_pay_now"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/pay_now"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/til_address"
+        app:layout_constraintStart_toStartOf="@+id/til_address"
+        app:layout_constraintTop_toBottomOf="@+id/til_address" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

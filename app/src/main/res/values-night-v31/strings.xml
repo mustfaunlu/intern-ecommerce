@@ -78,4 +78,18 @@
     <string name="increment_button">increment button</string>
     <string name="buy_now">Buy Now</string>
     <string name="total_amount">Total Amount</string>
+    <string name="payment_credit_card">Credit Card</string>
+    <string name="cardholder_name">Cartholder Name</string>
+    <string name="credit_card_number">Credit Card Number</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="cvc_code">CVC-Code</string>
+    <string name="address">Address</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="please_enter_cardholder_name">Please enter cardholder name</string>
+    <string name="please_enter_credit_card_number">Please enter credit card number</string>
+    <string name="please_select_month">Please select month</string>
+    <string name="please_select_year">Please select year</string>
+    <string name="please_enter_cvc_code">Please enter CVC code</string>
+    <string name="please_enter_address">Please enter address</string>
 </resources>

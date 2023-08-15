@@ -57,7 +57,7 @@ class CartFragment : Fragment() {
         setupObserver()
 
         binding.btnBuyNow.setOnClickListener {
-            requireView().showToast("Under development")
+            findNavController().navigate(R.id.action_cartFragment_to_paymentFragment)
         }
     }
 

@@ -125,8 +125,9 @@ dependencies {
     implementation "io.github.nefilim.kjwt:kjwt-jwks:0.8.0"
     implementation "io.arrow-kt:arrow-core:1.0.1"
 
-
-
+    // SSP-SDP library
+    implementation 'com.intuit.ssp:ssp-android:1.1.0'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
 }
 
 kapt {

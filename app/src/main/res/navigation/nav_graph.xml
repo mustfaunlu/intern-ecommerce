@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_cartFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -92,4 +95,8 @@
         android:id="@+id/forgotPwFragment"
         android:name="com.mustafaunlu.ecommerce.ui.auth.forgot_pw.ForgotPwFragment"
         android:label="ForgotPwFragment" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.PaymentFragment"
+        android:label="PaymentFragment" />
 </navigation>
