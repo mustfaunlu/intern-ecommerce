@@ -30,7 +30,7 @@ class CartViewModel @Inject constructor(
     private val _userCarts = MutableLiveData<ScreenState<List<UserCartUiData>>>()
     val userCarts: LiveData<ScreenState<List<UserCartUiData>>> get() = _userCarts
 
-    private val _totalPriceLiveData: MutableLiveData<Double> = MutableLiveData()
+    private val _totalPriceLiveData: MutableLiveData<Double> = MutableLiveData(0.0)
     val totalPriceLiveData: LiveData<Double> get() = _totalPriceLiveData
     fun getCartsByUserId(userId: String) {
         viewModelScope.launch {
@@ -62,5 +62,13 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             badgeUseCase(badgeState)
         }
+    }
+
+    fun calculateTotalPrice(cartList: List<UserCartUiData>): Double {
+        var totalPrice = 0.0
+        for (cart in cartList) {
+            totalPrice += cart.price * cart.quantity
+        }
+        return totalPrice
     }
 }

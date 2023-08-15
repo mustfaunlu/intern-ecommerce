@@ -11,8 +11,8 @@ import com.mustafaunlu.ecommerce.utils.loadImage
 
 class CartListAdapter(
     private val onItemLongClicked: (UserCartUiData) -> Unit,
-    private val updateTotalPrice: () -> Unit,
-    private val updateCartItem: (UserCartUiData) -> Unit,
+    private val updateTotalPriceInAdapter: () -> Unit,
+    private val updateCartItemQuantity: (UserCartUiData) -> Unit,
     private val onItemShortClicked: (UserCartUiData) -> Unit,
 ) : ListAdapter<UserCartUiData, CartListAdapter.ShoppingListViewHolder>(
     ShoppingListDiffCallback(),
@@ -36,20 +36,20 @@ class CartListAdapter(
                 cartItemId.text = "Product Id: ${cart.productId}"
                 cartItemQuantity.text = cart.quantity.toString()
                 cartItemImgView.loadImage(cart.imageUrl)
-                updateTotalPrice()
+                updateTotalPriceInAdapter()
             }
             binding.cartItemBtnInc.setOnClickListener {
                 val updatedCart = cart.copy(quantity = cart.quantity + 1)
-                updateCartItem(updatedCart)
+                updateCartItemQuantity(updatedCart)
                 submitUpdatedCart(updatedCart)
-                updateTotalPrice()
+                updateTotalPriceInAdapter()
             }
             binding.cartItemBtnDec.setOnClickListener {
                 if (cart.quantity > 1) {
                     val updatedCart = cart.copy(quantity = cart.quantity - 1)
-                    updateCartItem(updatedCart)
+                    updateCartItemQuantity(updatedCart)
                     submitUpdatedCart(updatedCart)
-                    updateTotalPrice()
+                    updateTotalPriceInAdapter()
                 }
             }
 
