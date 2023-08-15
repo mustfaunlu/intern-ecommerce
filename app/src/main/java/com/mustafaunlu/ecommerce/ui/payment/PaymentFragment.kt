@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce.ui
+package com.mustafaunlu.ecommerce.ui.payment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

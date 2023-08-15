@@ -97,6 +97,6 @@
         android:label="ForgotPwFragment" />
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.mustafaunlu.ecommerce.ui.PaymentFragment"
+        android:name="com.mustafaunlu.ecommerce.ui.payment.PaymentFragment"
         android:label="PaymentFragment" />
 </navigation>
