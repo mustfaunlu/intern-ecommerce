@@ -70,6 +70,7 @@ class CartFragment : Fragment() {
         viewModel.userCarts.observe(viewLifecycleOwner) { userCartState ->
             when (userCartState) {
                 is ScreenState.Error -> {
+                    binding.btnBuyNow.isEnabled = false
                     binding.cartProgressBar.gone()
                     requireView().showToast(userCartState.message)
                 }
@@ -79,6 +80,7 @@ class CartFragment : Fragment() {
                     binding.cartProgressBar.gone()
                     adapter.submitList(userCartState.uiData)
                     binding.rvCartProducts.adapter = adapter
+                    binding.btnBuyNow.isEnabled = userCartState.uiData.isNotEmpty()
                 }
             }
         }
@@ -111,6 +113,7 @@ class CartFragment : Fragment() {
         updateTotalPriceAndUI(newList)
         if (newList.isEmpty()) {
             hideCartBadge()
+            binding.btnBuyNow.isEnabled = false
         }
     }
 
