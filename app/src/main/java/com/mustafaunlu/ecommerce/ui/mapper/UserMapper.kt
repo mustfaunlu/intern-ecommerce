@@ -15,6 +15,7 @@ class UserInfoEntityToUiDataMapper @Inject constructor() : ProductBaseMapper<Use
             phone = input.phone,
             image = input.image,
             password = input.password,
+            token = input.token,
         )
     }
 }
@@ -29,6 +30,7 @@ class UserInfoUiDataToEntityMapper @Inject constructor() : ProductBaseMapper<Use
             phone = input.phone,
             image = input.image,
             password = input.password,
+            token = input.token,
         )
     }
 }

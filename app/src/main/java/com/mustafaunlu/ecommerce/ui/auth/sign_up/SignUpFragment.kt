@@ -85,6 +85,7 @@ class SignupFragment : Fragment() {
                     phone = phone,
                     image = "",
                     password = password,
+                    token = "",
                 ),
             )
         } else {

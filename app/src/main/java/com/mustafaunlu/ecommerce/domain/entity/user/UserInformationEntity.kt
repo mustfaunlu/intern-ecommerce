@@ -8,4 +8,5 @@ data class UserInformationEntity(
     val phone: String,
     val image: String = "",
     val password: String,
+    val token: String,
 )
