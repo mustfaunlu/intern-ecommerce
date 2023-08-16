@@ -40,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPref: SharedPreferences
 
+    private val isAppFirstTimeOpen: Boolean
+        get() = sharedPref.getBoolean(PREF_IS_APP_FIRST_OPEN, true)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,9 +64,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val isAppFirstTimeOpen: Boolean
-        get() = sharedPref.getBoolean(PREF_IS_APP_FIRST_OPEN, true)
-
     private fun setupLocalNotification() {
         val periodicWorkerRequest = PeriodicWorkRequest.Builder(
             NotificationWorker::class.java,
@@ -77,16 +77,15 @@ class MainActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Log.w("Fail", "Fetching FCM registration token failed", task.exception)
+                    Log.d(TAG, "Fetching FCM registration token failed", task.exception)
                     return@OnCompleteListener
                 }
-
                 // Get new FCM registration token
                 val token = task.result
 
                 // Log
                 val msg = token.toString()
-                Log.d("Token", msg)
+                Log.d(TAG, "FCM TOKEN $msg")
             },
         )
     }
@@ -158,10 +157,15 @@ class MainActivity : AppCompatActivity() {
                     v.clearFocus()
                     val imm =
                         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), FLAG)
                 }
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
+        private const val FLAG = 0
     }
 }

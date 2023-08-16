@@ -33,8 +33,8 @@ class NotificationWorker( private val appContext: Context, workerParams: WorkerP
         notificationManager.createNotificationChannel(channel)
 
         val builder = NotificationCompat.Builder(appContext, NOTIFICATION_CH_ID)
-            .setContentTitle("Title")
-            .setContentText("Content")
+            .setContentTitle(TITLE)
+            .setContentText(CONTENT)
             .setContentIntent(intent)
             .setSmallIcon(R.drawable.ic_favorite_filled)
             .build()
@@ -47,6 +47,8 @@ class NotificationWorker( private val appContext: Context, workerParams: WorkerP
         private const val NOTIFICATION_CH_DESC = "Ecommerce Notification"
         private const val NOTIFICATION_CH_ID = "EcommerceNotfChannelId"
         private const val INTENT_REQ_CODE = 0
+        private const val TITLE = "Local Notification Title"
+        private const val CONTENT = "Local Notification Content"
     }
 }
 
