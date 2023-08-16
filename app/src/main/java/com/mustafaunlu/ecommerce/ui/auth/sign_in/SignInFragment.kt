@@ -2,7 +2,6 @@ package com.mustafaunlu.ecommerce.ui.auth.sign_in
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.Constants.PREF_FIREBASE_USERID_KEY
 import com.mustafaunlu.ecommerce.common.ScreenState
-import com.mustafaunlu.ecommerce.common.TokenManager
 import com.mustafaunlu.ecommerce.databinding.FragmentSignInBinding
 import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.utils.checkInternetConnection
@@ -21,9 +19,6 @@ import com.mustafaunlu.ecommerce.utils.safeNavigate
 import com.mustafaunlu.ecommerce.utils.showToast
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.nefilim.kjwt.JWT
-import io.github.nefilim.kjwt.toJWTKeyID
-import java.time.Instant
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,9 +28,6 @@ class SignInFragment : Fragment() {
 
     @Inject
     lateinit var sharedPref: SharedPreferences
-
-    @Inject
-    lateinit var tokenManager: TokenManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +64,6 @@ class SignInFragment : Fragment() {
                 }
 
                 is ScreenState.Success -> {
-                    tokenManager.saveToken(createJwtTokenForFirebaseUser())
                     binding.apply {
                         loading.gone()
                         btnSignIn.isEnabled = true
@@ -102,18 +93,6 @@ class SignInFragment : Fragment() {
 
     private fun navigateToHomeScreen() {
         findNavController().safeNavigate(SignInFragmentDirections.actionLoginFragmentToHomeFragment())
-    }
-
-    // TODO() Move this logic to backend
-    private fun createJwtTokenForFirebaseUser(): String {
-        val now = Instant.now()
-        val expirationTime = now.plusSeconds(180)
-        val jwt = JWT.es256("fb-user123".toJWTKeyID()) {
-            issuedAt(now)
-            claim("exp", expirationTime.epochSecond)
-        }.encode()
-        Log.d("JWT", "Firebase JWT: $jwt")
-        return jwt
     }
 
     private fun setupLoginButton() {

@@ -6,6 +6,9 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mustafaunlu.ecommerce.domain.entity.user.FirebaseSignInUserEntity
 import com.mustafaunlu.ecommerce.domain.entity.user.UserInformationEntity
+import io.github.nefilim.kjwt.JWT
+import io.github.nefilim.kjwt.toJWTKeyID
+import java.time.Instant
 import javax.inject.Inject
 
 class FirebaseDataSourceImpl @Inject constructor(
@@ -44,6 +47,7 @@ class FirebaseDataSourceImpl @Inject constructor(
                         phone = firebaseUser?.phoneNumber ?: "",
                         image = firebaseUser?.photoUrl.toString(),
                         password = "",
+                        token = createJwtTokenForFirebaseUser(),
                     )
                 )
             }.addOnFailureListener {
@@ -103,10 +107,20 @@ class FirebaseDataSourceImpl @Inject constructor(
                         phone = snapshot.getString("phone") ?: "",
                         image = snapshot.getString("image") ?: "",
                         password = "",
+                        token = "",
                     )
                 )
             }.addOnFailureListener {
                 onFailure(it.message ?: "An error occurred")
             }
+    }
+    private fun createJwtTokenForFirebaseUser(): String {
+        val now = Instant.now()
+        val expirationTime = now.plusSeconds(180)
+        val jwt = JWT.es256("fb-user123".toJWTKeyID()) {
+            issuedAt(now)
+            claim("exp", expirationTime.epochSecond)
+        }.encode()
+        return jwt
     }
 }
