@@ -1,4 +1,4 @@
-package com.mustafaunlu.ecommerce
+package com.mustafaunlu.ecommerce.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.mustafaunlu.ecommerce.databinding.ActivitySplashBinding
-import com.mustafaunlu.ecommerce.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
