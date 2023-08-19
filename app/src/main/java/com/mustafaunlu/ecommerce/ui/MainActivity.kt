@@ -1,10 +1,8 @@
 package com.mustafaunlu.ecommerce.ui
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -12,19 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
-import com.mustafaunlu.ecommerce.NotificationWorker
 import com.mustafaunlu.ecommerce.R
-import com.mustafaunlu.ecommerce.common.Constants.PREF_IS_APP_FIRST_OPEN
 import com.mustafaunlu.ecommerce.databinding.ActivityMainBinding
 import com.mustafaunlu.ecommerce.common.TokenManager
 import com.mustafaunlu.ecommerce.utils.gone
 import com.mustafaunlu.ecommerce.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -37,24 +28,12 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var tokenManager: TokenManager
 
-    @Inject
-    lateinit var sharedPref: SharedPreferences
-
-    private val isAppFirstTimeOpen: Boolean
-        get() = sharedPref.getBoolean(PREF_IS_APP_FIRST_OPEN, true)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupFCMToken()
+
         setupNavigation()
-        if (isAppFirstTimeOpen) {
-            setupLocalNotification()
-            sharedPref.edit().putBoolean(PREF_IS_APP_FIRST_OPEN, false).apply()
-        }
-
-
     }
 
     override fun onResume() {
@@ -64,31 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLocalNotification() {
-        val periodicWorkerRequest = PeriodicWorkRequest.Builder(
-            NotificationWorker::class.java,
-            15,
-            TimeUnit.MINUTES
-        ).build()
 
-        WorkManager.getInstance(this).enqueue(periodicWorkerRequest)
-    }
-    private fun setupFCMToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.d(TAG, "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-                // Get new FCM registration token
-                val token = task.result
-
-                // Log
-                val msg = token.toString()
-                Log.d(TAG, "FCM TOKEN $msg")
-            },
-        )
-    }
 
     private fun setupNavigation() {
         val navHostFragment =
@@ -165,7 +120,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "MainActivity"
         private const val FLAG = 0
     }
 }
