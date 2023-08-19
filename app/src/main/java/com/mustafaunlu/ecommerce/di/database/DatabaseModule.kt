@@ -22,5 +22,5 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideCartDao(appDatabase: AppDatabase) = appDatabase.cartDao()
+    fun provideAppDao(appDatabase: AppDatabase) = appDatabase.appDao()
 }

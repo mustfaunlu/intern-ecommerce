@@ -8,5 +8,5 @@ import com.mustafaunlu.ecommerce.domain.entity.cart.UserCartEntity
 
 @Database(entities = [UserCartEntity::class, FavoriteProductEntity::class, UserCartBadgeEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun cartDao(): AppDao
+    abstract fun appDao(): AppDao
 }
