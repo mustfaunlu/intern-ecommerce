@@ -12,6 +12,7 @@ import com.mustafaunlu.ecommerce.R
 import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.databinding.FragmentSignUpBinding
 import com.mustafaunlu.ecommerce.ui.auth.UserInformationUiData
+import com.mustafaunlu.ecommerce.utils.checkInternetConnection
 import com.mustafaunlu.ecommerce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,6 +62,7 @@ class SignupFragment : Fragment() {
                 is ScreenState.Error -> {
                     binding.btnCreateAccount.isEnabled = true
                     requireView().showToast(it.message)
+                    checkInternetConnection()
                 }
             }
         }
