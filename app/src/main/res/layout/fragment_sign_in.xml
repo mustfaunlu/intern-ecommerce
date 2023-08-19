@@ -26,8 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
-            android:inputType="textPersonName"
-            android:autofillHints="username"/>
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

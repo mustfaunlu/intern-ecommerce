@@ -46,7 +46,7 @@
             android:id="@+id/surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="name"
+            android:autofillHints="lastName"
             android:hint="@string/your_surname"
             android:inputType="text"
             android:selectAllOnFocus="true"
