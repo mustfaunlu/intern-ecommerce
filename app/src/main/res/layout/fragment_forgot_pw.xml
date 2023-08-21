@@ -20,7 +20,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_marginTop="64dp"
+    android:layout_marginTop="@dimen/_48sdp"
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +46,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
         android:id="@+id/btn_reset_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/_16sdp"
         android:text="@string/reset_password"
         />
 </LinearLayout>

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="10dp"
+    android:layout_margin="@dimen/_1sdp"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_4sdp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/home_item_img"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/_150sdp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/product_image_content"
             tools:srcCompat="@tools:sample/avatars[1]" />
@@ -26,14 +26,14 @@
             android:id="@+id/home_product_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/_4sdp"
             tools:text = "Title"
             android:singleLine="true"
             android:ellipsize="end"
             android:ems="4"
-            android:textSize="16sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
-            android:padding="8dp" />
+            android:padding="@dimen/_3sdp" />
 
         <TextView
             android:id="@+id/home_product_description"
@@ -43,20 +43,20 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:ems="4"
-            android:textSize="14sp"
-            android:layout_margin="10dp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_margin="@dimen/_4sdp"
             android:justificationMode="inter_word"
-            android:padding="8dp" />
+            android:padding="@dimen/_3sdp" />
 
         <RatingBar
+            android:id="@+id/home_product_rating"
+            style="?attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/home_product_rating"
+            android:layout_margin="@dimen/_4sdp"
+            android:padding="@dimen/_3sdp"
             android:numStars="5"
-            android:rating="3"
-            style="?attr/ratingBarStyleSmall"
-            android:layout_margin="15dp"
-            />
+            android:rating="3" />
 
 
         <TextView
@@ -69,10 +69,10 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:ems="4"
-            android:textSize="14sp"
-            android:layout_margin="10dp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_margin="@dimen/_4sdp"
             android:justificationMode="inter_word"
-            android:padding="8dp" />
+            android:padding="@dimen/_3sdp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

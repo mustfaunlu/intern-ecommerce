@@ -9,8 +9,8 @@
         android:id="@+id/rv_cart_products"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:padding="12dp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:padding="@dimen/_12sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,8 +21,8 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
         android:text="@string/total_amount"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_buy_now"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_buy_now"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="@+id/textView8"
-        tools:text="30$" />
+        tools:text="30 TL" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_buy_now"

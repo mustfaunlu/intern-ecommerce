@@ -8,11 +8,11 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:strokeWidth="1dp"
+        android:layout_margin="@dimen/_10sdp"
+        app:strokeWidth="@dimen/_1sdp"
         android:backgroundTint="@color/transparent"
         app:strokeColor="?android:colorPrimary"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="@dimen/_10sdp"
         >
 
         <TextView
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
-            android:padding="10dp"
+            android:padding="@dimen/_10sdp"
             />
     </com.google.android.material.card.MaterialCardView>
 

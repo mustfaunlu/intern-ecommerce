@@ -3,28 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="10dp"
+    android:layout_margin="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_4sdp"
+    app:cardElevation="@dimen/_5sdp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="@dimen/_8sdp">
 
         <TextView
             android:id="@+id/cart_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:lines="1"
             android:singleLine="true"
             android:ems="4"
             android:ellipsize="end"
             tools:text="Item Name"
-            android:textSize="16sp"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cart_item_img_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,10 +33,10 @@
             android:id="@+id/cart_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             tools:text="Item Price"
-            android:textSize="14sp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toEndOf="@+id/cart_item_img_view"
             app:layout_constraintTop_toBottomOf="@+id/cart_item_title" />
 
@@ -44,18 +44,18 @@
             android:id="@+id/cart_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/_16sdp"
             tools:text="Item ID"
-            android:textSize="14sp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toEndOf="@+id/cart_item_img_view"
             app:layout_constraintTop_toBottomOf="@+id/cart_item_price" />
 
 
         <ImageButton
             android:id="@+id/cart_item_btn_dec"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
             android:background="@null"
             android:contentDescription="@string/decrement_button"
             android:src="@drawable/ic_minus"
@@ -70,7 +70,8 @@
             android:layout_height="wrap_content"
             tools:text="1"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:layout_margin="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cart_item_btn_dec"
             app:layout_constraintStart_toEndOf="@+id/cart_item_btn_inc"
@@ -78,9 +79,9 @@
 
         <ImageButton
             android:id="@+id/cart_item_btn_inc"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="128dp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_128sdp"
             android:background="@null"
             android:contentDescription="@string/increment_button"
             android:src="@drawable/ic_plus"
@@ -91,10 +92,10 @@
 
         <ImageView
             android:id="@+id/cart_item_img_view"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:contentDescription="@string/product_image_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

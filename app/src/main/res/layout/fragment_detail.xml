@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="10dp"
+    app:cardCornerRadius="@dimen/_4sdp"
+    app:cardElevation="@dimen/_5sdp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/_8sdp"
         android:orientation="vertical">
 
         <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/_150sdp"
             android:orientation="horizontal"
             android:id="@+id/viewPager"
             />
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="5dp">
+            android:layout_margin="@dimen/_5sdp">
 
             <TextView
                 android:id="@+id/detail_product_rating_txt"
@@ -70,7 +70,7 @@
                 tools:text="rating"
                 android:textColor="?android:colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="@dimen/_5sdp"
 
                 />
             <RatingBar
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 style="?android:attr/buttonBarButtonStyle"
                 android:text="@string/add_to_cart"
-                android:layout_margin="5dp"/>
+                android:layout_margin="@dimen/_5sdp"/>
 
             <Button
                 android:id="@+id/btn_add_to_fav"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 style="?android:attr/buttonBarButtonStyle"
                 android:text="@string/add_to_favorite"
-                android:layout_margin="5dp"/>
+                android:layout_margin="@dimen/_5sdp"/>
         </LinearLayout>
 
     </LinearLayout>
