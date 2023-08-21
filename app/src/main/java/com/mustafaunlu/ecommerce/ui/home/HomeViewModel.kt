@@ -14,6 +14,7 @@ import com.mustafaunlu.ecommerce.domain.usecase.cart.badge.UserCartBadgeUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.category.CategoryUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.product.SearchProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -44,27 +45,32 @@ class HomeViewModel @Inject constructor(
 
     fun getBadgeState (userUniqueInfo: String) {
         viewModelScope.launch {
-            badgeUseCase(userUniqueInfo).onEach {
+            badgeUseCase(userUniqueInfo).collectLatest {
                 when (it) {
                     is NetworkResponseState.Error -> _badge.postValue(ScreenState.Error(it.exception.message!!))
                     is NetworkResponseState.Loading -> _badge.postValue(ScreenState.Loading)
                     is NetworkResponseState.Success -> _badge.postValue(ScreenState.Success(it.result))
                 }
-            }.launchIn(viewModelScope)
+            }
         }
     }
     private fun getAllProducts() {
-        getAllProductsUseCase().onEach {
-            when (it) {
-                is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
-                is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
-                is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
+        viewModelScope.launch {
+            getAllProductsUseCase().collectLatest {
+                when (it) {
+                    is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
+                    is NetworkResponseState.Loading -> _products.postValue(ScreenState.Loading)
+                    is NetworkResponseState.Success -> _products.postValue(
+                        ScreenState.Success(
+                            mapper.map(it.result)
+                        )
+                    )
+                }
             }
-        }.launchIn(viewModelScope)
+        }
     }
 
     fun searchProduct(query: String) {
-        viewModelScope.launch {
             searchProductUseCase(query).onEach {
                 when (it) {
                     is NetworkResponseState.Error -> _products.postValue(ScreenState.Error(it.exception.message!!))
@@ -72,7 +78,6 @@ class HomeViewModel @Inject constructor(
                     is NetworkResponseState.Success -> _products.postValue(ScreenState.Success(mapper.map(it.result)))
                 }
             }.launchIn(viewModelScope)
-        }
     }
 
     private fun getAllCategory() {

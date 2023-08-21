@@ -9,8 +9,8 @@ import com.mustafaunlu.ecommerce.common.ScreenState
 import com.mustafaunlu.ecommerce.domain.entity.product.FavoriteProductEntity
 import com.mustafaunlu.ecommerce.domain.mapper.ProductBaseMapper
 import com.mustafaunlu.ecommerce.domain.mapper.ProductListMapper
-import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
 import com.mustafaunlu.ecommerce.domain.usecase.favorite.DeleteFavoriteUseCase
+import com.mustafaunlu.ecommerce.domain.usecase.favorite.FavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,13 +29,14 @@ class FavoriteViewModel @Inject constructor(
         viewModelScope.launch {
             favoriteUseCase(userId).collect {
                 when (it) {
-                    is NetworkResponseState.Error -> _favoriteCarts.postValue(ScreenState.Error(it.exception.message!!))
-                    is NetworkResponseState.Loading -> _favoriteCarts.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _favoriteCarts.postValue(
+                    is NetworkResponseState.Error -> _favoriteCarts.value =
+                        ScreenState.Error(it.exception.message!!)
+
+                    NetworkResponseState.Loading -> _favoriteCarts.value = ScreenState.Loading
+                    is NetworkResponseState.Success -> _favoriteCarts.value =
                         ScreenState.Success(
                             mapper.map(it.result),
-                        ),
-                    )
+                        )
                 }
             }
         }

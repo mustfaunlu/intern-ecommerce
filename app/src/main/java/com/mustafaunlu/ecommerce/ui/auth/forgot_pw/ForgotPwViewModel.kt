@@ -19,14 +19,14 @@ class ForgotPwViewModel @Inject constructor(
 
     fun forgotPassword(email: String) {
         viewModelScope.launch {
-            _forgotPassword.postValue(ScreenState.Loading)
+            _forgotPassword.value = ScreenState.Loading
             useCase.invoke(
                 email,
                 onSuccess = {
-                    _forgotPassword.postValue(ScreenState.Success(it))
+                    _forgotPassword.value = ScreenState.Success(it)
                 },
                 onFailure = {
-                    _forgotPassword.postValue(ScreenState.Error(it))
+                    _forgotPassword.value = ScreenState.Error(it)
                 },
             )
         }

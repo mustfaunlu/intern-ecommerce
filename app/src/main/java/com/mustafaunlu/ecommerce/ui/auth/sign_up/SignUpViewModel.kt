@@ -29,11 +29,11 @@ class SignUpViewModel @Inject constructor(
             signUpUseCase.invoke(
                 userInfoToEntity.map(user),
                 onSuccess = {
-                    _signUp.postValue(ScreenState.Success(user))
+                    _signUp.value = ScreenState.Success(user)
                     writeUserToFirebaseDatabase(userInfoToEntity.map(user))
                 }
             ) {
-                _signUp.postValue(ScreenState.Error(it))
+                _signUp.value = ScreenState.Error(it)
             }
         }
     }
@@ -44,7 +44,7 @@ class SignUpViewModel @Inject constructor(
                 user,
                 onSuccess = {}
             ) {
-                _signUp.postValue(ScreenState.Error(it))
+                _signUp.value = ScreenState.Error(it)
             }
         }
     }

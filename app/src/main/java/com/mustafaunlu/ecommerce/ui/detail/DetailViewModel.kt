@@ -35,9 +35,9 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             getSingleProductUseCase.invoke(id).collect {
                 when (it) {
-                    is NetworkResponseState.Error -> _product.postValue(ScreenState.Error(it.exception.message!!))
-                    is NetworkResponseState.Loading -> _product.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _product.postValue(ScreenState.Success(mapper.map(it.result)))
+                    is NetworkResponseState.Error -> _product.value = ScreenState.Error(it.exception.message!!)
+                    is NetworkResponseState.Loading -> _product.value = ScreenState.Loading
+                    is NetworkResponseState.Success -> _product.value = ScreenState.Success(mapper.map(it.result))
                 }
             }
         }

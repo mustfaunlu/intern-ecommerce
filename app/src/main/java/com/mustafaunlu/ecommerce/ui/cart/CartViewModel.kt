@@ -36,9 +36,9 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             cartUseCase(userId).collect {
                 when (it) {
-                    is NetworkResponseState.Error -> _userCarts.postValue(ScreenState.Error(it.exception.message!!))
-                    is NetworkResponseState.Loading -> _userCarts.postValue(ScreenState.Loading)
-                    is NetworkResponseState.Success -> _userCarts.postValue(ScreenState.Success(mapper.map(it.result)))
+                    is NetworkResponseState.Error -> _userCarts.value = ScreenState.Error(it.exception.message!!)
+                    is NetworkResponseState.Loading -> _userCarts.value = ScreenState.Loading
+                    is NetworkResponseState.Success -> _userCarts.value = ScreenState.Success(mapper.map(it.result))
                 }
             }
         }

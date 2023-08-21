@@ -25,20 +25,20 @@ class SigInViewModel @Inject constructor(
 
     fun loginWithFirebase(user: FirebaseSignInUserEntity) {
         viewModelScope.launch {
-            _firebaseLoginState.postValue(ScreenState.Loading)
+            _firebaseLoginState.value = ScreenState.Loading
             firebaseUserSingInUseCase.invoke(
                 user,
                 onSuccess = {
-                    _firebaseLoginState.postValue(
+                    _firebaseLoginState.value =
                         ScreenState.Success(
                             firebaseUserInfoToUiData.map(
                                 it
                             )
                         )
-                    )
+
                 },
             ) {
-                _firebaseLoginState.postValue(ScreenState.Error(it))
+                _firebaseLoginState.value = ScreenState.Error(it)
             }
         }
     }

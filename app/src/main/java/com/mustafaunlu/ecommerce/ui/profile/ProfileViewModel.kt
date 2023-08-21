@@ -27,10 +27,10 @@ class ProfileViewModel @Inject constructor(
             readFirebaseUserInfosUseCase.invoke(
                 userId,
                 onSuccess = {
-                    _userInfos.postValue(ScreenState.Success(firebaseUserInfoToUiData.map(it)))
+                    _userInfos.value = ScreenState.Success(firebaseUserInfoToUiData.map(it))
                 }
             ) {
-                _userInfos.postValue(ScreenState.Error(it))
+                _userInfos.value = ScreenState.Error(it)
             }
         }
     }
