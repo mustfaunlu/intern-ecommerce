@@ -3,28 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="10dp"
+    android:layout_margin="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_4sdp"
+    app:cardElevation="@dimen/_5sdp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="@dimen/_8sdp">
 
         <TextView
             android:id="@+id/fav_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:lines="1"
             android:singleLine="true"
             android:ems="4"
             android:ellipsize="end"
             tools:text="Item Name"
-            android:textSize="16sp"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/fav_item_img_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,10 +33,10 @@
             android:id="@+id/fav_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             tools:text="Item Price"
-            android:textSize="14sp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toEndOf="@+id/fav_item_img_view"
             app:layout_constraintTop_toBottomOf="@+id/fav_item_title" />
 
@@ -44,18 +44,18 @@
             android:id="@+id/fav_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/_16sdp"
             tools:text="Item ID"
-            android:textSize="14sp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toEndOf="@+id/fav_item_img_view"
             app:layout_constraintTop_toBottomOf="@+id/fav_item_price" />
 
         <ImageView
             android:id="@+id/fav_item_img_view"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:contentDescription="@string/product_image_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -63,8 +63,8 @@
 
         <ImageView
             android:id="@+id/fav_item_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:contentDescription="@string/filled_heart_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

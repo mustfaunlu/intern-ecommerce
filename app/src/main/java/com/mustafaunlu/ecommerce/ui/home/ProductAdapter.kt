@@ -3,6 +3,7 @@ package com.mustafaunlu.ecommerce.ui.home
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.text.capitalize
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,7 @@ class ProductAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(product: ProductUiData) {
             binding.apply {
-                homeProductTitle.text = product.title
+                homeProductTitle.text = product.title.capitalize()
                 homeProductPrice.text = "${product.price} TL"
                 homeProductDescription.text = product.description
                 homeItemImg.loadImage(product.imageUrl)

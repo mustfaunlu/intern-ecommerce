@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.text.capitalize
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -86,7 +87,7 @@ class DetailFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun bindProductDetailToView(product: DetailProductUiData) {
         binding.apply {
-            detailProductTitle.text = product.title
+            detailProductTitle.text = product.title.capitalize()
             detailProductPrice.text = "${product.price} TL"
             detailProductDescription.text = product.description
             detailProductRatingTxt.text = product.rating
